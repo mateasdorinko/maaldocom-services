@@ -2,6 +2,8 @@ name: Restore, Build, & Test
 on:
   push:
     branches: [ "main" ]
+  pull_request: 
+    branches: [ "main" ]
 
 jobs:
   build:
@@ -10,16 +12,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # default: 1
+          fetch-depth: 1
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '10.0.x'
-          cache: true # Enables caching for NuGet packages
+          cache: true
 
       - name: Restore dependencies
-        run: dotnet restore # MaaldoCom.Services.sln 
+        run: dotnet restore 
 
       - name: Build
         run: dotnet build --no-restore --configuration Release
