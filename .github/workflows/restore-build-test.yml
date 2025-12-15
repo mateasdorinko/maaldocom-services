@@ -10,7 +10,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
@@ -18,28 +19,27 @@ jobs:
           dotnet-version: '10.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore "${{github.workspace}}/MaaldoCom.Services.sln"
+        run: dotnet restore
 
-      - name: Build
-        run: dotnet build "${{github.workspace}}/MaaldoCom.Services.sln"  --no-restore --configuration Release
+      - name: Build solution
+        run: dotnet build --configuration Release --no-restore
       
-      - name: Test
-        run: |
-          mkdir -p "${{ github.workspace }}/results"
-          echo "Running solution-level tests and writing separate results into results/"
-          dotnet test "${{github.workspace}}/MaaldoCom.Services.sln" --no-restore --configuration Release --logger:"junit" --results-directory "${{ github.workspace }}/results"
+      - name: Run tests
+        run: dotnet test --configuration Release --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx"
 
-      - name: Create test summary
-        uses: test-summary/action@v2.4
+      - name: Publish test results
+          uses: dorny/test-reporter@v1
+          if: always()
+          with:
+            name: .NET Test Results
+            path: '**/test-results.trx'
+            reporter: dotnet-trx
+            fail-on-error: true
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
         with:
-          paths: ${{ github.workspace }}/results/*
-          output: ${{ github.workspace }}/results/summary.md
-          show: "all"
-        if: always()
-
-      - name: Add Test Results To Job Summary
-        run: |
-          echo "TEST RESULTS:" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY # this is a blank line
-          cat "${{ github.workspace }}/results/summary.md" >> $GITHUB_STEP_SUMMARY
-        if: always()
+          name: test-results
+          path: '**/test-results.trx'
+          retention-days: 30
