@@ -10,4 +10,9 @@
       <ProjectReference Include="..\MaaldoCom.Services.Application\MaaldoCom.Services.Application.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Persistence\Configurations\" />
+      <Folder Include="Persistence\Migrations\" />
+    </ItemGroup>
+
 </Project>
