@@ -1,2 +1,2 @@
-# MaaldoCom.Services
+# maaldocom-services
 
