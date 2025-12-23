@@ -1,4 +1,4 @@
-name: Restore, Build, & Test
+name: 1. Restore, Build, & Test
 
 on:
   push:

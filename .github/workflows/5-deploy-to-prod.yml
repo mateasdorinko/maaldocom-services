@@ -1,4 +1,4 @@
-name: Deploy to Prod
+name: 5. Deploy to Prod
 
 env:
   AZURE_WEBAPP_NAME: app-maaldocomapi-prd-cus

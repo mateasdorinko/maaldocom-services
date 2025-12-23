@@ -1,11 +1,11 @@
-name: Deploy to Dev
+name: 3. Deploy to Dev
 
 env:
   AZURE_WEBAPP_NAME: app-maaldocomapi-dev-cus
 
 on:
   workflow_run:
-    workflows: ["Build, Package, & Publish"]
+    workflows: ["2. Build, Package, & Publish"]
     types: [completed]
     branches: [main]
 
