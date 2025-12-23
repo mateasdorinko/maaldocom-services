@@ -1,4 +1,4 @@
-name: Build For Release, Package Docker Image, & Publish To Registry
+name: Build, Package, & Publish
 
 on:
   workflow_run: 
