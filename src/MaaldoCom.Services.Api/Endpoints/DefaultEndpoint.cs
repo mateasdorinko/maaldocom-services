@@ -15,7 +15,7 @@ public class DefaultEndpoint : EndpointWithoutRequest
                                    <!DOCTYPE html>
                                    <html lang="">
                                      <head>
-                                         <title>maaldo.com</title>
+                                         <title>api.maaldo.com</title>
                                          <style>
                                              .container { display: flex; flex-direction: column; justify-content: flex-end; align-items: center; min-height: 85vh; }
                                              .bottom-center-div { width: 50%; padding: 1em; text-align: center; font-size: x-small; }
@@ -25,7 +25,7 @@ public class DefaultEndpoint : EndpointWithoutRequest
                                          <h1>hello...</h1>
                                          <div class="container"> 
                                              <div class="bottom-center-div">
-                                                 v2025.12.23a
+                                                 v2025.12.23b
                                              </div>
                                          </div>
                                      </body>
