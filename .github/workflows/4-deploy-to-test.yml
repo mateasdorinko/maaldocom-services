@@ -1,4 +1,4 @@
-name: Deploy to Test
+name: 4. Deploy to Test
 
 env:
   AZURE_WEBAPP_NAME: app-maaldocomapi-tst-cus

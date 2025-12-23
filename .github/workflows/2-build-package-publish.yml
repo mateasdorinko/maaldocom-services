@@ -1,8 +1,8 @@
-name: Build, Package, & Publish
+name: 2. Build, Package, & Publish
 
 on:
   workflow_run: 
-    workflows: ["Restore, Build, & Test"]
+    workflows: ["1. Restore, Build, & Test"]
     types: [completed]
     branches: [main]
 
