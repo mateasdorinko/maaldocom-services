@@ -1,6 +1,6 @@
 ﻿namespace MaaldoCom.Services.Api.Endpoints.Knowledge;
 
-public class ListKnowledgeEndpoint : EndpointWithoutRequest<ListKnowledgeResponse>
+public class ListKnowledgeEndpoint : EndpointWithoutRequest<IEnumerable<GetKnowledgeResponse>>
 {
     public override void Configure()
     {
@@ -11,6 +11,7 @@ public class ListKnowledgeEndpoint : EndpointWithoutRequest<ListKnowledgeRespons
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        await Send.OkAsync(new ListKnowledgeResponse(), ct);
+        var response = new List<GetKnowledgeResponse>();
+        await Send.OkAsync(response, ct);
     }
 }

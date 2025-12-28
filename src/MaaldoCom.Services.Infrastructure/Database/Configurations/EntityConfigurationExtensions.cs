@@ -9,14 +9,13 @@ public static class EntityConfigurationExtensions
     public static void ConfigureBaseEntity<TBaseEntity>(this EntityTypeBuilder<TBaseEntity> builder)
         where TBaseEntity : BaseEntity
     {
-        builder.Property(e => e.Id);
-        builder.Property(e => e.Uid).HasDefaultValueSql("newsequentialid()");
+        builder.Property(e => e.Id).HasDefaultValueSql("newsequentialid()");
     }
     
     public static void ConfigureBaseAuditableEntity<TBaseAuditableEntity>(
         this EntityTypeBuilder<TBaseAuditableEntity> builder) where TBaseAuditableEntity : BaseAuditableEntity
     {
-        ConfigureBaseEntity(builder);
+        builder.ConfigureBaseEntity();
 
         builder.Property(e => e.CreatedBy).HasColumnType("varchar(50)").IsRequired();
         builder.Property(e => e.Created).HasColumnType("datetime").IsRequired();

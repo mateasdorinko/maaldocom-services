@@ -1,19 +1,18 @@
-using MaaldoCom.Services.Domain.Entities;
+using MaaldoCom.Services.Domain.Extensions;
 
-namespace MaaldoCom.Services.Domain.Extensions;
+namespace MaaldoCom.Services.Domain.Entities;
 
-public static class EntityExtensions
+public static class Extensions
 {
     extension(BaseAuditableEntity entity)
     {
         public void InitializeForCreate(ClaimsPrincipal principal)
         {
-            entity.Active = true;
-        
             if (entity.Created.Equals(DateTime.MinValue)) { entity.Created = DateTime.UtcNow; }
-        
+
             entity.CreatedBy = principal.GetUserId();
             entity.LastModifiedBy = principal.GetUserId();
+            entity.Active = true;
         }
     }
 }

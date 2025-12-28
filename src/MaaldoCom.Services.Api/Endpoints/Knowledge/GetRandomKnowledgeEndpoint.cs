@@ -1,6 +1,6 @@
 ﻿namespace MaaldoCom.Services.Api.Endpoints.Knowledge;
 
-public class GetRandomKnowledgeEndpoint : EndpointWithoutRequest<GetRandomKnowledgeResponse>
+public class GetRandomKnowledgeEndpoint : EndpointWithoutRequest<GetKnowledgeResponse>
 {
     public override void Configure()
     {
@@ -10,6 +10,7 @@ public class GetRandomKnowledgeEndpoint : EndpointWithoutRequest<GetRandomKnowle
     
     public override async Task HandleAsync(CancellationToken ct)
     {
-        await Send.OkAsync(new GetRandomKnowledgeResponse(), ct);
+        var response = new GetKnowledgeResponse();
+        await Send.OkAsync(response, ct);
     }
 }
