@@ -1,9 +1,8 @@
-﻿using MaaldoCom.Services.Api.Endpoints.MediaAlbums.Models;
-using MaaldoCom.Services.Application.Queries.MediaAlbums;
+﻿using MaaldoCom.Services.Application.Queries.MediaAlbums;
 
 namespace MaaldoCom.Services.Api.Endpoints.MediaAlbums;
 
-public class ListMediaAlbumsEndpoint : EndpointWithoutRequest<ListMediaAlbumsResponse>
+public class ListMediaAlbumsEndpoint : EndpointWithoutRequest<IEnumerable<GetMediaAlbumResponse>>
 {
     public override void Configure()
     {
@@ -15,7 +14,7 @@ public class ListMediaAlbumsEndpoint : EndpointWithoutRequest<ListMediaAlbumsRes
     public override async Task HandleAsync(CancellationToken ct)
     {
         var dtos = await new ListMediaAlbumsQueryCommand(User).ExecuteAsync(ct);
-        var response = dtos.ToListModel();
+        var response = new Mapper().ToGetMediaAlbumResponses(dtos);
         
         await Send.OkAsync(response, ct);
     }

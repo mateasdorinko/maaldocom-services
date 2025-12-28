@@ -9,4 +9,6 @@ public class MediaDto : BaseDto
     public string? FileExtension { get; set; }
     
     public IList<TagDto> Tags { get; set; } = new List<TagDto>();
+
+    public override string? ToString() => FileName;
 }

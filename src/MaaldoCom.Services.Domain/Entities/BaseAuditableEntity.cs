@@ -1,4 +1,4 @@
-﻿namespace MaaldoCom.Services.Domain.Entities;
+namespace MaaldoCom.Services.Domain.Entities;
 
 public abstract class BaseAuditableEntity : BaseEntity
 {

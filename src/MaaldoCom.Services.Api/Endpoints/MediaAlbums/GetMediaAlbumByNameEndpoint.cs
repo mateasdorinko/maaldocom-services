@@ -1,9 +1,8 @@
-﻿using MaaldoCom.Services.Api.Endpoints.MediaAlbums.Models;
-using MaaldoCom.Services.Application.Queries.MediaAlbums;
+﻿using MaaldoCom.Services.Application.Queries.MediaAlbums;
 
 namespace MaaldoCom.Services.Api.Endpoints.MediaAlbums;
 
-public class GetMediaAlbumByNameEndpoint : Endpoint<GetMediaAlbumByNameRequest, GetMediaAlbumResponse>
+public class GetMediaAlbumByNameEndpoint : Endpoint<GetMediaAlbumByNameRequest, GetMediaAlbumDetailResponse>
 {
     public override void Configure()
     {
@@ -16,14 +15,15 @@ public class GetMediaAlbumByNameEndpoint : Endpoint<GetMediaAlbumByNameRequest, 
     public override async Task HandleAsync(GetMediaAlbumByNameRequest req, CancellationToken ct)
     {
         var dtos = await new ListMediaAlbumsQueryCommand(User).ExecuteAsync(ct);
-        var model = dtos.FirstOrDefault(x => x.UrlFriendlyName == req.Name)?.ToGetModel(true);
+        var response = new Mapper().ToGetMediaAlbumDetailResponses(dtos)
+            .FirstOrDefault(x => x.UrlFriendlyName == req.Name);
         
-        if (model is null)
+        if (response is null)
         {
             await Send.NotFoundAsync(ct);
             return;
         }
         
-        await Send.OkAsync(model, ct);
+        await Send.OkAsync(response, ct);
     }
 }
