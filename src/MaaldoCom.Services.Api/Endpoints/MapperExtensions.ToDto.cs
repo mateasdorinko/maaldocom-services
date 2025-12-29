@@ -10,28 +10,54 @@ public static partial class MapperExtensions
     {
         return new MediaAlbumDto
         {
-            Id =  model.Id,
+            Id = model.Id,
             Name = model.Name,
             UrlFriendlyName = model.UrlFriendlyName,
             Created = model.Created,
-            //Tags = model.Tags.Select(m => m.)
+            Tags = model.Tags.Select(m => m.ToDto()).ToList()
         };
     }
-    
+
     public static MediaAlbumDto ToDto(this GetMediaAlbumDetailResponse model)
     {
-        var dto = 
-        
         return new MediaAlbumDto
         {
-            Id =  model.Id,
+            Id = model.Id,
             Name = model.Name,
             UrlFriendlyName = model.UrlFriendlyName,
             Created = model.Created,
             Description = model.Description,
             Active = model.Active,
-            Media = ,
-            Tags = 
+            Media = model.Media.Select(m => m.ToDto()).ToList(),
+            Tags = model.Tags.Select(m => m.ToDto()).ToList()
+        };
+    }
+
+    public static MediaDto ToDto(this GetMediaResponse model)
+    {
+        return new MediaDto
+        {
+            Id = model.Id,
+            FileName = model.FileName,
+            Description = model.Description
+        };
+    }
+
+    private static TagDto ToDto(this string model)
+    {
+        return new TagDto
+        {
+            Name = model
+        };
+    }
+
+    private static KnowledgeDto ToDto(this GetKnowledgeResponse model)
+    {
+        return new KnowledgeDto
+        {
+            Id = model.Id,
+            Title = model.Title,
+            Quote = model.Quote,
         };
     }
 }
