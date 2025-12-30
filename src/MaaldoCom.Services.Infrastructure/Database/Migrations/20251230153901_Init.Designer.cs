@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MaaldoCom.Services.Infrastructure.Database.Migrations
 {
     [DbContext(typeof(MaaldoComDbContext))]
-    [Migration("20251230015254_InitSeed")]
-    partial class InitSeed
+    [Migration("20251230153901_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

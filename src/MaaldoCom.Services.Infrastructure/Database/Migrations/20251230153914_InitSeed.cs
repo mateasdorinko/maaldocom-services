@@ -1,4 +1,4 @@
-﻿using MaaldoCom.Services.Infrastructure.Database.Sql;
+﻿using MaaldoCom.Services.Infrastructure.Database.Seeding;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -11,7 +11,7 @@ namespace MaaldoCom.Services.Infrastructure.Database.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            InitialSeedRunner.InitialDmlDdl(migrationBuilder);
+            InitSeeder.Seed(migrationBuilder);
         }
 
         /// <inheritdoc />
