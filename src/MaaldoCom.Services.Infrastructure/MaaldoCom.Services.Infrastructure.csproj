@@ -22,9 +22,7 @@
 
     <ItemGroup>
       <None Remove="Database\Sql\Seeding\InsertKnowledge.sql" />
-      <EmbeddedResource Include="Database\Sql\Seeding\InsertKnowledge.sql" />
       <None Remove="Database\Sql\Seeding\InsertTags.sql" />
-      <EmbeddedResource Include="Database\Sql\Seeding\InsertTags.sql" />
     </ItemGroup>
 
 </Project>
