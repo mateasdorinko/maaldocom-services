@@ -26,4 +26,8 @@ public abstract class BaseQueryHandler
     
     [JsonIgnore]
     protected HybridCache HybridCache { get; }
+    
+    protected const string MediaAlbumListCacheKey = "media-album-list";
+    protected const string KnowledgeListCacheKey = "knowledge-list";
+    protected const string TagListCacheKey = "tag-list";
 }

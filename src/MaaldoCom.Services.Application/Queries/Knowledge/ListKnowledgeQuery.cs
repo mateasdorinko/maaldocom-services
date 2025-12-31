@@ -14,9 +14,15 @@ public class ListKnowledgeQueryHandler(IMaaldoComDbContext maaldoComDbContext, H
     public async Task<IEnumerable<KnowledgeDto>> ExecuteAsync(ListKnowledgeQuery query, CancellationToken cancellationToken)
     {
         var knowledge = await HybridCache.GetOrCreateAsync<IEnumerable<KnowledgeDto>>(
-            "knowledge-list",
-            async _ => (await MaaldoComDbContext.Knowledge.ToListAsync(cancellationToken)).ToDtos(), cancellationToken: cancellationToken);
+            KnowledgeListCacheKey,
+            async _ => await GetKnowledgeFromDbAsync(cancellationToken), cancellationToken: cancellationToken);
 
         return knowledge;
+    }
+
+    private async Task<IEnumerable<KnowledgeDto>> GetKnowledgeFromDbAsync(CancellationToken cancellationToken)
+    {
+        var entities = await MaaldoComDbContext.Knowledge.ToListAsync(cancellationToken);
+        return entities.ToDtos();
     }
 }
