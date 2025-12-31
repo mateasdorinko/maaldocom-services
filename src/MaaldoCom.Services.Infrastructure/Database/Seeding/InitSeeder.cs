@@ -109,6 +109,9 @@ public static class InitSeeder
                 { "austin" }
             });
     }
-    
-    public static void Down(MigrationBuilder migrationBuilder) { }
+
+    public static void Down(MigrationBuilder migrationBuilder)
+    {
+        throw new NotImplementedException();
+    }
 }
