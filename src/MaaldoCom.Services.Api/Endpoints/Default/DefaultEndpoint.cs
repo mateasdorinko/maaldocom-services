@@ -1,4 +1,4 @@
-﻿namespace MaaldoCom.Services.Api.Endpoints;
+﻿namespace MaaldoCom.Services.Api.Endpoints.Default;
 
 public class DefaultEndpoint : EndpointWithoutRequest
 {
@@ -25,7 +25,7 @@ public class DefaultEndpoint : EndpointWithoutRequest
                                          <h1>hello...</h1>
                                          <div class="container"> 
                                              <div class="bottom-center-div">
-                                                 v2025.12.30c
+                                                 v2025.12.31a
                                              </div>
                                          </div>
                                      </body>
