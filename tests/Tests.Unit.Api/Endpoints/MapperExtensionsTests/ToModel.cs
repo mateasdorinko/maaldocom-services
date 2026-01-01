@@ -24,7 +24,7 @@ public class ToModel
                     Id = Guid.NewGuid(),
                     Name = "SampleTag"
                 }
-            },
+            },  
             Media = new List<MediaDto>
             {
                 new()

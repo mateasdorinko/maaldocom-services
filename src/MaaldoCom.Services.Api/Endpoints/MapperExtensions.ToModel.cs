@@ -59,6 +59,7 @@ public static partial class MapperExtensions
 
         model.FileName = dto.FileName;
         model.Description = dto.Description;
+        model.SizeInBytes = dto.SizeInBytes;
         model.Tags = dto.Tags.Select(m => m.ToModel()).ToList();
 
         return model;
