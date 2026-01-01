@@ -4,7 +4,7 @@ public class PostMediaAlbumEndpoint : Endpoint<PostMediaAlbumRequest, PostMediaA
 {
     public override void Configure()
     {
-        Post("/media-albums");
+        Post($"{Constants.MediaAlbumsRoute}");
     }
 
     public override async Task HandleAsync(PostMediaAlbumRequest req, CancellationToken ct)

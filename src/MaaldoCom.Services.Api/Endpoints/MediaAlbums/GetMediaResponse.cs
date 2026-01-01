@@ -8,4 +8,9 @@ public class GetMediaResponse : BaseModel
     public string? Description { get; set; }
     public long SizeInBytes { get; set; }
     public IEnumerable<GetTagResponse> Tags { get; set; } = new List<GetTagResponse>();
+    
+    [JsonIgnore]
+    public Guid MediaAlbumId { get; set; }
+    
+    public override string? Href => $"{Constants.MediaAlbumsRoute}/{MediaAlbumId}/{Id}";
 }

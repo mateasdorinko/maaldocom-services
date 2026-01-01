@@ -8,4 +8,7 @@ public class GetMediaAlbumResponse : BaseModel
     public string? UrlFriendlyName { get; set; }
     public DateTime Created { get; set; }
     public IEnumerable<GetTagResponse> Tags { get; set; } = new List<GetTagResponse>();
+    
+    public override string? Href => $"{Constants.MediaAlbumsRoute}/{Id}";
+    public string? AltHref => $"{Constants.MediaAlbumsRoute}/{UrlFriendlyName}";
 }

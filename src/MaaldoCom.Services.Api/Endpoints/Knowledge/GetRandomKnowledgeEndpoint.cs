@@ -6,7 +6,7 @@ public class GetRandomKnowledgeEndpoint : EndpointWithoutRequest<GetKnowledgeRes
 {
     public override void Configure()
     {
-        Get("/knowledge/random");
+        Get($"{Constants.KnowledgeRoute}/random");
         AllowAnonymous();
     }
     
