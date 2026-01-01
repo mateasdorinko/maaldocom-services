@@ -1,9 +1,10 @@
 using MaaldoCom.Services.Application.Dtos;
+using MaaldoCom.Services.Api.Endpoints;
 using MaaldoCom.Services.Api.Endpoints.MediaAlbums;
 using MaaldoCom.Services.Api.Endpoints.Knowledge;
 using MaaldoCom.Services.Api.Endpoints.Tags;
 
-namespace MaaldoCom.Services.Api.Endpoints;
+namespace MaaldoCom.Services.Api.Extensions;
 
 public static partial class MapperExtensions
 {
@@ -26,7 +27,7 @@ public static partial class MapperExtensions
         dto.Name = model.Name;
         dto.UrlFriendlyName = model.UrlFriendlyName;
         dto.Created = model.Created;
-        dto.Tags = model.Tags.Select(t => t.ToDto()).ToList();
+        dto.Tags = model.Tags.Select(t => new TagDto { Name = t}).ToList();
 
         return dto;
     }
@@ -53,7 +54,7 @@ public static partial class MapperExtensions
 
         dto.FileName = model.FileName;
         dto.Description = model.Description;
-        dto.Tags = model.Tags.Select(m => m.ToDto()).ToList();
+        dto.Tags = model.Tags.Select(m => new TagDto { Name = m }).ToList();
 
         return dto;
     }

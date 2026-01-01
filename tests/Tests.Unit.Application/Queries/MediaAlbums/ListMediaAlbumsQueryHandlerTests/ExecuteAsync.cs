@@ -22,7 +22,7 @@ public class ExecuteAsync
         //A.CallTo(() => cache.GetOrCreateAsync<IEnumerable<MediaAlbumDto>>("media-albums")).Returns(new ValueTask<IEnumerable<MediaAlbumDto>>());
 
         // act
-        var result = (await handler.ExecuteAsync(query, CancellationToken.None)).ToList();
+        var result = (await handler.ExecuteAsync(query, CancellationToken.None)).Value.ToList();
 
         // assert
         Assert.True(true);

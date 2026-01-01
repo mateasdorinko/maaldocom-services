@@ -13,8 +13,8 @@ public class ListMediaAlbumsEndpoint : EndpointWithoutRequest<IEnumerable<GetMed
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        var dtos = await new ListMediaAlbumsQuery(User).ExecuteAsync(ct);
-        var response = dtos.ToModels();
+        var result = (await new ListMediaAlbumsQuery(User).ExecuteAsync(ct)).Value;
+        var response = result.ToModels();
         
         await Send.OkAsync(response, ct);
     }

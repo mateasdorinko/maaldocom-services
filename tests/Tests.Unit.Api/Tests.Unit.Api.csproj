@@ -28,4 +28,9 @@
       <ProjectReference Include="..\..\src\MaaldoCom.Services.Api\MaaldoCom.Services.Api.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Endpoints\" />
+      <Folder Include="Extensions\" />
+    </ItemGroup>
+
 </Project>

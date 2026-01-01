@@ -1,28 +1,28 @@
-﻿using MaaldoCom.Services.Application.Queries.MediaAlbums;
+using MaaldoCom.Services.Application.Queries.MediaAlbums;
 
 namespace MaaldoCom.Services.Api.Endpoints.MediaAlbums;
 
-public class GetMediaAlbumByNameEndpoint : Endpoint<GetMediaAlbumByNameRequest, GetMediaAlbumDetailResponse>
+public class GetMediaAlbumByIdEndpoint : Endpoint<GetMediaAlbumByIdRequest, GetMediaAlbumDetailResponse>
 {
     public override void Configure()
     {
-        Get($"{Constants.MediaAlbumsRoute}/{{name}}");
+        Get($"{Constants.MediaAlbumsRoute}/{{id:guid}}");
         ResponseCache(60);
         AllowAnonymous();
         Description(b => b.Produces(StatusCodes.Status404NotFound));
     }
-    
-    public override async Task HandleAsync(GetMediaAlbumByNameRequest req, CancellationToken ct)
+
+    public override async Task HandleAsync(GetMediaAlbumByIdRequest req, CancellationToken ct)
     {
         var result = (await new ListMediaAlbumsQuery(User).ExecuteAsync(ct)).Value;
-        var response = result.ToDetailModels().FirstOrDefault(x => x.UrlFriendlyName == req.Name);
-        
+        var response = result.ToDetailModels().FirstOrDefault(x => x.Id == req.Id);
+
         if (response is null)
         {
             await Send.NotFoundAsync(ct);
             return;
         }
-        
+
         await Send.OkAsync(response, ct);
     }
 }

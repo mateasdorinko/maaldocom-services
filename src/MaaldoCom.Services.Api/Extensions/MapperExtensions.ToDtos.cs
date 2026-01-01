@@ -1,4 +1,4 @@
-namespace MaaldoCom.Services.Api.Endpoints;
+namespace MaaldoCom.Services.Api.Extensions;
 
 public static partial class MapperExtensions
 {

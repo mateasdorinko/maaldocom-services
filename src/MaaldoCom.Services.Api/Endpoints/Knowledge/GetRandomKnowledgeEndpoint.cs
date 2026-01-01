@@ -12,8 +12,8 @@ public class GetRandomKnowledgeEndpoint : EndpointWithoutRequest<GetKnowledgeRes
     
     public override async Task HandleAsync(CancellationToken ct)
     {
-        var dto = await new GetRandomKnowledgeQuery(User).ExecuteAsync(ct);
-        var response = dto.ToModel();
+        var result = (await new GetRandomKnowledgeQuery(User).ExecuteAsync(ct)).Value;
+        var response = result.ToModel();
         
         await Send.OkAsync(response, ct);
     }
