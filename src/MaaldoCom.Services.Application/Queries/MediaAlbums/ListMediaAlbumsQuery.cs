@@ -24,6 +24,7 @@ public class ListMediaAlbumsQueryHandler(IMaaldoComDbContext maaldoComDbContext,
         var mediaAlbums = new List<MediaAlbumDto>
         {
             new() { 
+                Id = Guid.NewGuid(),
                 Name = "Vacation 2023", 
                 UrlFriendlyName = "vacation-2023", 
                 Description = "Photos from my 2023 vacation.", 
@@ -35,6 +36,7 @@ public class ListMediaAlbumsQueryHandler(IMaaldoComDbContext maaldoComDbContext,
             },
             new()
             {
+                Id = Guid.NewGuid(),
                 Name = "Family Reunion", 
                 UrlFriendlyName = "family-reunion", 
                 Description = "Memories from our family reunion.",
@@ -46,6 +48,7 @@ public class ListMediaAlbumsQueryHandler(IMaaldoComDbContext maaldoComDbContext,
             },
             new()
             {
+                Id = Guid.NewGuid(),
                 Name = "Nature Photography", 
                 UrlFriendlyName = "nature-photography", 
                 Description = "A collection of nature photographs.",
