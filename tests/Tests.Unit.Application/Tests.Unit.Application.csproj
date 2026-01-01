@@ -28,4 +28,9 @@
       <ProjectReference Include="..\..\src\MaaldoCom.Services.Application\MaaldoCom.Services.Application.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Dtos\" />
+      <Folder Include="Extensions\" />
+    </ItemGroup>
+
 </Project>

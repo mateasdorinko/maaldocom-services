@@ -13,8 +13,8 @@ public class ListKnowledgeEndpoint : EndpointWithoutRequest<IEnumerable<GetKnowl
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        var dtos = await new ListKnowledgeQuery(User).ExecuteAsync(ct);
-        var response = dtos.ToModels();
+        var result = (await new ListKnowledgeQuery(User).ExecuteAsync(ct)).Value;
+        var response = result.ToModels();
         
         await Send.OkAsync(response, ct);
     }

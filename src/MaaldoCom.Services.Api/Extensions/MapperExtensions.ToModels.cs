@@ -3,7 +3,7 @@ using MaaldoCom.Services.Application.Dtos;
 using MaaldoCom.Services.Api.Endpoints.MediaAlbums;
 using MaaldoCom.Services.Api.Endpoints.Tags;
 
-namespace MaaldoCom.Services.Api.Endpoints;
+namespace MaaldoCom.Services.Api.Extensions;
 
 public static partial class MapperExtensions
 {

@@ -1,4 +1,4 @@
-﻿namespace Tests.Unit.Api.Endpoints.MapperExtensionsTests;
+﻿namespace Tests.Unit.Api.Extensions.MapperExtensionsTests;
 
 public class ToModel
 {
@@ -52,7 +52,7 @@ public class ToModel
         model.UrlFriendlyName.ShouldBeEquivalentTo(dto.UrlFriendlyName);
         model.Created.ShouldBeEquivalentTo(dto.Created);
         model.Tags.Count().ShouldBe(1);
-        model.Tags.First().Name.ShouldBeEquivalentTo("SampleTag");
+        model.Tags.First().ShouldBeEquivalentTo("SampleTag");
     }
 
     [Fact]
@@ -101,9 +101,9 @@ public class ToModel
                     Created = DateTime.UtcNow,
                     LastModifiedBy = "tester",
                     LastModified = DateTime.UtcNow,
-                    Active = true
+                    Active = true,
                 }
-            }
+            },
         };
 
         // act
@@ -119,7 +119,7 @@ public class ToModel
         model.Media.Count().ShouldBe(1);
         model.Media.First().FileName.ShouldBeEquivalentTo("sample.jpg");
         model.Tags.Count().ShouldBe(1);
-        model.Tags.First().Name.ShouldBeEquivalentTo("SampleTag");
+        model.Tags.First().ShouldBeEquivalentTo("SampleTag");
     }
 
     [Fact]

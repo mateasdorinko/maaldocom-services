@@ -1,4 +1,4 @@
-﻿namespace Tests.Unit.Api.Endpoints.MapperExtensionsTests;
+﻿namespace Tests.Unit.Api.Extensions.MapperExtensionsTests;
 
 public class ToDto
 {
@@ -12,14 +12,7 @@ public class ToDto
             Name = "Sample Album",
             UrlFriendlyName = "sample-album",
             Created = DateTime.UtcNow,
-            Tags = new List<GetTagResponse>
-            {
-                new()
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "SampleTag"
-                }
-            }
+            Tags = new List<string> { "SampleTag" }
         };
         
         // act
@@ -53,14 +46,7 @@ public class ToDto
             Id = Guid.NewGuid(),
             FileName = "sample.jpg",
             Description = "This is a sample media file.",
-            Tags = new List<GetTagResponse>
-            {
-                new()
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "SampleTag"
-                }
-            }
+            Tags = new List<string> { "SampleTag" }
         };
         
         // act

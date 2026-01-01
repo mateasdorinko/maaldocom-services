@@ -1,4 +1,3 @@
-using System.Security.Claims;
 using MaaldoCom.Services.Application.Dtos;
 using MaaldoCom.Services.Application.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -6,12 +5,12 @@ using Microsoft.Extensions.Caching.Hybrid;
 
 namespace MaaldoCom.Services.Application.Queries.Knowledge;
 
-public class GetRandomKnowledgeQuery(ClaimsPrincipal user) : BaseQuery(user), ICommand<KnowledgeDto> { }
+public class GetRandomKnowledgeQuery(ClaimsPrincipal user) : BaseQuery(user), ICommand<Result<KnowledgeDto>> { }
 
 public class GetRandomKnowledgeQueryHandler(IMaaldoComDbContext maaldoComDbContext, HybridCache hybridCache)
-    : BaseQueryHandler(maaldoComDbContext, hybridCache), ICommandHandler<GetRandomKnowledgeQuery, KnowledgeDto>
+    : BaseQueryHandler(maaldoComDbContext, hybridCache), ICommandHandler<GetRandomKnowledgeQuery, Result<KnowledgeDto>>
 {
-    public async Task<KnowledgeDto> ExecuteAsync(GetRandomKnowledgeQuery query, CancellationToken cancellationToken)
+    public async Task<Result<KnowledgeDto>> ExecuteAsync(GetRandomKnowledgeQuery query, CancellationToken cancellationToken)
     {
         var knowledge = await HybridCache.GetOrCreateAsync<IEnumerable<KnowledgeDto>>(
             KnowledgeListCacheKey,
@@ -21,7 +20,7 @@ public class GetRandomKnowledgeQueryHandler(IMaaldoComDbContext maaldoComDbConte
         var knowledgeList = knowledge.ToList();
         var randomKnowledge = knowledgeList.ElementAt(random.Next(knowledgeList.Count));
 
-        return randomKnowledge;
+        return Result.Ok(randomKnowledge);
     }
 
     private async Task<IEnumerable<KnowledgeDto>> GetKnowledgeFromDbAsync(CancellationToken cancellationToken)

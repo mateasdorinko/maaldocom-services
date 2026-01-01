@@ -1,4 +1,4 @@
-﻿namespace Tests.Unit.Application.Dtos.MapperExtensionsTests;
+﻿namespace Tests.Unit.Application.Extensions.MapperExtensionsTests;
 
 public class ToDto
 {

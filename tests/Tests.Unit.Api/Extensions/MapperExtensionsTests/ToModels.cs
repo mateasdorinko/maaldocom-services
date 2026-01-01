@@ -1,4 +1,4 @@
-namespace Tests.Unit.Api.Endpoints.MapperExtensionsTests;
+namespace Tests.Unit.Api.Extensions.MapperExtensionsTests;
 
 public class ToModels
 {

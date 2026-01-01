@@ -19,7 +19,7 @@ public static class ServiceInstaller
         services.AddScoped<IMaaldoComDbContext>(provider => provider.GetRequiredService<MaaldoComDbContext>());
 
         services.AddFusionCache()
-            .WithDefaultEntryOptions(options => options.Duration = TimeSpan.FromMinutes(5))
+            .WithDefaultEntryOptions(options => options.Duration = TimeSpan.FromMinutes(20))
             .WithSerializer(new FusionCacheSystemTextJsonSerializer())
             .AsHybridCache();
     }
