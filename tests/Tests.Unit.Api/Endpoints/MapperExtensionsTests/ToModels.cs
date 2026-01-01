@@ -34,7 +34,7 @@ public class ToModels
         models[1].Id.ShouldBeEquivalentTo(dtos[1].Id);
         models[1].Name.ShouldBeEquivalentTo(dtos[1].Name);
     }
-    
+
     [Fact]
     public void ToModels_NullMediaAlbumDtos_ThrowsArgumentNullException()
     {
@@ -50,14 +50,14 @@ public class ToModels
     {
         // arrange
         var dtos = new List<MediaAlbumDto>();
-        
+
         // act
         var models = dtos.ToModels().ToList();
-        
+
         // assert
         dtos.ShouldBeEmpty();
     }
-    
+
     [Fact]
     public void ToDetailModels_MappingMediaAlbumDtos_MapsAllPropertiesCorrectly()
     {
@@ -90,7 +90,7 @@ public class ToModels
         models[1].Id.ShouldBeEquivalentTo(dtos[1].Id);
         models[1].Name.ShouldBeEquivalentTo(dtos[1].Name);
     }
-    
+
     [Fact]
     public void ToDetailModels_NullMediaAlbumDtos_ThrowsArgumentNullException()
     {
@@ -106,38 +106,217 @@ public class ToModels
     {
         // arrange
         var dtos = new List<MediaAlbumDto>();
-        
+
         // act
         var models = dtos.ToDetailModels().ToList();
+
+        // assert
+        dtos.ShouldBeEmpty();
+    }
+
+    [Fact]
+    public void ToModels_MappingMediaDtos_MapsAllPropertiesCorrectly()
+    {
+        // arrange
+        var dtos = new List<MediaDto>
+        {
+            new()
+            {
+                Id = Guid.NewGuid(),
+                FileName = "image1.jpg",
+                Description = "A sample image",
+                SizeInBytes = 12345,
+                FileExtension = ".jpg", Created = DateTime.UtcNow,
+                Tags = new List<TagDto>
+                {
+                    new()
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Tag1",
+                        Created = DateTime.UtcNow
+                    },
+                    new()
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Tag2",
+                        Created = DateTime.UtcNow
+                    }
+                }
+            },
+            new()
+            {
+                Id = Guid.NewGuid(),
+                FileName = "image2.jpg",
+                Description = "Another sample image",
+                SizeInBytes = 67890,
+                FileExtension = ".jpg",
+                Created = DateTime.UtcNow,
+                Tags = new List<TagDto>
+                {
+                    new()
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Tag3",
+                        Created = DateTime.UtcNow
+                    },
+                    new()
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Tag4",
+                        Created = DateTime.UtcNow
+                    }
+                }
+            }
+        };
+        
+        // act
+        var models = dtos.ToModels().ToList();
+        
+        // assert
+        models.Count.ShouldBe(dtos.Count);
+        for (var i = 0; i < models.Count; i++)
+        {
+            models[i].Id.ShouldBeEquivalentTo(dtos[i].Id);
+            models[i].FileName.ShouldBeEquivalentTo(dtos[i].FileName);
+            models[i].Description.ShouldBeEquivalentTo(dtos[i].Description);
+            models[i].SizeInBytes.ShouldBeEquivalentTo(dtos[i].SizeInBytes);
+            models[i].Tags.Count().ShouldBe(dtos[i].Tags.Count);
+        }
+    }
+
+    [Fact]
+    public void ToModels_NullMediaDtos_ThrowsArgumentNullException()
+    {
+        // arrange
+        List<MediaDto>? dtos = null;
+
+        // act & assert
+        Assert.Throws<ArgumentNullException>(() => dtos!.ToModels());
+    }
+
+    [Fact]
+    public void ToModels_EmptyMediaDtos_ReturnsEmptyList()
+    {
+        // arrange
+        var dtos = new List<MediaDto>();
+        
+        // act
+        var models = dtos.ToModels().ToList();
         
         // assert
         dtos.ShouldBeEmpty();
     }
-    
-    [Fact(Skip = "not implemented")]
-    public void ToModels_MappingMediaDtos_MapsAllPropertiesCorrectly() { }
 
-    [Fact(Skip = "not implemented")]
-    public void ToModels_NullMediaDtos_ThrowsArgumentNullException() { }
+    [Fact]
+    public void ToModels_MappingTagDtos_MapsAllPropertiesCorrectly()
+    {
+        // arrange
+        var dtos = new List<TagDto>
+        {
+            new()
+            {
+                Id = Guid.NewGuid(),
+                Name = "Tag1",
+                Created = DateTime.UtcNow
+            },
+            new()
+            {
+                Id = Guid.NewGuid(),
+                Name = "Tag2",
+                Created = DateTime.UtcNow
+            }
+        };
 
-    [Fact(Skip = "not implemented")]
-    public void ToModels_EmptyMediaDtos_ReturnsEmptyList() { }
-    
-    [Fact(Skip = "not implemented")]
-    public void ToModels_MappingTagDtos_MapsAllPropertiesCorrectly() { }
+        // act
+        var models = dtos.ToModels().ToList();
 
-    [Fact(Skip = "not implemented")]
-    public void ToModels_NullTagDtos_ThrowsArgumentNullException() { }
+        // assert
+        models.Count.ShouldBe(dtos.Count);
+        for (var i = 0; i < models.Count; i++)
+        {
+            models[i].Id.ShouldBeEquivalentTo(dtos[i].Id);
+            models[i].Name.ShouldBeEquivalentTo(dtos[i].Name);
+        }
+    }
 
-    [Fact(Skip = "not implemented")]
-    public void ToModels_EmptyTagDtos_ReturnsEmptyList() { }
-    
-    [Fact(Skip = "not implemented")]
-    public void ToModels_MappingKnowledgeDtos_MapsAllPropertiesCorrectly() { }
+    [Fact]
+    public void ToModels_NullTagDtos_ThrowsArgumentNullException()
+    {
+        // arrange
+        List<TagDto>? dtos = null;
 
-    [Fact(Skip = "not implemented")]
-    public void ToModels_NullKnowledgeDtos_ThrowsArgumentNullException() { }
+        // act & assert
+        Assert.Throws<ArgumentNullException>(() => dtos!.ToModels());
+    }
 
-    [Fact(Skip = "not implemented")]
-    public void ToModels_EmptyKnowledgeDtos_ReturnsEmptyList() { }
+    [Fact]
+    public void ToModels_EmptyTagDtos_ReturnsEmptyList()
+    {
+        // arrange
+        var dtos = new List<TagDto>();
+
+        // act
+        var models = dtos.ToModels().ToList();
+
+        // assert
+        dtos.ShouldBeEmpty();
+    }
+
+    [Fact]
+    public void ToModels_MappingKnowledgeDtos_MapsAllPropertiesCorrectly()
+    {
+        // arrange
+        var dtos = new List<KnowledgeDto>
+        {
+            new()
+            {
+                Id = Guid.NewGuid(),
+                Title = "Knowledge 1",
+                Quote = "Content for knowledge 1",
+                Created = DateTime.UtcNow
+            },
+            new()
+            {
+                Id = Guid.NewGuid(),
+                Title = "Knowledge 2",
+                Quote = "Content for knowledge 2",
+                Created = DateTime.UtcNow
+            }
+        };
+
+        // act
+        var models = dtos.ToModels().ToList();
+
+        // assert
+        models.Count.ShouldBe(dtos.Count);
+        for (var i = 0; i < models.Count; i++)
+        {
+            models[i].Id.ShouldBeEquivalentTo(dtos[i].Id);
+            models[i].Title.ShouldBeEquivalentTo(dtos[i].Title);
+            models[i].Quote.ShouldBeEquivalentTo(dtos[i].Quote);
+        }
+    }
+
+    [Fact]
+    public void ToModels_NullKnowledgeDtos_ThrowsArgumentNullException()
+    {
+        // arrange
+        List<KnowledgeDto>? dtos = null;
+
+        // act & assert
+        Assert.Throws<ArgumentNullException>(() => dtos!.ToModels());
+    }
+
+    [Fact]
+    public void ToModels_EmptyKnowledgeDtos_ReturnsEmptyList()
+    {
+        // arrange
+        var dtos = new List<KnowledgeDto>();
+
+        // act
+        var models = dtos.ToModels().ToList();
+
+        // assert
+        dtos.ShouldBeEmpty();
+    }
 }
