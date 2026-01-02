@@ -4,7 +4,6 @@ namespace MaaldoCom.Services.Application.Commands;
 
 public abstract class BaseCommand(ClaimsPrincipal user)
 {
-    [JsonIgnore]
     public ClaimsPrincipal User { get; } = user;
 }
 
@@ -14,9 +13,8 @@ public abstract class BaseCommandHandler
     {
         MaaldoComDbContext = maaldoComDbContext;
 
-        MaaldoComDbContext.DisableChangeTracking();
+        MaaldoComDbContext.EnableChangeTracking();
     }
 
-    [JsonIgnore]
     protected IMaaldoComDbContext MaaldoComDbContext { get; }
 }

@@ -1,4 +1,4 @@
-﻿namespace MaaldoCom.Services.Api.Endpoints.Default;
+﻿/*namespace MaaldoCom.Services.Api.Endpoints.Default;
 
 public class DefaultEndpoint : EndpointWithoutRequest
 {
@@ -34,4 +34,4 @@ public class DefaultEndpoint : EndpointWithoutRequest
 
         await Send.StringAsync(htmlContent, contentType: "text/html", cancellation: ct);
     }
-}
+}*/

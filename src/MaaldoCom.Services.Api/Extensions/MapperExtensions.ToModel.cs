@@ -13,11 +13,11 @@ public static partial class MapperExtensions
         private TModel MapToBaseModel<TDto>(TDto dto) where TDto : BaseDto
         {
             model.Id = dto.Id;
-        
+
             return model;
         }
     }
-    
+
     extension(MediaAlbumDto dto)
     {
         public GetMediaAlbumResponse ToModel()
@@ -61,18 +61,19 @@ public static partial class MapperExtensions
         model.FileName = dto.FileName;
         model.Description = dto.Description;
         model.SizeInBytes = dto.SizeInBytes;
-        model.Tags = dto.Tags.Select(m => m.Name!).ToList();
+        model.Tags = dto.Tags?.Select(m => m.Name!).ToList()!;
+
         model.MediaAlbumId = dto.MediaAlbumId;
 
         return model;
     }
-    
+
     public static GetTagResponse ToModel(this TagDto dto)
     {
         ArgumentNullException.ThrowIfNull(dto);
 
         var model = new GetTagResponse().MapToBaseModel(dto);
-        
+
         model.Name = dto.Name;
 
         return model;
@@ -83,10 +84,10 @@ public static partial class MapperExtensions
         ArgumentNullException.ThrowIfNull(dto);
 
         var model = new GetKnowledgeResponse().MapToBaseModel(dto);
-        
+
         model.Title = dto.Title;
         model.Quote = dto.Quote;
-        
+
         return model;
     }
 }

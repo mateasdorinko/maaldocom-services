@@ -1,5 +1,6 @@
 using MaaldoCom.Services.Application.Interfaces;
 using MaaldoCom.Services.Infrastructure.Database;
+using MaaldoCom.Services.Infrastructure.Cache;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +18,7 @@ public static class ServiceInstaller
             options.UseSqlServer(configuration["maaldocom-db-connection-string-api-user"]);
         });
         services.AddScoped<IMaaldoComDbContext>(provider => provider.GetRequiredService<MaaldoComDbContext>());
+        services.AddScoped<ICacheManager, CacheManager>();
 
         services.AddFusionCache()
             .WithDefaultEntryOptions(options => options.Duration = TimeSpan.FromMinutes(20))

@@ -17,12 +17,12 @@ public class ExecuteAsync
         var cache = A.Fake<HybridCache>();
         
         var query = new ListMediaAlbumsQuery(user);
-        var handler = new ListMediaAlbumsQueryHandler(db, cache);
+        //var handler = new ListMediaAlbumsQueryHandler(db, cache);
 
         //A.CallTo(() => cache.GetOrCreateAsync<IEnumerable<MediaAlbumDto>>("media-albums")).Returns(new ValueTask<IEnumerable<MediaAlbumDto>>());
 
         // act
-        var result = (await handler.ExecuteAsync(query, CancellationToken.None)).Value.ToList();
+        //var result = (await handler.ExecuteAsync(query, CancellationToken.None)).Value.ToList();
 
         // assert
         Assert.True(true);

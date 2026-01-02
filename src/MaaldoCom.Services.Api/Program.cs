@@ -17,15 +17,10 @@ app.UseResponseCaching()
     .UseDefaultExceptionHandler()
     .UseFastEndpoints();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseDeveloperExceptionPage();
-    app.MapOpenApi();
-    app.MapScalarApiReference("/docs",
-        options =>
-        {
-            options.WithTitle("maaldo.com API Reference");
-        });
-}
+app.MapOpenApi();
+app.MapScalarApiReference("/", options => { options.WithTitle("maaldo.com API Reference"); });
 
-app.Run();
+if (app.Environment.IsDevelopment()) { app.UseDeveloperExceptionPage(); }
+
+await app.RunAsync();
+

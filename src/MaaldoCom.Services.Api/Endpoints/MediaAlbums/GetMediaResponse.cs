@@ -4,9 +4,16 @@ namespace MaaldoCom.Services.Api.Endpoints.MediaAlbums;
 
 public class GetMediaResponse : BaseModel
 {
+    [JsonPropertyOrder(2)]
     public string? FileName { get; set; }
+
+    [JsonPropertyOrder(3)]
     public string? Description { get; set; }
+
+    [JsonPropertyOrder(4)]
     public long SizeInBytes { get; set; }
+
+    [JsonPropertyOrder(5)]
     public IEnumerable<string> Tags { get; set; } = new List<string>();
     
     [JsonIgnore]
