@@ -1,4 +1,5 @@
 global using FakeItEasy;
+global using FastEndpoints;
 global using MaaldoCom.Services.Api.Endpoints;
 global using MaaldoCom.Services.Api.Endpoints.Knowledge;
 global using MaaldoCom.Services.Api.Endpoints.MediaAlbums;

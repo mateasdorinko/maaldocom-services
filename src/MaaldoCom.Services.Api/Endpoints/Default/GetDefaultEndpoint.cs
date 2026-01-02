@@ -1,6 +1,6 @@
 ﻿/*namespace MaaldoCom.Services.Api.Endpoints.Default;
 
-public class DefaultEndpoint : EndpointWithoutRequest
+public class GetDefaultEndpoint : EndpointWithoutRequest
 {
     public override void Configure()
     {
