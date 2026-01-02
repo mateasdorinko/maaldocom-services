@@ -1,6 +1,6 @@
-﻿using MaaldoCom.Services.Api.Endpoints.MediaAlbums;
+﻿using MaaldoCom.Services.Api.Endpoints.MediaAlbums.Models;
 
-namespace MaaldoCom.Services.Api.Endpoints.Tags;
+namespace MaaldoCom.Services.Api.Endpoints.Tags.Models;
 
 public class GetTagDetailResponse : GetTagResponse
 {

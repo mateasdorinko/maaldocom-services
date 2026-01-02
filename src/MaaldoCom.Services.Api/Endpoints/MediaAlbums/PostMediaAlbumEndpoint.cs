@@ -1,4 +1,6 @@
-﻿namespace MaaldoCom.Services.Api.Endpoints.MediaAlbums;
+﻿using MaaldoCom.Services.Api.Endpoints.MediaAlbums.Models;
+
+namespace MaaldoCom.Services.Api.Endpoints.MediaAlbums;
 
 public class PostMediaAlbumEndpoint : Endpoint<PostMediaAlbumRequest, PostMediaAlbumResponse>
 {

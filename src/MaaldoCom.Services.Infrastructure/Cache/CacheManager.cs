@@ -96,6 +96,8 @@ public class CacheManager : ICacheManager
             .Include(ma => ma.MediaAlbumTags)
             .ThenInclude(mat => mat.Tag)
             .Include(ma => ma.Media)
+            .ThenInclude(m => m.MediaTags)
+            .ThenInclude(mt => mt.Tag)
             .FirstOrDefaultAsync(ma => ma.Id == id, cancellationToken);
 
         return entity!.ToDto();
