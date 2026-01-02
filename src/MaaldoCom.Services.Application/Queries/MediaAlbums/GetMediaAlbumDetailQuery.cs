@@ -32,15 +32,15 @@ public class GetMediaAlbumDetailQueryHandler(ICacheManager cacheManager)
 {
     public async Task<Result<MediaAlbumDto>> ExecuteAsync(GetMediaAlbumDetailQuery query, CancellationToken cancellationToken)
     {
-        MediaAlbumDto? mediaAlbumDetail;
+        MediaAlbumDto? dto;
 
         switch (query.SearchBy)
         {
             case SearchBy.Id:
-                mediaAlbumDetail = await CacheManager.GetMediaAlbumDetailAsync(query.Id!.Value, cancellationToken);
+                dto = await CacheManager.GetMediaAlbumDetailAsync(query.Id!.Value, cancellationToken);
 
-                return mediaAlbumDetail != null ?
-                    Result.Ok(mediaAlbumDetail)! :
+                return dto != null ?
+                    Result.Ok(dto)! :
                     Result.Fail<MediaAlbumDto>(new EntityNotFound("MediaAlbum", query.SearchBy, query.SearchValue));
             case SearchBy.Name:
                 var cachedMediaAlbumByName = (await CacheManager.ListMediaAlbumsAsync(cancellationToken))
@@ -51,11 +51,12 @@ public class GetMediaAlbumDetailQueryHandler(ICacheManager cacheManager)
                     return Result.Fail<MediaAlbumDto>(new EntityNotFound("MediaAlbum", query.SearchBy, query.SearchValue));
                 }
 
-                mediaAlbumDetail = await CacheManager.GetMediaAlbumDetailAsync(cachedMediaAlbumByName!.Id, cancellationToken);
+                dto = await CacheManager.GetMediaAlbumDetailAsync(cachedMediaAlbumByName!.Id, cancellationToken);
 
-                return mediaAlbumDetail != null ?
-                    Result.Ok(mediaAlbumDetail)! :
+                return dto != null ?
+                    Result.Ok(dto)! :
                     Result.Fail<MediaAlbumDto>(new EntityNotFound("MediaAlbum", query.SearchBy, query.SearchValue));
+            case SearchBy.NotSet:
             default:
                 return Result.Fail<MediaAlbumDto>(new EntityNotFound("MediaAlbum", query.SearchBy, query.SearchValue));
         }
