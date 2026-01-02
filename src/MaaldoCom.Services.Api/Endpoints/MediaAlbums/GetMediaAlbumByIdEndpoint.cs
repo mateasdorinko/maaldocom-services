@@ -1,3 +1,4 @@
+using MaaldoCom.Services.Api.Endpoints.MediaAlbums.Models;
 using MaaldoCom.Services.Application.Queries.MediaAlbums;
 
 namespace MaaldoCom.Services.Api.Endpoints.MediaAlbums;

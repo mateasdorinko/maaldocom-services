@@ -1,4 +1,5 @@
-﻿using MaaldoCom.Services.Application.Queries.Knowledge;
+﻿using MaaldoCom.Services.Api.Endpoints.Knowledge.Models;
+using MaaldoCom.Services.Application.Queries.Knowledge;
 
 namespace MaaldoCom.Services.Api.Endpoints.Knowledge;
 

@@ -1,4 +1,5 @@
-﻿using MaaldoCom.Services.Application.Queries.Tags;
+﻿using MaaldoCom.Services.Api.Endpoints.Tags.Models;
+using MaaldoCom.Services.Application.Queries.Tags;
 
 namespace MaaldoCom.Services.Api.Endpoints.Tags;
 

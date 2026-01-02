@@ -1,7 +1,7 @@
-using MaaldoCom.Services.Api.Endpoints.Knowledge;
+using MaaldoCom.Services.Api.Endpoints.Knowledge.Models;
+using MaaldoCom.Services.Api.Endpoints.MediaAlbums.Models;
+using MaaldoCom.Services.Api.Endpoints.Tags.Models;
 using MaaldoCom.Services.Application.Dtos;
-using MaaldoCom.Services.Api.Endpoints.MediaAlbums;
-using MaaldoCom.Services.Api.Endpoints.Tags;
 
 namespace MaaldoCom.Services.Api.Extensions;
 

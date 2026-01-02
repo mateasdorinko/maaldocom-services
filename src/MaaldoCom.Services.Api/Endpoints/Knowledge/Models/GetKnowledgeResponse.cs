@@ -1,4 +1,4 @@
-namespace MaaldoCom.Services.Api.Endpoints.Knowledge;
+namespace MaaldoCom.Services.Api.Endpoints.Knowledge.Models;
 
 public class GetKnowledgeResponse : BaseModel
 {
