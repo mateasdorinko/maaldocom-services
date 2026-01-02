@@ -1,8 +1,10 @@
-﻿namespace MaaldoCom.Services.Application.Errors;
+﻿using MaaldoCom.Services.Application.Queries;
 
-public class EntityNotFound(string entityType, string searchBy, object searchValue) : IError
+namespace MaaldoCom.Services.Application.Errors;
+
+public class EntityNotFound(string entityType, SearchBy searchBy, object searchValue) : IError
 {
-    public string Message { get; } = $"{entityType} with {searchBy} '{searchValue}' was not found.";
+    public string Message { get; } = $"{entityType} with {nameof(searchBy)} '{searchValue}' was not found.";
     public Dictionary<string, object> Metadata { get; } = new()
     {
         { "EntityType", entityType },

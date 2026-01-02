@@ -7,14 +7,14 @@ public class ListMediaAlbumsEndpoint : EndpointWithoutRequest<IEnumerable<GetMed
     public override void Configure()
     {
         Get($"{Constants.MediaAlbumsRoute}");
-        ResponseCache(300);
+        ResponseCache(60);
         AllowAnonymous();
     }
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        var result = (await new ListMediaAlbumsQuery(User).ExecuteAsync(ct)).Value;
-        var response = result.ToModels();
+        var result = (await new ListMediaAlbumsQuery(User).ExecuteAsync(ct));
+        var response = result.Value.ToModels();
         
         await Send.OkAsync(response, ct);
     }

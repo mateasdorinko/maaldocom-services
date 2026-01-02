@@ -7,7 +7,7 @@ public class GetMediaAlbumByIdEndpoint : Endpoint<GetMediaAlbumByIdRequest, GetM
     public override void Configure()
     {
         Get($"{Constants.MediaAlbumsRoute}/{{id:guid}}");
-        ResponseCache(300);
+        ResponseCache(60);
         AllowAnonymous();
         Description(b => b.Produces(StatusCodes.Status404NotFound));
     }
@@ -16,8 +16,9 @@ public class GetMediaAlbumByIdEndpoint : Endpoint<GetMediaAlbumByIdRequest, GetM
     {
         var result = await new GetMediaAlbumDetailQuery(User, req.Id).ExecuteAsync(ct);
 
-        // TODO: implement result match functional thingy
-        if (result.IsSuccess) { await Send.OkAsync(result.Value.ToDetailModel(), ct); return; }
-        if (result.IsFailed) { await Send.NotFoundAsync(ct); }
+        await result.Match(
+            onSuccess: _ => Send.OkAsync(result.Value.ToDetailModel(), ct),
+            onFailure: _ => Send.NotFoundAsync(ct)
+        );
     }
 }
