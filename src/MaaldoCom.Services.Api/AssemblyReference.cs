@@ -1,4 +1,7 @@
 using System.Reflection;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("Tests.Unit.Api")]
 
 namespace MaaldoCom.Services.Api;
 
