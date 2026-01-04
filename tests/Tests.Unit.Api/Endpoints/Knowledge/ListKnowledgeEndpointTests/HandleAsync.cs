@@ -6,17 +6,12 @@ namespace Tests.Unit.Api.Endpoints.Knowledge.ListKnowledgeEndpointTests;
 public class HandleAsync
 {
     [Fact]
-    public async Task HandleAsync_x_y()
+    public async Task HandleAsync_Invoked_ReturnsKnowledgeAndHttpOk()
     {
         // arrange
         var endpoint = Factory.Create<ListKnowledgeEndpoint>();
         var handler = A.Fake<ICommandHandler<ListKnowledgeQuery, Result<IEnumerable<KnowledgeDto>>>>();
-        var knowledge = new List<KnowledgeDto>
-        {
-            new() { Id = Guid.NewGuid(), Title = "Title1", Quote = "Quote1" },
-            new() { Id = Guid.NewGuid(), Title = "Title2", Quote = "Quote2" },
-            new() { Id = Guid.NewGuid(), Title = "Title3", Quote = "Quote3" },
-        };
+        var knowledge = new List<KnowledgeDto> { new() { Id = Guid.NewGuid(), Title = "Title1", Quote = "Quote1" } };
         var result = new Result<IEnumerable<KnowledgeDto>>().WithValue(knowledge);
 
         var user = A.Fake<ClaimsPrincipal>();
