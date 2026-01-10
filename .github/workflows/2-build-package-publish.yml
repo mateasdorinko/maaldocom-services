@@ -24,16 +24,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
         with:
-          dotnet-version: '10.0.x'
-
-      - name: Restore dependencies
-        run: dotnet restore
-
-      - name: Build solution
-        run: dotnet build --no-restore --configuration Release
+          name: build-output
 
 #      - name: Create EF migration bundle
 #        run: |
@@ -59,4 +53,6 @@ jobs:
           push: true
           tags: ghcr.io/${{ env.REPO }}:${{ github.sha }}
           file: ./src/MaaldoCom.Services.Api/Dockerfile
+          cache-from: type=registry,ref=ghcr.io/${{ env.REPO }}:buildcache
+          cache-to: type=registry,ref=ghcr.io/${{ env.REPO }}:buildcache,mode=max
 
