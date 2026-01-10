@@ -1,0 +1,48 @@
+name: 'Download Latest EF Migration Bundle'
+description: 'Downloads the latest EF migration bundle artifact from successful CI/CD runs'
+
+inputs:
+  github-token:
+    description: 'GitHub token for API access'
+    required: true
+  artifact-name:
+    description: 'Name of the artifact to download'
+    required: false
+    default: 'efbundle'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Get latest successful workflow run
+      id: get-run
+      shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.github-token }}
+      run: |
+        echo "Finding latest successful CI/CD workflow run..."
+        RUN_ID=$(gh run list \
+          --workflow=ci-cd.yml \
+          --branch=main \
+          --status=success \
+          --limit=1 \
+          --json databaseId \
+          --jq '.[0].databaseId')
+
+        if [ -z "$RUN_ID" ]; then
+          echo "Error: No successful workflow runs found"
+          exit 1
+        fi
+
+        echo "Found workflow run ID: $RUN_ID"
+        echo "run-id=$RUN_ID" >> $GITHUB_OUTPUT
+
+    - name: Download EF migration bundle
+      uses: actions/download-artifact@v4
+      with:
+        name: ${{ inputs.artifact-name }}
+        github-token: ${{ inputs.github-token }}
+        run-id: ${{ steps.get-run.outputs.run-id }}
+
+    - name: Make efbundle executable
+      shell: bash
+      run: chmod +x efbundle
