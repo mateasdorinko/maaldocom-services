@@ -1,0 +1,43 @@
+name: Deploy to Test
+
+on:
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  deploy:
+    name: Deploy to Test Environment
+    runs-on: ubuntu-latest
+    environment:
+      name: Test
+      url: ${{ steps.deploy.outputs.webapp-url }}
+    concurrency:
+      group: deploy-test
+      cancel-in-progress: false
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download latest EF migration bundle
+        uses: ./.github/actions/download-latest-efbundle
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy to Azure Web App
+        id: deploy
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: app-maaldocomapi-tst-cus
+          publish-profile: ${{ secrets.AZURE_TST_WEBAPP_PUBLISH_PROFILE }}
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+
+      - name: Run EF migrations
+        run: ./efbundle --connection "${{ secrets.AZURE_TST_MIGRATIONS_CONNECTION_STRING }}" --verbose

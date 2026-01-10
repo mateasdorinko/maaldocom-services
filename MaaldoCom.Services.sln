@@ -41,6 +41,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GitHub Actions", "GitHub Ac
 		.github\workflows\deploy-reusable.yml = .github\workflows\deploy-reusable.yml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "actions", "actions", "{67510D09-0D16-461E-BD5C-0D2EEA2E4B97}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{2A0A87D9-8FAB-48D4-85CB-EC128099DA31}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\ci-cd.yml = .github\workflows\ci-cd.yml
+		.github\workflows\deploy-prod.yml = .github\workflows\deploy-prod.yml
+		.github\workflows\deploy-test.yml = .github\workflows\deploy-test.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "download-latest-efbundle", "download-latest-efbundle", "{CFABFE54-93BB-486A-A2AA-E9D130532A82}"
+	ProjectSection(SolutionItems) = preProject
+		.github\actions\download-latest-efbundle\action.yml = .github\actions\download-latest-efbundle\action.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +73,9 @@ Global
 		{FB552D89-1D87-4A5A-95C3-A9CF927C931F} = {ED845241-31AD-451B-BDEC-7F0E36DA220A}
 		{F696F347-1250-4A31-B088-9100193F41DD} = {ED845241-31AD-451B-BDEC-7F0E36DA220A}
 		{953EB560-8ED6-4A22-94DE-61EF4BBFAE6A} = {3D16D652-71EE-46C5-A0FC-02869A49E3E6}
+		{67510D09-0D16-461E-BD5C-0D2EEA2E4B97} = {953EB560-8ED6-4A22-94DE-61EF4BBFAE6A}
+		{2A0A87D9-8FAB-48D4-85CB-EC128099DA31} = {953EB560-8ED6-4A22-94DE-61EF4BBFAE6A}
+		{CFABFE54-93BB-486A-A2AA-E9D130532A82} = {67510D09-0D16-461E-BD5C-0D2EEA2E4B97}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{F9624FC0-587C-4312-8D07-0C85514ABD89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
