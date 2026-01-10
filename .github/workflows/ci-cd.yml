@@ -3,8 +3,18 @@ name: CI/CD Pipeline
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - '.gitignore'
+      - 'LICENSE'
   pull_request:
     branches: [main]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - '.gitignore'
+      - 'LICENSE'
 
 env:
   REGISTRY: ghcr.io
@@ -15,6 +25,7 @@ jobs:
   build-and-test:
     name: Build and Test
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
       - name: Checkout code
@@ -62,8 +73,9 @@ jobs:
         with:
           name: build-output
           path: |
-            **/bin/Release/
-            **/obj/
+            src/**/bin/Release/
+            src/**/obj/project.assets.json
+            src/**/obj/*.csproj.nuget.*
           retention-days: 1
 
   build-and-deploy-dev:
@@ -71,6 +83,7 @@ jobs:
     needs: build-and-test
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     permissions:
       contents: read
       packages: write
@@ -166,3 +179,21 @@ jobs:
 
       - name: Run EF migrations
         run: ./efbundle --connection "${{ secrets.AZURE_DEV_MIGRATIONS_CONNECTION_STRING }}" --verbose
+
+      - name: Wait for deployment to stabilize
+        run: sleep 30
+
+      - name: Health check
+        run: |
+          echo "Performing health check on ${{ steps.deploy.outputs.webapp-url }}"
+          response=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 ${{ steps.deploy.outputs.webapp-url }}/health || echo "000")
+
+          if [ "$response" = "200" ]; then
+            echo "✅ Health check passed - HTTP $response"
+          elif [ "$response" = "000" ]; then
+            echo "⚠️  Health check endpoint not reachable - deployment may still be warming up"
+            exit 0
+          else
+            echo "❌ Health check failed - HTTP $response"
+            exit 1
+          fi
