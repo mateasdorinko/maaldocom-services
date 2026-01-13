@@ -60,10 +60,7 @@ _.env_
 ```yaml
 ```
 
-### Local User Secrets
+### Other Setup
 
-[MaaldoCom.Services.Api Readme](/src/MaaldoCom.Services.Api/README.md#Local-User-Secrets)
-
-### Migrations
-
-[MaaldoCom.Services.Infrastructure Readme](/src/MaaldoCom.Services.Infrastructure/README.md#Migrations)
+- [Local User Secrets](/src/MaaldoCom.Services.Api/README.md#local-user-secrets)
+- [Entity Framework](/src/MaaldoCom.Services.Infrastructure/README.md#entity-framework)
