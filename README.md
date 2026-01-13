@@ -38,6 +38,21 @@ MSSQL_SA_PASSWORD="MY_SUPER_SECRET_PASSWORD"
 _docker-compose.yml_
 
 ```yaml
+services:
+  azurite-emulator:
+    image: mcr.microsoft.com/azure-storage/azurite
+    container_name: azurite-emulator
+    restart: unless-stopped
+    command: "azurite --blobHost 0.0.0.0 --queueHost 0.0.0.0 --tableHost 0.0.0.0 --location /data --debug /data/debug.log"
+    ports:
+      - 10000:10000 # blob storage service
+      - 10001:10001 # queue storage service
+      - 10002:10002 # table storage service
+    volumes:
+      - data:/data
+
+volumes:
+  data:
 ```
 
 _.env_
