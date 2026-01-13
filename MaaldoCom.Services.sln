@@ -37,6 +37,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GitHub Actions", "GitHub Ac
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "actions", "actions", "{67510D09-0D16-461E-BD5C-0D2EEA2E4B97}"
+	ProjectSection(SolutionItems) = preProject
+		.github\actions\download-latest-efbundle\action.yml = .github\actions\download-latest-efbundle\action.yml
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{2A0A87D9-8FAB-48D4-85CB-EC128099DA31}"
 	ProjectSection(SolutionItems) = preProject

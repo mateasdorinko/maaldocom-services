@@ -1,6 +1,6 @@
 # MaaldoCom.Services.Infrastructure
 
-## Setup
+## Infrastructure Setup
 
 ### Entity Framework
 
