@@ -12,7 +12,7 @@ namespace MaaldoCom.Services.Infrastructure;
 
 public static class ServiceInstaller
 {
-    public static void AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDbContext<MaaldoComDbContext>(options =>
         {
@@ -25,5 +25,7 @@ public static class ServiceInstaller
             .WithDefaultEntryOptions(options => options.Duration = TimeSpan.FromMinutes(20))
             .WithSerializer(new FusionCacheSystemTextJsonSerializer())
             .AsHybridCache();
+
+        return services;
     }
 }
