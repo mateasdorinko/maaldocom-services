@@ -1,6 +1,6 @@
 # Maaldocom.Services
 
-## Setup
+## Solution Setup
 
 ### Docker Compose
 
@@ -62,8 +62,8 @@ _.env_
 
 ### Local User Secrets
 
-[MaaldoCom.Services.Api Readme](/src/MaaldoCom.Services.Api/README.md#Setup)
+[MaaldoCom.Services.Api Readme](/src/MaaldoCom.Services.Api/README.md#Local-User-Secrets)
 
 ### Migrations
 
-[MaaldoCom.Services.Infrastructure Readme](/src/MaaldoCom.Services.Infrastructure/README.md#Setup)
+[MaaldoCom.Services.Infrastructure Readme](/src/MaaldoCom.Services.Infrastructure/README.md#Migrations)
