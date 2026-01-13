@@ -3,6 +3,7 @@ using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
 //using MaaldoCom.Services.Application.Messaging;
 using MaaldoCom.Services.Infrastructure;
+using Microsoft.AspNetCore.HttpOverrides;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +25,12 @@ builder.Services
     })
     .AddResponseCaching()
     .AddOpenApi()
+    .Configure<ForwardedHeadersOptions>(options =>
+    {
+        options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+        options.KnownIPNetworks.Clear();
+        options.KnownProxies.Clear();
+    })
     .AddInfrastructureServices(builder.Configuration);
 
 //builder.Services.AddMediator();
@@ -37,6 +44,7 @@ app.UseResponseCaching()
     .UseFastEndpoints();
 
 app.MapOpenApi();
+app.UseForwardedHeaders();
 app.MapScalarApiReference("/docs", options => { options.WithTitle("maaldo.com API Reference"); });
 
 if (app.Environment.IsDevelopment()) { app.UseDeveloperExceptionPage(); }
