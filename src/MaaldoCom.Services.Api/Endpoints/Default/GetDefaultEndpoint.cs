@@ -11,6 +11,7 @@ public class GetDefaultEndpoint : EndpointWithoutRequest
 
     public override async Task HandleAsync(CancellationToken ct)
     {
+        /*
         const string htmlContent = """
                                    <!DOCTYPE html>
                                    <html lang="">
@@ -33,6 +34,8 @@ public class GetDefaultEndpoint : EndpointWithoutRequest
                                    """;
 
         await Send.StringAsync(htmlContent, contentType: "text/html", cancellation: ct);
-        
+        */
+
+        await Send.RedirectAsync("/docs");
     }
 }
