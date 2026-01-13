@@ -110,6 +110,9 @@ jobs:
           name: build-output
           path: .
 
+      - name: Restore dependencies
+        run: dotnet restore
+
       - name: Create EF migration bundle
         run: |
           dotnet tool install --global dotnet-ef
