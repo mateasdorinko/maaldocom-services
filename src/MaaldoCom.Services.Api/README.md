@@ -1,6 +1,8 @@
 # MaaldoCom.Services.Api
 
-## Local User Secrets
+## Setup
+
+### Local User Secrets
 
 ### Initialization
 
