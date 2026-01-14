@@ -10,8 +10,7 @@ public class GetMediaAlbumByNameEndpoint : Endpoint<GetMediaAlbumByNameRequest, 
         Get($"{UrlMaker.MediaAlbumsRoute}/{{name}}");
         Description(x => x
             .WithName("GetMediaAlbumByName")
-            .WithSummary("Gets a media album by its name and associated media items.")
-            .WithTags("Endpoints"));
+            .WithSummary("Gets a media album by its name and associated media items."));
         ResponseCache(60);
         AllowAnonymous();
         Description(b => b.Produces(StatusCodes.Status404NotFound));

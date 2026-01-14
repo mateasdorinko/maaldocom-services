@@ -10,8 +10,7 @@ public class GetRandomKnowledgeEndpoint : EndpointWithoutRequest<GetKnowledgeRes
         Get($"{UrlMaker.KnowledgeRoute}/random");
         Description(x => x
             .WithName("GetRandomKnowledge")
-            .WithSummary("Gets a random knowledge item.")
-            .WithTags("Endpoints"));
+            .WithSummary("Gets a random knowledge item."));
         AllowAnonymous();
     }
     

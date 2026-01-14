@@ -10,8 +10,7 @@ public class GetTagByIdEndpoint : Endpoint<GetTagByIdRequest, GetTagDetailRespon
         Get($"{UrlMaker.TagsRoute}/{{id:guid}}");
         Description(x => x
             .WithName("GetTagById")
-            .WithSummary("Gets a tag by its unique identifier and associated tagged entities.")
-            .WithTags("Endpoints"));
+            .WithSummary("Gets a tag by its unique identifier and associated tagged entities."));
         ResponseCache(60);
         AllowAnonymous();
         Description(b => b.Produces(StatusCodes.Status404NotFound));
