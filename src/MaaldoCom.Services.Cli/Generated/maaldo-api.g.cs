@@ -16,8 +16,7 @@ namespace MaaldoCom.Services.Cli
     [System.CodeDom.Compiler.GeneratedCode("Refitter", "1.7.1.0")]
     public partial interface IMaaldoApiClient
     {
-        /// <summary>Gets a tag by its unique identifier and associated tagged entities.</summary>
-        /// <returns>OK</returns>
+        /// <returns>Success</returns>
         /// <exception cref="ApiException">
         /// Thrown when the request returns a non-success status code:
         /// <list type="table">
@@ -31,12 +30,11 @@ namespace MaaldoCom.Services.Cli
         /// </item>
         /// </list>
         /// </exception>
-        [Headers("Accept: application/json", "Content-Type: application/json")]
+        [Headers("Accept: application/json")]
         [Get("/tags/{id}")]
-        Task<GetTagDetailResponse> GetTagById([Body] GetTagByIdRequest body);
+        Task<MaaldoComServicesApiEndpointsTagsModelsGetTagDetailResponse> GetTagById(System.Guid id);
 
-        /// <summary>Gets a tag by its name and associated tagged entities.</summary>
-        /// <returns>OK</returns>
+        /// <returns>Success</returns>
         /// <exception cref="ApiException">
         /// Thrown when the request returns a non-success status code:
         /// <list type="table">
@@ -50,19 +48,17 @@ namespace MaaldoCom.Services.Cli
         /// </item>
         /// </list>
         /// </exception>
-        [Headers("Accept: application/json", "Content-Type: application/json")]
+        [Headers("Accept: application/json")]
         [Get("/tags/{name}")]
-        Task<GetTagDetailResponse> GetTagByName([Body] GetTagByNameRequest body);
+        Task<MaaldoComServicesApiEndpointsTagsModelsGetTagDetailResponse> GetTagByName(string name);
 
-        /// <summary>Lists all tags.</summary>
-        /// <returns>OK</returns>
+        /// <returns>Success</returns>
         /// <exception cref="ApiException">Thrown when the request returns a non-success status code.</exception>
         [Headers("Accept: application/json")]
         [Get("/tags")]
-        Task<ICollection<GetTagResponse>> ListTags();
+        Task<ICollection<MaaldoComServicesApiEndpointsTagsModelsGetTagResponse>> ListTags();
 
-        /// <summary>Creates a new tag.</summary>
-        /// <returns>OK</returns>
+        /// <returns>Success</returns>
         /// <exception cref="ApiException">
         /// Thrown when the request returns a non-success status code:
         /// <list type="table">
@@ -76,12 +72,11 @@ namespace MaaldoCom.Services.Cli
         /// </item>
         /// </list>
         /// </exception>
-        [Headers("Accept: application/json", "Content-Type: */*")]
+        [Headers("Accept: application/json", "Content-Type: application/json")]
         [Post("/tags")]
-        Task<PostTagResponse> PostTag([Body] PostTagRequest body);
+        Task<MaaldoComServicesApiEndpointsTagsModelsPostTagResponse> PostTag([Body, AliasAs("PostTagRequest")] MaaldoComServicesApiEndpointsTagsModelsPostTagRequest postTagRequest);
 
-        /// <summary>Gets a media album by its unique identifier and associated media items.</summary>
-        /// <returns>OK</returns>
+        /// <returns>Success</returns>
         /// <exception cref="ApiException">
         /// Thrown when the request returns a non-success status code:
         /// <list type="table">
@@ -95,12 +90,11 @@ namespace MaaldoCom.Services.Cli
         /// </item>
         /// </list>
         /// </exception>
-        [Headers("Accept: application/json", "Content-Type: application/json")]
+        [Headers("Accept: application/json")]
         [Get("/media-albums/{id}")]
-        Task<GetMediaAlbumDetailResponse> GetMediaAlbumById([Body] GetMediaAlbumByIdRequest body);
+        Task<MaaldoComServicesApiEndpointsMediaAlbumsModelsGetMediaAlbumDetailResponse> GetMediaAlbumById(System.Guid id);
 
-        /// <summary>Gets a media album by its name and associated media items.</summary>
-        /// <returns>OK</returns>
+        /// <returns>Success</returns>
         /// <exception cref="ApiException">
         /// Thrown when the request returns a non-success status code:
         /// <list type="table">
@@ -114,12 +108,11 @@ namespace MaaldoCom.Services.Cli
         /// </item>
         /// </list>
         /// </exception>
-        [Headers("Accept: application/json", "Content-Type: application/json")]
+        [Headers("Accept: application/json")]
         [Get("/media-albums/{name}")]
-        Task<GetMediaAlbumDetailResponse> GetMediaAlbumByName([Body] GetMediaAlbumByNameRequest body);
+        Task<MaaldoComServicesApiEndpointsMediaAlbumsModelsGetMediaAlbumDetailResponse> GetMediaAlbumByName(string name);
 
-        /// <summary>Gets a media item by its unique identifier within a media album.</summary>
-        /// <returns>OK</returns>
+        /// <returns>Success</returns>
         /// <exception cref="ApiException">
         /// Thrown when the request returns a non-success status code:
         /// <list type="table">
@@ -133,19 +126,17 @@ namespace MaaldoCom.Services.Cli
         /// </item>
         /// </list>
         /// </exception>
-        [Headers("Accept: application/json", "Content-Type: application/json")]
+        [Headers("Accept: application/json")]
         [Get("/media-albums/{mediaAlbumId}/media/{mediaId}")]
-        Task<GetMediaResponse> GetMediaById([Body] GetMediaByIdRequest body);
+        Task<MaaldoComServicesApiEndpointsMediaAlbumsModelsGetMediaResponse> GetMediaById(System.Guid mediaAlbumId, System.Guid mediaId);
 
-        /// <summary>Lists all media albums.</summary>
-        /// <returns>OK</returns>
+        /// <returns>Success</returns>
         /// <exception cref="ApiException">Thrown when the request returns a non-success status code.</exception>
         [Headers("Accept: application/json")]
         [Get("/media-albums")]
-        Task<ICollection<GetMediaAlbumResponse>> ListMediaAlbums();
+        Task<ICollection<MaaldoComServicesApiEndpointsMediaAlbumsModelsGetMediaAlbumResponse>> ListMediaAlbums();
 
-        /// <summary>Creates a new media album.</summary>
-        /// <returns>OK</returns>
+        /// <returns>Success</returns>
         /// <exception cref="ApiException">
         /// Thrown when the request returns a non-success status code:
         /// <list type="table">
@@ -159,12 +150,11 @@ namespace MaaldoCom.Services.Cli
         /// </item>
         /// </list>
         /// </exception>
-        [Headers("Accept: application/json", "Content-Type: */*")]
+        [Headers("Accept: application/json", "Content-Type: application/json")]
         [Post("/media-albums")]
-        Task<PostMediaAlbumResponse> PostMediaAlbum([Body] PostMediaAlbumRequest body);
+        Task<MaaldoComServicesApiEndpointsMediaAlbumsModelsPostMediaAlbumResponse> PostMediaAlbum([Body, AliasAs("PostMediaAlbumRequest")] MaaldoComServicesApiEndpointsMediaAlbumsModelsPostMediaAlbumRequest postMediaAlbumRequest);
 
-        /// <summary>Gets a knowledge item by its ID.</summary>
-        /// <returns>OK</returns>
+        /// <returns>Success</returns>
         /// <exception cref="ApiException">
         /// Thrown when the request returns a non-success status code:
         /// <list type="table">
@@ -178,23 +168,21 @@ namespace MaaldoCom.Services.Cli
         /// </item>
         /// </list>
         /// </exception>
-        [Headers("Accept: application/json", "Content-Type: application/json")]
+        [Headers("Accept: application/json")]
         [Get("/knowledge/{id}")]
-        Task<GetKnowledgeResponse> GetKnowledgeById([Body] GetKnowledgeByIdRequest body);
+        Task<MaaldoComServicesApiEndpointsKnowledgeModelsGetKnowledgeResponse> GetKnowledgeById(System.Guid id);
 
-        /// <summary>Gets a random knowledge item.</summary>
-        /// <returns>OK</returns>
+        /// <returns>Success</returns>
         /// <exception cref="ApiException">Thrown when the request returns a non-success status code.</exception>
         [Headers("Accept: application/json")]
         [Get("/knowledge/random")]
-        Task<GetKnowledgeResponse> GetRandomKnowledge();
+        Task<MaaldoComServicesApiEndpointsKnowledgeModelsGetKnowledgeResponse> GetRandomKnowledge();
 
-        /// <summary>Lists all knowledge items.</summary>
-        /// <returns>OK</returns>
+        /// <returns>Success</returns>
         /// <exception cref="ApiException">Thrown when the request returns a non-success status code.</exception>
         [Headers("Accept: application/json")]
         [Get("/knowledge")]
-        Task<ICollection<GetKnowledgeResponse>> ListKnowledge();
+        Task<ICollection<MaaldoComServicesApiEndpointsKnowledgeModelsGetKnowledgeResponse>> ListKnowledge();
 
 
     }
@@ -230,169 +218,19 @@ namespace MaaldoCom.Services.Cli
     
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class GetKnowledgeByIdRequest
+    public partial class MaaldoComServicesApiEndpointsTagsModelsGetTagDetailResponse : MaaldoComServicesApiEndpointsTagsModelsGetTagResponse
     {
 
-        [JsonPropertyName("id")]
-        public System.Guid Id { get; set; }
-
-        private IDictionary<string, object> _additionalProperties;
-
-        [JsonExtensionData]
-        public IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties ?? (_additionalProperties = new Dictionary<string, object>()); }
-            set { _additionalProperties = value; }
-        }
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class GetKnowledgeResponse
-    {
-
-        [JsonPropertyName("id")]
-        public System.Guid Id { get; set; }
-
-        [JsonPropertyName("href")]
-        public string Href { get; set; }
-
-        [JsonPropertyName("title")]
-        public string Title { get; set; }
-
-        [JsonPropertyName("quote")]
-        public string Quote { get; set; }
-
-        private IDictionary<string, object> _additionalProperties;
-
-        [JsonExtensionData]
-        public IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties ?? (_additionalProperties = new Dictionary<string, object>()); }
-            set { _additionalProperties = value; }
-        }
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class GetMediaAlbumByIdRequest
-    {
-
-        [JsonPropertyName("id")]
-        public System.Guid Id { get; set; }
-
-        private IDictionary<string, object> _additionalProperties;
-
-        [JsonExtensionData]
-        public IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties ?? (_additionalProperties = new Dictionary<string, object>()); }
-            set { _additionalProperties = value; }
-        }
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class GetMediaAlbumByNameRequest
-    {
-
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-
-        private IDictionary<string, object> _additionalProperties;
-
-        [JsonExtensionData]
-        public IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties ?? (_additionalProperties = new Dictionary<string, object>()); }
-            set { _additionalProperties = value; }
-        }
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class GetMediaAlbumDetailResponse
-    {
-
-        [JsonPropertyName("id")]
-        public System.Guid Id { get; set; }
-
-        [JsonPropertyName("href")]
-        public string Href { get; set; }
-
-        [JsonPropertyName("altHref")]
-        public string AltHref { get; set; }
-
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-
-        [JsonPropertyName("urlFriendlyName")]
-        public string UrlFriendlyName { get; set; }
-
-        [JsonPropertyName("created")]
-        public System.DateTimeOffset Created { get; set; }
-
-        [JsonPropertyName("tags")]
-        public ICollection<string> Tags { get; set; }
-
-        [JsonPropertyName("description")]
-        public string Description { get; set; }
-
-        [JsonPropertyName("active")]
-        public bool Active { get; set; }
+        [JsonPropertyName("mediaAlbums")]
+        public ICollection<MaaldoComServicesApiEndpointsTagsModelsGetMediaAlbumTagResponse> MediaAlbums { get; set; }
 
         [JsonPropertyName("media")]
-        public ICollection<GetMediaResponse> Media { get; set; }
-
-        private IDictionary<string, object> _additionalProperties;
-
-        [JsonExtensionData]
-        public IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties ?? (_additionalProperties = new Dictionary<string, object>()); }
-            set { _additionalProperties = value; }
-        }
+        public ICollection<MaaldoComServicesApiEndpointsTagsModelsGetMediaTagResponse> Media { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class GetMediaAlbumResponse
-    {
-
-        [JsonPropertyName("id")]
-        public System.Guid Id { get; set; }
-
-        [JsonPropertyName("href")]
-        public string Href { get; set; }
-
-        [JsonPropertyName("altHref")]
-        public string AltHref { get; set; }
-
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-
-        [JsonPropertyName("urlFriendlyName")]
-        public string UrlFriendlyName { get; set; }
-
-        [JsonPropertyName("created")]
-        public System.DateTimeOffset Created { get; set; }
-
-        [JsonPropertyName("tags")]
-        public ICollection<string> Tags { get; set; }
-
-        private IDictionary<string, object> _additionalProperties;
-
-        [JsonExtensionData]
-        public IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties ?? (_additionalProperties = new Dictionary<string, object>()); }
-            set { _additionalProperties = value; }
-        }
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class GetMediaAlbumTagResponse
+    public partial class MaaldoComServicesApiEndpointsTagsModelsGetMediaAlbumTagResponse
     {
 
         [JsonPropertyName("name")]
@@ -401,76 +239,10 @@ namespace MaaldoCom.Services.Cli
         [JsonPropertyName("href")]
         public string Href { get; set; }
 
-        private IDictionary<string, object> _additionalProperties;
-
-        [JsonExtensionData]
-        public IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties ?? (_additionalProperties = new Dictionary<string, object>()); }
-            set { _additionalProperties = value; }
-        }
-
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class GetMediaByIdRequest
-    {
-
-        [JsonPropertyName("mediaAlbumId")]
-        public System.Guid MediaAlbumId { get; set; }
-
-        [JsonPropertyName("mediaId")]
-        public System.Guid MediaId { get; set; }
-
-        private IDictionary<string, object> _additionalProperties;
-
-        [JsonExtensionData]
-        public IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties ?? (_additionalProperties = new Dictionary<string, object>()); }
-            set { _additionalProperties = value; }
-        }
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class GetMediaResponse
-    {
-
-        [JsonPropertyName("href")]
-        public string Href { get; set; }
-
-        [JsonPropertyName("id")]
-        public System.Guid Id { get; set; }
-
-        [JsonPropertyName("fileName")]
-        public string FileName { get; set; }
-
-        [JsonPropertyName("description")]
-        public string Description { get; set; }
-
-        [JsonPropertyName("sizeInBytes")]
-        public object SizeInBytes { get; set; }
-
-        [JsonPropertyName("tags")]
-        public ICollection<string> Tags { get; set; }
-
-        [JsonPropertyName("blobUrl")]
-        public string BlobUrl { get; set; }
-
-        private IDictionary<string, object> _additionalProperties;
-
-        [JsonExtensionData]
-        public IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties ?? (_additionalProperties = new Dictionary<string, object>()); }
-            set { _additionalProperties = value; }
-        }
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class GetMediaTagResponse
+    public partial class MaaldoComServicesApiEndpointsTagsModelsGetMediaTagResponse
     {
 
         [JsonPropertyName("mediaAlbumName")]
@@ -482,59 +254,14 @@ namespace MaaldoCom.Services.Cli
         [JsonPropertyName("href")]
         public string Href { get; set; }
 
-        private IDictionary<string, object> _additionalProperties;
-
-        [JsonExtensionData]
-        public IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties ?? (_additionalProperties = new Dictionary<string, object>()); }
-            set { _additionalProperties = value; }
-        }
-
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class GetTagByIdRequest
-    {
-
-        [JsonPropertyName("id")]
-        public System.Guid Id { get; set; }
-
-        private IDictionary<string, object> _additionalProperties;
-
-        [JsonExtensionData]
-        public IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties ?? (_additionalProperties = new Dictionary<string, object>()); }
-            set { _additionalProperties = value; }
-        }
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class GetTagByNameRequest
+    public partial class MaaldoComServicesApiEndpointsTagsModelsGetTagResponse : MaaldoComServicesApiEndpointsBaseModel
     {
 
         [JsonPropertyName("name")]
         public string Name { get; set; }
-
-        private IDictionary<string, object> _additionalProperties;
-
-        [JsonExtensionData]
-        public IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties ?? (_additionalProperties = new Dictionary<string, object>()); }
-            set { _additionalProperties = value; }
-        }
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class GetTagDetailResponse
-    {
-
-        [JsonPropertyName("id")]
-        public System.Guid Id { get; set; }
 
         [JsonPropertyName("href")]
         public string Href { get; set; }
@@ -542,32 +269,101 @@ namespace MaaldoCom.Services.Cli
         [JsonPropertyName("altHref")]
         public string AltHref { get; set; }
 
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
+    }
 
-        [JsonPropertyName("mediaAlbums")]
-        public ICollection<GetMediaAlbumTagResponse> MediaAlbums { get; set; }
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public abstract partial class MaaldoComServicesApiEndpointsBaseModel
+    {
+
+        [JsonPropertyName("id")]
+        public System.Guid Id { get; set; }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class MaaldoComServicesApiEndpointsTagsModelsGetTagByIdRequest
+    {
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class MaaldoComServicesApiEndpointsTagsModelsGetTagByNameRequest
+    {
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class MaaldoComServicesApiEndpointsTagsModelsPostTagResponse
+    {
+
+        [JsonPropertyName("tempPropertyDeleteMeLater")]
+        public string TempPropertyDeleteMeLater { get; set; }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class MaaldoComServicesApiEndpointsTagsModelsPostTagRequest
+    {
+
+        [JsonPropertyName("tempPropertyDeleteMeLater")]
+        public string TempPropertyDeleteMeLater { get; set; }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class MaaldoComServicesApiEndpointsMediaAlbumsModelsGetMediaAlbumDetailResponse : MaaldoComServicesApiEndpointsMediaAlbumsModelsGetMediaAlbumResponse
+    {
+
+        [JsonPropertyName("description")]
+        public string Description { get; set; }
+
+        [JsonPropertyName("active")]
+        public bool Active { get; set; }
 
         [JsonPropertyName("media")]
-        public ICollection<GetMediaTagResponse> Media { get; set; }
-
-        private IDictionary<string, object> _additionalProperties;
-
-        [JsonExtensionData]
-        public IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties ?? (_additionalProperties = new Dictionary<string, object>()); }
-            set { _additionalProperties = value; }
-        }
+        public ICollection<MaaldoComServicesApiEndpointsMediaAlbumsModelsGetMediaResponse> Media { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class GetTagResponse
+    public partial class MaaldoComServicesApiEndpointsMediaAlbumsModelsGetMediaResponse : MaaldoComServicesApiEndpointsBaseModel
     {
 
-        [JsonPropertyName("id")]
-        public System.Guid Id { get; set; }
+        [JsonPropertyName("fileName")]
+        public string FileName { get; set; }
+
+        [JsonPropertyName("description")]
+        public string Description { get; set; }
+
+        [JsonPropertyName("sizeInBytes")]
+        public long SizeInBytes { get; set; }
+
+        [JsonPropertyName("tags")]
+        public ICollection<string> Tags { get; set; }
+
+        [JsonPropertyName("blobUrl")]
+        public string BlobUrl { get; set; }
+
+        [JsonPropertyName("href")]
+        public string Href { get; set; }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class MaaldoComServicesApiEndpointsMediaAlbumsModelsGetMediaAlbumResponse : MaaldoComServicesApiEndpointsBaseModel
+    {
+
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        [JsonPropertyName("urlFriendlyName")]
+        public string UrlFriendlyName { get; set; }
+
+        [JsonPropertyName("created")]
+        public System.DateTimeOffset Created { get; set; }
+
+        [JsonPropertyName("tags")]
+        public ICollection<string> Tags { get; set; }
 
         [JsonPropertyName("href")]
         public string Href { get; set; }
@@ -575,77 +371,62 @@ namespace MaaldoCom.Services.Cli
         [JsonPropertyName("altHref")]
         public string AltHref { get; set; }
 
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
+    }
 
-        private IDictionary<string, object> _additionalProperties;
-
-        [JsonExtensionData]
-        public IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties ?? (_additionalProperties = new Dictionary<string, object>()); }
-            set { _additionalProperties = value; }
-        }
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class MaaldoComServicesApiEndpointsMediaAlbumsModelsGetMediaAlbumByIdRequest
+    {
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class PostMediaAlbumRequest
+    public partial class MaaldoComServicesApiEndpointsMediaAlbumsModelsGetMediaAlbumByNameRequest
     {
-
-        private IDictionary<string, object> _additionalProperties;
-
-        [JsonExtensionData]
-        public IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties ?? (_additionalProperties = new Dictionary<string, object>()); }
-            set { _additionalProperties = value; }
-        }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class PostMediaAlbumResponse
+    public partial class MaaldoComServicesApiEndpointsMediaAlbumsModelsGetMediaByIdRequest
     {
-
-        private IDictionary<string, object> _additionalProperties;
-
-        [JsonExtensionData]
-        public IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties ?? (_additionalProperties = new Dictionary<string, object>()); }
-            set { _additionalProperties = value; }
-        }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class PostTagRequest
+    public partial class MaaldoComServicesApiEndpointsMediaAlbumsModelsPostMediaAlbumResponse
     {
 
-        private IDictionary<string, object> _additionalProperties;
-
-        [JsonExtensionData]
-        public IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties ?? (_additionalProperties = new Dictionary<string, object>()); }
-            set { _additionalProperties = value; }
-        }
+        [JsonPropertyName("tempPropertyDeleteMeLater")]
+        public string TempPropertyDeleteMeLater { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class PostTagResponse
+    public partial class MaaldoComServicesApiEndpointsMediaAlbumsModelsPostMediaAlbumRequest
     {
 
-        private IDictionary<string, object> _additionalProperties;
+        [JsonPropertyName("tempPropertyDeleteMeLater")]
+        public string TempPropertyDeleteMeLater { get; set; }
 
-        [JsonExtensionData]
-        public IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties ?? (_additionalProperties = new Dictionary<string, object>()); }
-            set { _additionalProperties = value; }
-        }
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class MaaldoComServicesApiEndpointsKnowledgeModelsGetKnowledgeResponse : MaaldoComServicesApiEndpointsBaseModel
+    {
+
+        [JsonPropertyName("title")]
+        public string Title { get; set; }
+
+        [JsonPropertyName("quote")]
+        public string Quote { get; set; }
+
+        [JsonPropertyName("href")]
+        public string Href { get; set; }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class MaaldoComServicesApiEndpointsKnowledgeModelsGetKnowledgeByIdRequest
+    {
 
     }
 

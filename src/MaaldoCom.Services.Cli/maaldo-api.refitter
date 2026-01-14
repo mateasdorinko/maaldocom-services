@@ -1,6 +1,6 @@
 ﻿{
   "$schema": "https://raw.githubusercontent.com/christianhelle/refitter/main/src/Refitter/refitter.schema.json",
-  "openApiPath": "https://app-maaldocomapi-tst-cus.azurewebsites.net/openapi/v1.json",
+  "openApiPath": "https://app-maaldocomapi-tst-cus.azurewebsites.net/swagger/v1/swagger.json",
   "namespace": "MaaldoCom.Services.Cli",
   "naming": {
     "useOpenApiTitle": false,

@@ -10,8 +10,7 @@ public class ListTagsEndpoint : EndpointWithoutRequest<IEnumerable<GetTagRespons
         Get(UrlMaker.TagsRoute);
         Description(x => x
             .WithName("ListTags")
-            .WithSummary("Lists all tags.")
-            .WithTags("Endpoints"));
+            .WithSummary("Lists all tags."));
         ResponseCache(60);
         AllowAnonymous();
     }

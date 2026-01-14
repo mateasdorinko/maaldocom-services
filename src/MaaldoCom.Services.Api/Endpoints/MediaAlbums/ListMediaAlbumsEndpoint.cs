@@ -10,8 +10,7 @@ public class ListMediaAlbumsEndpoint : EndpointWithoutRequest<IEnumerable<GetMed
         Get(UrlMaker.MediaAlbumsRoute);
         Description(x => x
             .WithName("ListMediaAlbums")
-            .WithSummary("Lists all media albums.")
-            .WithTags("Endpoints"));
+            .WithSummary("Lists all media albums."));
         ResponseCache(60);
         AllowAnonymous();
     }

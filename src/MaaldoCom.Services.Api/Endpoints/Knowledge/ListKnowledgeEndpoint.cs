@@ -10,8 +10,7 @@ public class ListKnowledgeEndpoint : EndpointWithoutRequest<IEnumerable<GetKnowl
         Get($"{UrlMaker.KnowledgeRoute}");
         Description(x => x
             .WithName("ListKnowledge")
-            .WithSummary("Lists all knowledge items.")
-            .WithTags("Endpoints"));
+            .WithSummary("Lists all knowledge items."));
         ResponseCache(60);
         AllowAnonymous();
     }
