@@ -34,6 +34,7 @@ builder.Services
             s.Title = apiDocTitle;
             s.Version = "v1";
         };
+        options.ShortSchemaNames = true;
     })
     .Configure<ForwardedHeadersOptions>(options =>
     {

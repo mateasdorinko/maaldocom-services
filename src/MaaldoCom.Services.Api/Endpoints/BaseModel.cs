@@ -1,5 +1,8 @@
+using NSwag.Annotations;
+
 namespace MaaldoCom.Services.Api.Endpoints;
 
+[OpenApiIgnore]
 public abstract class BaseModel
 {
     [JsonPropertyOrder(0)]
