@@ -6,16 +6,9 @@ These commands are intended to be run from the `MaaldoCom.Services.Cli` project 
 
 ### OpenAPI Document Specification Generation
 
-Run the following command to install the Refitter tool globally:
-
-```shell
-dotnet tool install --global Refitter
-```
-
-To generate the proxy client code from the OpenAPI document with Refitter, use the following command:
-
-```shell
-Refitter --url https://app-maaldocomapi-tst-cus.azurewebsites.net/openapi/v1.json --output ./IApiClient.cs --namespace MaaldoCom.Services.Cli
-```
+The Cli contains a method to generate a client api proxy defined by the OpenAPI document specifications in 
+the API project. The process is baked into the build process of the Cli project, so simply building the project will
+generate the client proxy. The definition for building via Refit can be found in the `maaldo-api.refitter` file in the
+project.
 
 
