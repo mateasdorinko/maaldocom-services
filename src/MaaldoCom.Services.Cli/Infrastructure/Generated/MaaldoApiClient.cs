@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 #nullable enable annotations
 
-namespace MaaldoCom.Services.Cli
+namespace MaaldoCom.Services.Cli.Infrastructure
 {
     /// <summary>maaldo.com API Reference</summary>
     [System.CodeDom.Compiler.GeneratedCode("Refitter", "1.7.1.0")]
@@ -211,7 +211,7 @@ namespace MaaldoCom.Services.Cli
 #pragma warning disable 8625 // Disable "CS8625 Cannot convert null literal to non-nullable reference type"
 #pragma warning disable 8765 // Disable "CS8765 Nullability of type of parameter doesn't match overridden member (possibly because of nullability attributes)."
 
-namespace MaaldoCom.Services.Cli
+namespace MaaldoCom.Services.Cli.Infrastructure
 {
     using System = global::System;
 
