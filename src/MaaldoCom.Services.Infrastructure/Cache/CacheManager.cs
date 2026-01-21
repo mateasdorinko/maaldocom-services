@@ -81,14 +81,9 @@ public class CacheManager : ICacheManager
 
     public async Task RefreshCacheAsync(CancellationToken cancellationToken)
     {
-        var tasks = new Task[]
-        {
-            ListMediaAlbumsAsync(cancellationToken),
-            ListTagsAsync(cancellationToken),
-            ListKnowledgeAsync(cancellationToken)
-        };
-
-        await Task.WhenAll(tasks);
+        await ListMediaAlbumsAsync(cancellationToken);
+        await ListTagsAsync(cancellationToken);
+        await ListKnowledgeAsync(cancellationToken);
     }
 
     private static string GetDetailCacheKey(string listCacheKey, Guid detailId) => $"{listCacheKey}:{detailId}";
