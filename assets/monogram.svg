@@ -1,19 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<!-- Creator: CorelDRAW 2019 (64-Bit) -->
-<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="1461px" height="601px" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
-viewBox="0 0 1461 600.66"
- xmlns:xlink="http://www.w3.org/1999/xlink">
- <defs>
-  <style type="text/css">
-   <![CDATA[
-    .fil0 {fill:black;fill-rule:nonzero}
-   ]]>
-  </style>
- </defs>
- <g id="Layer_x0020_1">
-  <metadata id="CorelCorpID_0Corel-Layer"/>
-  <path class="fil0" d="M860.47 0l400.31 0c133.52,0 200.22,66.83 200.22,200.22l0 200.22c0,133.53 -66.7,200.22 -200.22,200.22l-398.7 0 -54.22 -120.21 -238.28 0 53.64 -119.17 130.9 0 -72.05 -159.76 -181.23 399.14 -71.27 -158.02 191.34 -442.48 122.84 0 207.61 480.37 292.61 0c64.1,0 96.08,-31.57 96.08,-94.85l0 -170.97c0,-63.01 -31.85,-94.58 -95.67,-94.58l-262.94 0 0 348.7 -23.69 0 -97.26 -225.04c0,-81.28 -0.02,-162.51 -0.02,-243.79z"/>
-  <polygon class="fil0" points="0,600.66 259.66,0.16 382.51,0.16 495.21,260.92 422.96,427.99 320.82,201.52 141.17,600.66 "/>
- </g>
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="1461" height="601" style="shape-rendering:geometricPrecision;text-rendering:geometricPrecision;image-rendering:optimizeQuality;fill-rule:evenodd;clip-rule:evenodd" viewBox="0 0 1461 600.66">
+    <defs>
+        <style>
+            .fil0{fill:#000;fill-rule:nonzero}
+        </style>
+    </defs>
+    <g id="Layer_x0020_1">
+        <path class="fil0" d="M860.47 0h400.31C1394.3 0 1461 66.83 1461 200.22v200.22c0 133.53-66.7 200.22-200.22 200.22h-398.7l-54.22-120.21H569.58l53.64-119.17h130.9l-72.05-159.76-181.23 399.14-71.27-158.02L620.91.16h122.84l207.61 480.37h292.61c64.1 0 96.08-31.57 96.08-94.85V214.71c0-63.01-31.85-94.58-95.67-94.58H981.44v348.7h-23.69l-97.26-225.04c0-81.28-.02-162.51-.02-243.79zM0 600.66 259.66.16h122.85l112.7 260.76-72.25 167.07-102.14-226.47-179.65 399.14z"/>
+    </g>
 </svg>
