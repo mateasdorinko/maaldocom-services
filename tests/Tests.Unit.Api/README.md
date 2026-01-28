@@ -1,4 +1,4 @@
 # `Tests.Unit.Api`
 
-<img src="assets/logo.svg" width="100" />
+<img src="/assets/logo.svg" width="100" />
 
