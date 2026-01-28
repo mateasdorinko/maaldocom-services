@@ -13,9 +13,10 @@ using System.Threading.Tasks;
 namespace MaaldoCom.Services.Cli.Infrastructure
 {
     /// <summary>maaldo.com API Reference</summary>
-    [System.CodeDom.Compiler.GeneratedCode("Refitter", "1.7.1.0")]
+    [System.CodeDom.Compiler.GeneratedCode("Refitter", "1.7.3.0")]
     public partial interface IMaaldoApiClient
     {
+        /// <param name="id">id parameter</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">
         /// Thrown when the request returns a non-success status code:
@@ -34,6 +35,7 @@ namespace MaaldoCom.Services.Cli.Infrastructure
         [Get("/tags/{id}")]
         Task<GetTagDetailResponse> GetTagById(System.Guid id);
 
+        /// <param name="name">name parameter</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">
         /// Thrown when the request returns a non-success status code:
@@ -58,6 +60,7 @@ namespace MaaldoCom.Services.Cli.Infrastructure
         [Get("/tags")]
         Task<ICollection<GetTagResponse>> ListTags();
 
+        /// <param name="postTagRequest">postTagRequest parameter</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">
         /// Thrown when the request returns a non-success status code:
@@ -81,6 +84,7 @@ namespace MaaldoCom.Services.Cli.Infrastructure
         [Get("/support/cache-refresh")]
         Task RefreshCache();
 
+        /// <param name="id">id parameter</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">
         /// Thrown when the request returns a non-success status code:
@@ -99,6 +103,7 @@ namespace MaaldoCom.Services.Cli.Infrastructure
         [Get("/media-albums/{id}")]
         Task<GetMediaAlbumDetailResponse> GetMediaAlbumById(System.Guid id);
 
+        /// <param name="name">name parameter</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">
         /// Thrown when the request returns a non-success status code:
@@ -117,6 +122,8 @@ namespace MaaldoCom.Services.Cli.Infrastructure
         [Get("/media-albums/{name}")]
         Task<GetMediaAlbumDetailResponse> GetMediaAlbumByName(string name);
 
+        /// <param name="mediaAlbumId">mediaAlbumId parameter</param>
+        /// <param name="mediaId">mediaId parameter</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">
         /// Thrown when the request returns a non-success status code:
@@ -141,6 +148,7 @@ namespace MaaldoCom.Services.Cli.Infrastructure
         [Get("/media-albums")]
         Task<ICollection<GetMediaAlbumResponse>> ListMediaAlbums();
 
+        /// <param name="postMediaAlbumRequest">postMediaAlbumRequest parameter</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">
         /// Thrown when the request returns a non-success status code:
@@ -159,6 +167,7 @@ namespace MaaldoCom.Services.Cli.Infrastructure
         [Post("/media-albums")]
         Task<PostMediaAlbumResponse> PostMediaAlbum([Body, AliasAs("PostMediaAlbumRequest")] PostMediaAlbumRequest postMediaAlbumRequest);
 
+        /// <param name="id">id parameter</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">
         /// Thrown when the request returns a non-success status code:
