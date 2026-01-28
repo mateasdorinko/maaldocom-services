@@ -1,6 +1,6 @@
-# `MaaldoCom.Services.Infrastructure`
-
 <img src="/assets/logo.svg" width="100" />
+
+# MaaldoCom.Services.Infrastructure
 
 ## Infrastructure Setup
 

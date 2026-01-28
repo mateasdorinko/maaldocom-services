@@ -1,6 +1,6 @@
-# `MaaldoCom.Services.Api`
-
 <img src="/assets/logo.svg" width="100" />
+
+# MaaldoCom.Services.Api
 
 ## API Setup
 

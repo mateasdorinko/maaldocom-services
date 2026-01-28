@@ -1,6 +1,6 @@
-# `MaaldoCom.Services.Cli`
-
 <img src="/assets/logo.svg" width="100" />
+
+# MaaldoCom.Services.Cli
 
 ## CLI Setup
 
