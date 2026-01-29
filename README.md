@@ -32,7 +32,8 @@
 
 #### SQL Server
 
-Create both the docker-compose and .env files on your computer and provide a strong password in the env file.
+Create both the docker-compose and .env files on your machine. Replace the `MY_SUPER_SECRET_PASSWORD` token with a 
+strong password in the .env file.
 
 _docker-compose.yml_
 
