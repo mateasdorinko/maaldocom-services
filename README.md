@@ -1,4 +1,4 @@
-<img src="assets/logo.svg" width="100" />
+<img src="assets/logo.svg" alt="logo" width="100" />
 
 # Maaldocom.Services
 
@@ -11,20 +11,20 @@
 
 ### Src
 
-- [MaaldoCom.Services.Api](/src/MaaldoCom.Services.Api/README.md)
-- [MaaldoCom.Services.Application](/src/MaaldoCom.Services.Application/README.md)
-- [MaaldoCom.Services.Cli](/src/MaaldoCom.Services.Cli/README.md)
-- [MaaldoCom.Services.Domain](/src/MaaldoCom.Services.Domain/README.md)
-- [MaaldoCom.Services.Infrastructure](/src/MaaldoCom.Services.Infrastructure/README.md)
+- [MaaldoCom.Services.Api](src/MaaldoCom.Services.Api/README.md)
+- [MaaldoCom.Services.Application](src/MaaldoCom.Services.Application/README.md)
+- [MaaldoCom.Services.Cli](src/MaaldoCom.Services.Cli/README.md)
+- [MaaldoCom.Services.Domain](src/MaaldoCom.Services.Domain/README.md)
+- [MaaldoCom.Services.Infrastructure](src/MaaldoCom.Services.Infrastructure/README.md)
 
 ### Tests
 
-- [Tests.Integration](/tests/Tests.Integration/README.md)
-- [Tests.Unit.Api](/tests/Tests.Unit.Api/README.md)
-- [Tests.Unit.Application](/tests/Tests.Unit.Application/README.md)
-- [Tests.Unit.Cli](/tests/Tests.Unit.Cli/README.md)
-- [Tests.Unit.Domain](/tests/Tests.Unit.Domain/README.md)
-- [Tests.Unit.Infrastructure](/tests/Tests.Unit.Infrastructure/README.md)
+- [Tests.Integration](tests/Tests.Integration/README.md)
+- [Tests.Unit.Api](tests/Tests.Unit.Api/README.md)
+- [Tests.Unit.Application](tests/Tests.Unit.Application/README.md)
+- [Tests.Unit.Cli](tests/Tests.Unit.Cli/README.md)
+- [Tests.Unit.Domain](tests/Tests.Unit.Domain/README.md)
+- [Tests.Unit.Infrastructure](tests/Tests.Unit.Infrastructure/README.md)
 
 ## Solution Setup
 
@@ -73,9 +73,9 @@ services:
     restart: unless-stopped
     command: "azurite --blobHost 0.0.0.0 --queueHost 0.0.0.0 --tableHost 0.0.0.0 --location /data --debug /data/debug.log"
     ports:
-      - 10000:10000 # blob storage service
-      - 10001:10001 # queue storage service
-      - 10002:10002 # table storage service
+      - "10000:10000" # blob storage service
+      - "10001:10001" # queue storage service
+      - "10002:10002" # table storage service
     volumes:
       - data:/data
 
@@ -90,8 +90,8 @@ _.env_
 
 ### Other Setup
 
-- [Local User Secrets](/src/MaaldoCom.Services.Api/README.md#local-user-secrets)
-- [Entity Framework](/src/MaaldoCom.Services.Infrastructure/README.md#entity-framework)
+- [Local User Secrets](src/MaaldoCom.Services.Api/README.md#local-user-secrets)
+- [Entity Framework](src/MaaldoCom.Services.Infrastructure/README.md#entity-framework)
 
 
 
