@@ -2,13 +2,15 @@ namespace MaaldoCom.Services.Cli.Commands;
 
 public static class TagsCommandConfigurator
 {
+    private const string CommandName = "tags";
+
     public static void AddTagsCommand(this IConfigurator configurator)
     {
-        configurator.AddCommand<TagsCommand>("tags")
+        configurator.AddCommand<TagsCommand>(CommandName)
                 .WithDescription("Lists tags from the API")
-                .WithExample("tags", "local")
-                .WithExample("tags", "--name", "austin", "prod")
-                .WithExample("tags", "-n", "hunter", "test");
+                .WithExample(CommandName, "local")
+                .WithExample(CommandName, "--name", "austin", "prod")
+                .WithExample(CommandName, "-n", "hunter", "test");
     }
 }
 

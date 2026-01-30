@@ -2,13 +2,15 @@ namespace MaaldoCom.Services.Cli.Commands;
 
 public static class KnowledgeCommandConfigurator
 {
+    private const string CommandName = "knowledge";
+
     public static void AddKnowledgeCommand(this IConfigurator configurator)
     {
-        configurator.AddCommand<KnowledgeCommand>("knowledge")
+        configurator.AddCommand<KnowledgeCommand>(CommandName)
             .WithDescription("Lists knowledge from the API")
-            .WithExample("knowledge", "dev")
-            .WithExample("knowledge", "--random", "prod")
-            .WithExample("knowledge", "-r", "test");
+            .WithExample(CommandName, "dev")
+            .WithExample(CommandName, "--random", "prod")
+            .WithExample(CommandName, "-r", "test");
     }
 }
 

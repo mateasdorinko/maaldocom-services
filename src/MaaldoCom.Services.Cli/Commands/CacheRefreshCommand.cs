@@ -2,11 +2,13 @@
 
 public static class CacheRefreshCommandConfigurator
 {
+    private const string CommandName = "cache-refresh";
+
     public static void AddCacheRefreshCommand(this IConfigurator configurator)
     {
-        configurator.AddCommand<CacheRefreshCommand>("cache-refresh")
+        configurator.AddCommand<CacheRefreshCommand>(CommandName)
             .WithDescription("Refreshes the cached lists from the API")
-            .WithExample("cache-refresh", "dev");
+            .WithExample(CommandName, "dev");
     }
 }
 
