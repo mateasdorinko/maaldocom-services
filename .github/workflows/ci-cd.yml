@@ -98,12 +98,7 @@ jobs:
           fi
           rm -rf badges
           mkdir -p badges
-          cp ${{ github.workspace }}/results/coverage/badge_combined.svg badges/
-          cp ${{ github.workspace }}/results/coverage/badge_linecoverage.svg badges/
-          cp ${{ github.workspace }}/results/coverage/badge_branchcoverage.svg badges/
-          for f in ${{ github.workspace }}/results/coverage/badge_*MaaldoCom*.svg; do
-            cp "$f" badges/
-          done
+          cp ${{ github.workspace }}/results/coverage/badge_*.svg badges/
           git add badges/
           git diff --cached --quiet && exit 0
           git commit -m "Update coverage badges"
