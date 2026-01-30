@@ -26,6 +26,8 @@ jobs:
     name: Build and Test
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout code
@@ -66,7 +68,7 @@ jobs:
         with:
           reports: '**/coverage.cobertura.xml'
           targetdir: ${{ github.workspace }}/results/coverage
-          reporttypes: 'MarkdownSummaryGithub'
+          reporttypes: 'MarkdownSummaryGithub;Badges'
         if: always()
 
       - name: Add test results to job summary
@@ -82,6 +84,26 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           cat "${{ github.workspace }}/results/coverage/SummaryGithub.md" >> $GITHUB_STEP_SUMMARY
         if: always()
+
+      - name: Publish coverage badges
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git fetch origin badges:badges 2>/dev/null || git checkout --orphan badges
+          git checkout badges
+          rm -rf badges
+          mkdir -p badges
+          cp ${{ github.workspace }}/results/coverage/badge_combined.svg badges/
+          cp ${{ github.workspace }}/results/coverage/badge_linecoverage.svg badges/
+          cp ${{ github.workspace }}/results/coverage/badge_branchcoverage.svg badges/
+          for f in ${{ github.workspace }}/results/coverage/badge_*MaaldoCom*.svg; do
+            cp "$f" badges/
+          done
+          git add badges/
+          git diff --cached --quiet && exit 0
+          git commit -m "Update coverage badges"
+          git push origin badges
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v6

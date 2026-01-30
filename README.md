@@ -6,6 +6,12 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=mateasdorinko_maaldocom-services&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=mateasdorinko_maaldocom-services)
 [![Deploy to Test](https://github.com/mateasdorinko/maaldocom-services/actions/workflows/deploy-test.yml/badge.svg)](https://github.com/mateasdorinko/maaldocom-services/actions/workflows/deploy-test.yml)
 [![Deploy to Production](https://github.com/mateasdorinko/maaldocom-services/actions/workflows/deploy-prod.yml/badge.svg)](https://github.com/mateasdorinko/maaldocom-services/actions/workflows/deploy-prod.yml)
+![Code Coverage](https://raw.githubusercontent.com/mateasdorinko/maaldocom-services/badges/badges/badge_combined.svg)
+![Line Coverage - Api](https://raw.githubusercontent.com/mateasdorinko/maaldocom-services/badges/badges/badge_linecoverage_MaaldoCom.Services.Api.svg)
+![Line Coverage - Application](https://raw.githubusercontent.com/mateasdorinko/maaldocom-services/badges/badges/badge_linecoverage_MaaldoCom.Services.Application.svg)
+![Line Coverage - Cli](https://raw.githubusercontent.com/mateasdorinko/maaldocom-services/badges/badges/badge_linecoverage_MaaldoCom.Services.Cli.svg)
+![Line Coverage - Domain](https://raw.githubusercontent.com/mateasdorinko/maaldocom-services/badges/badges/badge_linecoverage_MaaldoCom.Services.Domain.svg)
+![Line Coverage - Infrastructure](https://raw.githubusercontent.com/mateasdorinko/maaldocom-services/badges/badges/badge_linecoverage_MaaldoCom.Services.Infrastructure.svg)
 
 ## Projects
 
