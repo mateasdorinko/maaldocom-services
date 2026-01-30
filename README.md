@@ -85,11 +85,6 @@ volumes:
   data:
 ```
 
-_.env_
-
-```yaml
-```
-
 ### Other Setup
 
 - [Local User Secrets](src/MaaldoCom.Services.Api/README.md#local-user-secrets)
