@@ -34,5 +34,7 @@ Create configuration entries for the following keys:
 - sendgrid-default-from-email
 - sendgrid-default-to-email
 - azure-storage-account-connection-string
-
+- scalar-client-id
+- auth0-domain
+- auth0-audience
 
