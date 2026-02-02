@@ -60,25 +60,6 @@ namespace MaaldoCom.Services.Cli.Infrastructure
         [Get("/tags")]
         Task<ICollection<GetTagResponse>> ListTags();
 
-        /// <param name="postTagRequest">postTagRequest parameter</param>
-        /// <returns>Success</returns>
-        /// <exception cref="ApiException">
-        /// Thrown when the request returns a non-success status code:
-        /// <list type="table">
-        /// <listheader>
-        /// <term>Status</term>
-        /// <description>Description</description>
-        /// </listheader>
-        /// <item>
-        /// <term>401</term>
-        /// <description>Unauthorized</description>
-        /// </item>
-        /// </list>
-        /// </exception>
-        [Headers("Accept: application/json", "Content-Type: application/json")]
-        [Post("/tags")]
-        Task<PostTagResponse> PostTag([Body, AliasAs("PostTagRequest")] PostTagRequest postTagRequest);
-
         /// <returns>A <see cref="Task"/> that completes when the request is finished.</returns>
         /// <exception cref="ApiException">Thrown when the request returns a non-success status code.</exception>
         [Get("/support/cache-refresh")]
@@ -160,6 +141,10 @@ namespace MaaldoCom.Services.Cli.Infrastructure
         /// <item>
         /// <term>401</term>
         /// <description>Unauthorized</description>
+        /// </item>
+        /// <item>
+        /// <term>403</term>
+        /// <description>Forbidden</description>
         /// </item>
         /// </list>
         /// </exception>
@@ -303,24 +288,6 @@ namespace MaaldoCom.Services.Cli.Infrastructure
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class GetTagByNameRequest
     {
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class PostTagResponse
-    {
-
-        [JsonPropertyName("tempPropertyDeleteMeLater")]
-        public string TempPropertyDeleteMeLater { get; set; }
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class PostTagRequest
-    {
-
-        [JsonPropertyName("tempPropertyDeleteMeLater")]
-        public string TempPropertyDeleteMeLater { get; set; }
 
     }
 

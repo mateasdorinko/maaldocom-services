@@ -7,7 +7,7 @@ public class GetKnowledgeByIdEndpoint : Endpoint<GetKnowledgeByIdRequest, GetKno
 {
     public override void Configure()
     {
-        Get($"{UrlMaker.KnowledgeRoute}/{{id:guid}}");
+        Get(UrlMaker.GetKnowledgeUrl("{id:guid}"));
         Description(x => x
             .WithName("GetKnowledgeById")
             .WithSummary("Gets a knowledge item by its ID."));

@@ -7,7 +7,7 @@ public class GetTagByNameEndpoint : Endpoint<GetTagByNameRequest, GetTagDetailRe
 {
     public override void Configure()
     {
-        Get($"{UrlMaker.TagsRoute}/{{name}}");
+        Get(UrlMaker.GetTagUrl("{name}"));
         Description(x => x
             .WithName("GetTagByName")
             .WithSummary("Gets a tag by its name and associated tagged entities."));

@@ -7,7 +7,7 @@ public class GetMediaAlbumByNameEndpoint : Endpoint<GetMediaAlbumByNameRequest, 
 {
     public override void Configure()
     {
-        Get($"{UrlMaker.MediaAlbumsRoute}/{{name}}");
+        Get(UrlMaker.GetMediaAlbumUrl("{name}"));
         Description(x => x
             .WithName("GetMediaAlbumByName")
             .WithSummary("Gets a media album by its name and associated media items."));

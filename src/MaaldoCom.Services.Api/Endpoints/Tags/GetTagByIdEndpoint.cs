@@ -7,7 +7,7 @@ public class GetTagByIdEndpoint : Endpoint<GetTagByIdRequest, GetTagDetailRespon
 {
     public override void Configure()
     {
-        Get($"{UrlMaker.TagsRoute}/{{id:guid}}");
+        Get(UrlMaker.GetTagUrl("{id:guid}"));
         Description(x => x
             .WithName("GetTagById")
             .WithSummary("Gets a tag by its unique identifier and associated tagged entities."));
