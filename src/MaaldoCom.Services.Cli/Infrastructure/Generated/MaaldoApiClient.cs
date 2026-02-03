@@ -60,6 +60,11 @@ namespace MaaldoCom.Services.Cli.Infrastructure
         [Get("/tags")]
         Task<ICollection<GetTagResponse>> ListTags();
 
+        /// <returns>A <see cref="Task"/> that completes when the request is finished.</returns>
+        /// <exception cref="ApiException">Thrown when the request returns a non-success status code.</exception>
+        [Get("/support/cache-refresh")]
+        Task RefreshCache();
+
         /// <param name="id">id parameter</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">

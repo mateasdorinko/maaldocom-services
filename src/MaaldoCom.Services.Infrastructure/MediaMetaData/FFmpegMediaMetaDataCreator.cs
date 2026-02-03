@@ -26,7 +26,7 @@ public class FFmpegMediaMetaDataCreator : IMediaMetaDataCreator
 
             Console.WriteLine($"Processed: {file.FullName}");
 
-            // move original to full directory
+            // move originals to original directory
             file.MoveTo($@"{file.DirectoryName}\{Constants.OriginalResFolderName}\{file.Name}");
         }
 
