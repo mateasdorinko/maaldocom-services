@@ -6,13 +6,15 @@ public class CreateMediaValidator : AbstractValidator<MediaDto>
     {
         RuleFor(x => x.FileName)
             .NotEmpty()
-            .WithMessage("FileName is required")
+            .WithMessage("Media fileName is required")
             .MaximumLength(50)
-            .WithMessage("FileName must be 50 characters or less");
+            .WithMessage("Media fileName must be 50 characters or less");
         RuleFor(x => x.FileExtension)
             .NotEmpty()
-            .WithMessage("FileExtension is required")
+            .WithMessage("Media fileExtension is required")
             .MaximumLength(20)
-            .WithMessage("FileExtension must be 20 characters or less");
+            .WithMessage("Media fileExtension must be 20 characters or less");
+        RuleFor(dto => dto.Tags)
+            .ForEach(x => x.SetValidator(new TagValidator()));
     }
 }

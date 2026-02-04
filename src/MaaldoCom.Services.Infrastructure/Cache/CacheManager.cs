@@ -18,7 +18,7 @@ public class CacheManager : ICacheManager
     private const string MediaAlbumListCacheKey = "mediaalbums";
     private const string KnowledgeListCacheKey = "knowledge";
     private const string TagListCacheKey = "tags";
-    
+
     public async Task<IEnumerable<MediaAlbumDto>> ListMediaAlbumsAsync(CancellationToken cancellationToken)
     {
         var mediaAlbums = await HybridCache.GetOrCreateAsync<IEnumerable<MediaAlbumDto>>(
@@ -79,10 +79,14 @@ public class CacheManager : ICacheManager
         await ListMediaAlbumsAsync(cancellationToken);
         await ListTagsAsync(cancellationToken);
         await ListKnowledgeAsync(cancellationToken);
+
     }
 
+    public async Task InvalidateCache(string cacheKey, CancellationToken cancellationToken)
+        => await HybridCache.RemoveAsync(cacheKey, cancellationToken);
+
     private static string GetDetailCacheKey(string listCacheKey, Guid detailId) => $"{listCacheKey}:{detailId}";
-    
+
     private async Task<IEnumerable<MediaAlbumDto>> ListMediaAlbumsFromDbAsync(CancellationToken cancellationToken)
     {
         var entities = await MaaldoComDbContext.MediaAlbums
@@ -98,7 +102,7 @@ public class CacheManager : ICacheManager
         var entity = await MaaldoComDbContext.MediaAlbums
             .Include(ma => ma.MediaAlbumTags)
             .ThenInclude(mat => mat.Tag)
-            .Include(ma => ma.Media)
+            .Include(ma => ma.Media.OrderBy(m => m.Created))
             .ThenInclude(m => m.MediaTags)
             .ThenInclude(mt => mt.Tag)
             .FirstOrDefaultAsync(ma => ma.Id == id, cancellationToken);

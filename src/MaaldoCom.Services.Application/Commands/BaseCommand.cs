@@ -7,12 +7,14 @@ public abstract class BaseCommand(ClaimsPrincipal user)
 
 public abstract class BaseCommandHandler
 {
-    protected BaseCommandHandler(IMaaldoComDbContext maaldoComDbContext)
+    protected BaseCommandHandler(IMaaldoComDbContext maaldoComDbContext, ICacheManager cacheManager)
     {
         MaaldoComDbContext = maaldoComDbContext;
+        CacheManager = cacheManager;
 
         MaaldoComDbContext.EnableChangeTracking();
     }
 
     protected IMaaldoComDbContext MaaldoComDbContext { get; }
+    protected ICacheManager CacheManager { get; }
 }

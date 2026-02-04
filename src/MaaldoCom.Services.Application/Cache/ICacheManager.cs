@@ -9,4 +9,5 @@ public interface ICacheManager
     Task<IEnumerable<KnowledgeDto>> ListKnowledgeAsync(CancellationToken cancellationToken);
 
     Task RefreshCacheAsync(CancellationToken cancellationToken);
+    Task InvalidateCache(string cacheKey, CancellationToken cancellationToken);
 }

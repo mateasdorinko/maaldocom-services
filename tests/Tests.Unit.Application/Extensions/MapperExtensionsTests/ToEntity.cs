@@ -45,7 +45,7 @@ public class ToEntity
         var user = A.Fake<ClaimsPrincipal>();
 
         // act
-        var entity = dto.ToEntity(user);
+        var entity = dto.ToEntity();
 
         // assert
         entity.Id.ShouldBeEquivalentTo(dto.Id);
@@ -53,6 +53,7 @@ public class ToEntity
         entity.UrlFriendlyName.ShouldBeEquivalentTo(dto.UrlFriendlyName);
         entity.Description.ShouldBeEquivalentTo(dto.Description);
         entity.Created.ShouldBeEquivalentTo(dto.Created);
+        entity.CreatedBy.ShouldBeEquivalentTo(dto.CreatedBy);
         entity.LastModifiedBy.ShouldBeEquivalentTo(dto.LastModifiedBy);
         entity.LastModified.ShouldBeEquivalentTo(dto.LastModified);
         entity.Active.ShouldBeEquivalentTo(dto.Active);
@@ -70,7 +71,7 @@ public class ToEntity
         var user = A.Fake<ClaimsPrincipal>();
 
         // act & assert
-        Assert.Throws<ArgumentNullException>(() => dto!.ToEntity(user));
+        Assert.Throws<ArgumentNullException>(() => dto!.ToEntity());
     }
 
     [Fact]
@@ -102,7 +103,7 @@ public class ToEntity
         var user = A.Fake<ClaimsPrincipal>();
 
         // act
-        var entity = dto.ToEntity(user);
+        var entity = dto.ToEntity();
 
         // assert
         entity.Id.ShouldBeEquivalentTo(dto.Id);
@@ -112,6 +113,7 @@ public class ToEntity
         entity.SizeInBytes.ShouldBeEquivalentTo(dto.SizeInBytes);
         entity.FileExtension.ShouldBeEquivalentTo(dto.FileExtension);
         entity.Created.ShouldBeEquivalentTo(dto.Created);
+        entity.CreatedBy.ShouldBeEquivalentTo(dto.CreatedBy);
         entity.LastModifiedBy.ShouldBeEquivalentTo(dto.LastModifiedBy);
         entity.LastModified.ShouldBeEquivalentTo(dto.LastModified);
         entity.Active.ShouldBeEquivalentTo(dto.Active);
@@ -127,7 +129,7 @@ public class ToEntity
         var user = A.Fake<ClaimsPrincipal>();
 
         // act & assert
-        Assert.Throws<ArgumentNullException>(() => dto!.ToEntity(user));
+        Assert.Throws<ArgumentNullException>(() => dto!.ToEntity());
     }
 
     [Fact]

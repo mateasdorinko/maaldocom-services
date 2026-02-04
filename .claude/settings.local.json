@@ -7,7 +7,16 @@
       "WebFetch(domain:github.com)",
       "WebFetch(domain:blog.scalar.com)",
       "WebFetch(domain:fast-endpoints.com)",
-      "WebFetch(domain:api-ref.fast-endpoints.com)"
+      "WebFetch(domain:api-ref.fast-endpoints.com)",
+      "Bash(\"/mnt/c/Program Files/dotnet/dotnet.exe\" user-secrets list:*)",
+      "Bash(gh issue view:*)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(gh pr view:*)",
+      "Bash(python3:*)",
+      "Bash(gh api:*)",
+      "Bash(\"/mnt/c/Program Files/dotnet/dotnet.exe\" build --no-restore /mnt/c/Users/maaldo/repos/maaldocom-services)",
+      "Bash(\"/mnt/c/Program Files/dotnet/dotnet.exe\" build --no-restore)",
+      "Bash(\"/mnt/c/Program Files/dotnet/dotnet.exe\" test --no-build)"
     ]
   }
 }

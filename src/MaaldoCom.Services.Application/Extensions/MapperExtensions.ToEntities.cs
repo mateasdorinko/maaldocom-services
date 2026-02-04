@@ -6,14 +6,14 @@ public static partial class MapperExtensions
     {
         ArgumentNullException.ThrowIfNull(dtos);
 
-        return dtos.Select(e => e.ToEntity(user)).ToList();
+        return dtos.Select(e => e.ToEntity()).ToList();
     }
 
     public static IEnumerable<Media> ToEntities(this IEnumerable<MediaDto> dtos, ClaimsPrincipal user)
     {
         ArgumentNullException.ThrowIfNull(dtos);
 
-        return dtos.Select(e => e.ToEntity(user)).ToList();
+        return dtos.Select(e => e.ToEntity()).ToList();
     }
 
     public static IEnumerable<Tag> ToEntities(this IEnumerable<TagDto> dtos)

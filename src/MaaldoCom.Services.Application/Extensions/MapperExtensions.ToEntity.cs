@@ -14,12 +14,12 @@ public static partial class MapperExtensions
 
     extension<TEntity>(TEntity entity) where TEntity : BaseAuditableEntity
     {
-        private TEntity MapToBaseAuditableEntity<TDto>(TDto dto, ClaimsPrincipal user) where TDto : BaseDto
+        private TEntity MapToBaseAuditableEntity<TDto>(TDto dto) where TDto : BaseDto
         {
             entity.MapToBaseEntity(dto);
 
             entity.Created = dto.Created;
-            entity.CreatedBy = user.GetUserId();
+            entity.CreatedBy = dto.CreatedBy;
             entity.LastModified = dto.LastModified;
             entity.LastModifiedBy = dto.LastModifiedBy;
             entity.Active = dto.Active;
@@ -28,11 +28,11 @@ public static partial class MapperExtensions
         }
     }
 
-    public static MediaAlbum ToEntity(this MediaAlbumDto dto, ClaimsPrincipal user)
+    public static MediaAlbum ToEntity(this MediaAlbumDto dto)
     {
         ArgumentNullException.ThrowIfNull(dto);
 
-        var entity = new MediaAlbum().MapToBaseAuditableEntity(dto, user);
+        var entity = new MediaAlbum().MapToBaseAuditableEntity(dto);
 
         entity.Name = dto.Name;
         entity.UrlFriendlyName = dto.UrlFriendlyName;
@@ -52,18 +52,18 @@ public static partial class MapperExtensions
             entity.Media = new List<Media>();
             foreach (var mediaDto in dto.Media)
             {
-                entity.Media.Add(mediaDto.ToEntity(user));
+                entity.Media.Add(mediaDto.ToEntity());
             }
         }
 
         return entity;
     }
 
-    public static Media ToEntity(this MediaDto dto, ClaimsPrincipal user)
+    public static Media ToEntity(this MediaDto dto)
     {
         ArgumentNullException.ThrowIfNull(dto);
 
-        var entity = new Media().MapToBaseAuditableEntity(dto, user);
+        var entity = new Media().MapToBaseAuditableEntity(dto);
 
         entity.MediaAlbumId = dto.MediaAlbumId;
         entity.FileName = dto.FileName;
