@@ -37,7 +37,7 @@ public sealed class CreateMediaAlbumMetaFilesCommand(IMediaMetaDataCreator media
             Description = string.Empty,
             Created = new DateTimeOffset(now.Year, now.Month, now.Day, 12, 0, 0, TimeSpan.Zero),
             Tags = [],
-            Media = mediaAlbumFolder.GetFiles().Select(f => new PostMediumRequest
+            Media = mediaAlbumFolder.GetFiles().Select(f => new PostMediaRequest
             {
                 FileName = f.Name,
                 Description = string.Empty,

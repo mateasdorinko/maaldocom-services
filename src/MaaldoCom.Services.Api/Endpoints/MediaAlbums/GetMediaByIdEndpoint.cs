@@ -7,7 +7,7 @@ public class GetMediaByIdEndpoint : Endpoint<GetMediaByIdRequest, GetMediaRespon
 {
     public override void Configure()
     {
-        Get(UrlMaker.GetMediaUrl("{mediaAlbumId:guid}", "{mediaId:guid}"));
+        Get("/asdfasdf");
         Description(x => x
             .WithName("GetMediaById")
             .WithSummary("Gets a media item by its unique identifier within a media album."));

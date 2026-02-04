@@ -15,14 +15,10 @@ public class CacheManager : ICacheManager
     private IMaaldoComDbContext MaaldoComDbContext { get; }
     private HybridCache HybridCache { get; }
 
-    private const string MediaAlbumListCacheKey = "mediaalbums";
-    private const string KnowledgeListCacheKey = "knowledge";
-    private const string TagListCacheKey = "tags";
-
     public async Task<IEnumerable<MediaAlbumDto>> ListMediaAlbumsAsync(CancellationToken cancellationToken)
     {
         var mediaAlbums = await HybridCache.GetOrCreateAsync<IEnumerable<MediaAlbumDto>>(
-            MediaAlbumListCacheKey,
+            CacheKeys.MediaAlbumList,
             async _ => await ListMediaAlbumsFromDbAsync(cancellationToken), cancellationToken: cancellationToken);
 
         return mediaAlbums;
@@ -35,7 +31,7 @@ public class CacheManager : ICacheManager
         if (cachedMediaAlbum == null) { return null; }
 
         var mediaAlbumDetail = await HybridCache.GetOrCreateAsync<MediaAlbumDto>(
-            GetDetailCacheKey(MediaAlbumListCacheKey, id),
+            GetDetailCacheKey(CacheKeys.MediaAlbumList, id),
             async _ => await GetMediaAlbumDetailFromDbAsync(id, cancellationToken),
             cancellationToken: cancellationToken);
 
@@ -45,7 +41,7 @@ public class CacheManager : ICacheManager
     public async Task<IEnumerable<TagDto>> ListTagsAsync(CancellationToken cancellationToken)
     {
         var tags = await HybridCache.GetOrCreateAsync(
-            TagListCacheKey,
+            CacheKeys.TagList,
             async _ => await ListTagsFromDbAsync(cancellationToken), cancellationToken: cancellationToken);
 
         return tags;
@@ -58,7 +54,7 @@ public class CacheManager : ICacheManager
         if (cachedTag == null) { return null; }
 
         var tagDetail = await HybridCache.GetOrCreateAsync<TagDto>(
-            GetDetailCacheKey(TagListCacheKey, id),
+            GetDetailCacheKey(CacheKeys.TagList, id),
             async _ => await GetTagDetailFromDbAsync(id, cancellationToken),
             cancellationToken: cancellationToken);
 
@@ -68,7 +64,7 @@ public class CacheManager : ICacheManager
     public async Task<IEnumerable<KnowledgeDto>> ListKnowledgeAsync(CancellationToken cancellationToken)
     {
         var knowledge = await HybridCache.GetOrCreateAsync(
-            KnowledgeListCacheKey,
+            CacheKeys.KnowledgeList,
             async _ => await ListKnowledgeFromDbAsync(cancellationToken), cancellationToken: cancellationToken);
 
         return knowledge;
@@ -92,6 +88,8 @@ public class CacheManager : ICacheManager
         var entities = await MaaldoComDbContext.MediaAlbums
             .Include(ma => ma.MediaAlbumTags)
             .ThenInclude(mat => mat.Tag)
+            .Include(ma => ma.Media.OrderBy(m => m.Created).Take(1))
+            .AsSplitQuery()
             .ToListAsync(cancellationToken);
 
         return entities.ToDtos();
@@ -105,6 +103,7 @@ public class CacheManager : ICacheManager
             .Include(ma => ma.Media.OrderBy(m => m.Created))
             .ThenInclude(m => m.MediaTags)
             .ThenInclude(mt => mt.Tag)
+            .AsSplitQuery()
             .FirstOrDefaultAsync(ma => ma.Id == id, cancellationToken);
 
         return entity!.ToDto();

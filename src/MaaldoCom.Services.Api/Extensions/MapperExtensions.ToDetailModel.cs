@@ -20,6 +20,7 @@ public static partial class MapperExtensions
         model.Active = dto.Active;
         model.Media = dto.Media.Select(m => m.ToGetModel()).ToList();
         model.Tags = dto.Tags.Select(m => m.Name!).ToList();
+        model.DefaultMediaId = dto.DefaultMediaId;
 
         return model;
     }

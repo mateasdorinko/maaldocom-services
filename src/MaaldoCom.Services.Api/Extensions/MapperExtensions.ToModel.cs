@@ -28,6 +28,7 @@ public static partial class MapperExtensions
         model.UrlFriendlyName = dto.UrlFriendlyName;
         model.Created = dto.Created;
         model.Tags = dto.Tags.Select(m => m.Name!).ToList();
+        model.DefaultMediaId = dto.DefaultMediaId;
 
         return model;
     }
@@ -42,7 +43,6 @@ public static partial class MapperExtensions
         model.Description = dto.Description;
         model.SizeInBytes = dto.SizeInBytes;
         model.Tags = dto.Tags?.Select(m => m.Name!).ToList()!;
-        model.BlobUrl = dto.BlobUrl;
 
         model.MediaAlbumId = dto.MediaAlbumId;
 

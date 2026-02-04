@@ -1,6 +1,3 @@
-using MaaldoCom.Services.Application.Dtos;
-using MaaldoCom.Services.Domain.Entities;
-
 namespace MaaldoCom.Services.Application.Extensions;
 
 public static partial class MapperExtensions
@@ -39,6 +36,7 @@ public static partial class MapperExtensions
         dto.Description = entity.Description;
         dto.Tags = entity.MediaAlbumTags?.Select(t => t.Tag.ToDto()).ToList()!;
         dto.Media = entity.Media?.Select(m => m.ToDto()).ToList()!;
+        dto.DefaultMediaId = entity.Media?.FirstOrDefault()?.Id ?? Guid.Empty;
 
         return dto;
     }

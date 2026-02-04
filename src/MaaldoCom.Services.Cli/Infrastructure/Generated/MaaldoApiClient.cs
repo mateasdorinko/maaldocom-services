@@ -416,12 +416,12 @@ namespace MaaldoCom.Services.Cli.Infrastructure
         public ICollection<string> Tags { get; set; }
 
         [JsonPropertyName("media")]
-        public ICollection<PostMediumRequest> Media { get; set; }
+        public ICollection<PostMediaRequest> Media { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class PostMediumRequest
+    public partial class PostMediaRequest
     {
 
         [JsonPropertyName("fileName")]
