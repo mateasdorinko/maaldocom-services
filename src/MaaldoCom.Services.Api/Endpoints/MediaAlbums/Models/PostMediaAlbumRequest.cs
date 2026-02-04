@@ -18,5 +18,5 @@ public class PostMediaAlbumRequest
     public IEnumerable<string> Tags { get; set; } = [];
 
     [JsonPropertyOrder(6)]
-    public IEnumerable<PostMediumRequest> Media { get; set; } = [];
+    public IEnumerable<PostMediaRequest> Media { get; set; } = [];
 }

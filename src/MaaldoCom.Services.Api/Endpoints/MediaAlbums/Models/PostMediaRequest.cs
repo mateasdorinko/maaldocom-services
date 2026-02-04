@@ -1,6 +1,6 @@
 namespace MaaldoCom.Services.Api.Endpoints.MediaAlbums.Models;
 
-public class PostMediumRequest
+public class PostMediaRequest
 {
     [JsonPropertyOrder(1)]
     public string? FileName { get; set; }

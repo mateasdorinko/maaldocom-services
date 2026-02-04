@@ -1,4 +1,5 @@
 ﻿using MaaldoCom.Services.Api.Endpoints.MediaAlbums.Models;
+using MaaldoCom.Services.Application.Commands.MediaAlbums;
 
 namespace MaaldoCom.Services.Api.Endpoints.MediaAlbums;
 
@@ -15,8 +16,10 @@ public class PostMediaAlbumEndpoint : Endpoint<PostMediaAlbumRequest, PostMediaA
 
     public override async Task HandleAsync(PostMediaAlbumRequest req, CancellationToken ct)
     {
-        var response = new PostMediaAlbumResponse();
-        
+        var dto = req.ToDto();
+        var result = await new CreateMediaAlbumCommand(User, dto).ExecuteAsync(ct);
+        var response = result.Value.ToModel();
+
         await Send.CreatedAtAsync(string.Empty, response, cancellation: ct);
     }
 }

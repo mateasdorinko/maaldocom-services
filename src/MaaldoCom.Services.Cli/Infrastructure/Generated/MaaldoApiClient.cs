@@ -412,11 +412,11 @@ namespace MaaldoCom.Services.Cli.Infrastructure
         [JsonPropertyName("description")]
         public string Description { get; set; }
 
-        [JsonPropertyName("media")]
-        public ICollection<PostMediumRequest> Media { get; set; }
-
         [JsonPropertyName("tags")]
         public ICollection<string> Tags { get; set; }
+
+        [JsonPropertyName("media")]
+        public ICollection<PostMediumRequest> Media { get; set; }
 
     }
 

@@ -1,6 +1,6 @@
 ﻿namespace MaaldoCom.Services.Domain.MediaAlbums;
 
-public static class FileHelper
+public static class MediaAlbumHelper
 {
     public static bool IsPic(FileInfo file)
     {
@@ -23,5 +23,18 @@ public static class FileHelper
 
         // replace file
         file.MoveTo($"{file.DirectoryName}\\{newName}", true);
+    }
+
+    public static string GetNameFromFolder(string folderName)
+    {
+        var parts = folderName.Split(['-'], StringSplitOptions.RemoveEmptyEntries);
+
+        var words = parts.Select(p =>
+        {
+            var lower = p.ToLowerInvariant();
+            return char.ToUpperInvariant(lower[0]) + (lower.Length > 1 ? lower.Substring(1) : string.Empty);
+        });
+
+        return string.Join(" ", words);
     }
 }

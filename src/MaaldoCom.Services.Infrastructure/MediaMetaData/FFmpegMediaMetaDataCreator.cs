@@ -17,10 +17,10 @@ public class FFmpegMediaMetaDataCreator : IMediaMetaDataCreator
 
         foreach (var file in mediaAlbumFiles)
         {
-            FileHelper.SanitizeFileName(file);
+            MediaAlbumHelper.SanitizeFileName(file);
 
-            if (FileHelper.IsPic(file)) { await CreatePicMetaFilesAsync(file, mediaAlbumFolderPath); }
-            if (FileHelper.IsVid(file)) { await CreateVidMetaFileAsync(file, mediaAlbumFolderPath); }
+            if (MediaAlbumHelper.IsPic(file)) { await CreatePicMetaFilesAsync(file, mediaAlbumFolderPath); }
+            if (MediaAlbumHelper.IsVid(file)) { await CreateVidMetaFileAsync(file, mediaAlbumFolderPath); }
 
             Console.WriteLine($"Processed: {file.FullName}");
 

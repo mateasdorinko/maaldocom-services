@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using MaaldoCom.Services.Application.MediaMetaData;
+using MaaldoCom.Services.Domain.MediaAlbums;
 
 namespace MaaldoCom.Services.Cli.Commands;
 
@@ -31,7 +32,7 @@ public sealed class CreateMediaAlbumMetaFilesCommand(IMediaMetaDataCreator media
 
         var postRequest = new PostMediaAlbumRequest
         {
-            Name = mediaAlbumFolder.Name,
+            Name = MediaAlbumHelper.GetNameFromFolder(mediaAlbumFolder.Name),
             UrlFriendlyName = mediaAlbumFolder.Name,
             Description = string.Empty,
             Created = new DateTimeOffset(now.Year, now.Month, now.Day, 12, 0, 0, TimeSpan.Zero),

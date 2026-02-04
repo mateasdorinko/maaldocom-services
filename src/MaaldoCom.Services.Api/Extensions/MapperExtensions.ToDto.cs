@@ -13,11 +13,11 @@ public static partial class MapperExtensions
         private TDto MapFromBaseModel<TEntity>(TEntity model) where TEntity : BaseModel
         {
             dto.Id = model.Id;
-        
+
             return dto;
         }
     }
-    
+
     public static MediaAlbumDto ToDto(this GetMediaAlbumResponse model)
     {
         ArgumentNullException.ThrowIfNull(model);
@@ -50,6 +50,23 @@ public static partial class MapperExtensions
         return dto;
     }
 
+    public static MediaAlbumDto ToDto(this PostMediaAlbumRequest model)
+    {
+        ArgumentNullException.ThrowIfNull(model);
+
+        var dto = new MediaAlbumDto
+        {
+            Name = model.Name,
+            UrlFriendlyName = model.UrlFriendlyName,
+            Created = model.Created,
+            Description = model.Description,
+            Tags = model.Tags.Select(t => new TagDto { Name = t }).ToList(),
+            Media = model.Media.Select(m => m.ToDto()).ToList()
+        };
+
+        return dto;
+    }
+
     public static MediaDto ToDto(this GetMediaResponse model)
     {
         ArgumentNullException.ThrowIfNull(model);
@@ -63,12 +80,28 @@ public static partial class MapperExtensions
         return dto;
     }
 
+    public static MediaDto ToDto(this PostMediaRequest model)
+    {
+        ArgumentNullException.ThrowIfNull(model);
+
+        var dto = new MediaDto
+        {
+            FileName = model.FileName,
+            Description = model.Description,
+            SizeInBytes = model.SizeInBytes,
+            FileExtension = model.FileExtension,
+            Tags = model.Tags.Select(m => new TagDto { Name = m }).ToList()
+        };
+
+        return dto;
+    }
+
     public static TagDto ToDto(this GetTagResponse model)
     {
         ArgumentNullException.ThrowIfNull(model);
 
         var dto = new TagDto().MapFromBaseModel(model);
-        
+
         dto.Name = model.Name;
 
         return dto;
