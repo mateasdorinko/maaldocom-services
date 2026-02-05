@@ -21,7 +21,14 @@ public class GetMediaByIdEndpoint : Endpoint<GetMediaByIdRequest, GetMediaRespon
         var result = await new GetMediaBlobQuery(User, req.MediaAlbumId, req.MediaId, req.MediaType).ExecuteAsync(ct);
 
         await result.Match(
-            onSuccess: _ => Send.StreamAsync(result.Value.Stream!, result.Value.FileName, result.Value.SizeInBytes, result.Value.ContentType!, cancellation: ct),
+            onSuccess: async _ =>
+            {
+                await using var stream = result.Value.Stream!;
+                // pass filename only for download (sets Content-Disposition: attachment)
+                // pass null for viewer/thumb to stream inline (no Content-Disposition header)
+                var fileName = req.MediaType == "original" ? result.Value.FileName : null;
+                await Send.StreamAsync(stream, fileName, result.Value.SizeInBytes, result.Value.ContentType!, cancellation: ct);
+            },
             onFailure: _ => Send.NotFoundAsync(ct)
         );
     }
