@@ -19,7 +19,7 @@ public class AzureStorageBlobsProvider(string storageAccountConnectionString) : 
         return new MediaDto
         {
             Stream = stream,
-            FileName = blobClient.Name,
+            FileName = blobName,
             ContentType = properties.Value.ContentType ?? "application/octet-stream",
             SizeInBytes = properties.Value.ContentLength
         };
