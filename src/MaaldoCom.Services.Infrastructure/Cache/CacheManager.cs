@@ -86,9 +86,11 @@ public class CacheManager : ICacheManager
     private async Task<IEnumerable<MediaAlbumDto>> ListMediaAlbumsFromDbAsync(CancellationToken cancellationToken)
     {
         var entities = await MaaldoComDbContext.MediaAlbums
+            .Where(ma => ma.Active && ma.UrlFriendlyName != "hotshots")
             .Include(ma => ma.MediaAlbumTags)
             .ThenInclude(mat => mat.Tag)
             .Include(ma => ma.Media.OrderBy(m => m.Created).Take(1))
+            .OrderByDescending(ma => ma.Created)
             .AsSplitQuery()
             .ToListAsync(cancellationToken);
 
@@ -100,7 +102,7 @@ public class CacheManager : ICacheManager
         var entity = await MaaldoComDbContext.MediaAlbums
             .Include(ma => ma.MediaAlbumTags)
             .ThenInclude(mat => mat.Tag)
-            .Include(ma => ma.Media.OrderBy(m => m.Created))
+            .Include(ma => ma.Media.Where(m => m.Active).OrderBy(m => m.Created))
             .ThenInclude(m => m.MediaTags)
             .ThenInclude(mt => mt.Tag)
             .AsSplitQuery()

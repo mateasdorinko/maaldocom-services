@@ -2,7 +2,7 @@
 
 public class SanitizeFileName
 {
-    [Fact(Skip = "Not implemented")]
+    [Fact(Skip = "Scaffolded, but not implemented yet")]
     public void SanitizeFileName_WithUnderScores_ReplacedWithDashes()
     {
         // arrange
@@ -14,7 +14,7 @@ public class SanitizeFileName
         x.ShouldBe(true);
     }
 
-    [Fact(Skip = "Not implemented")]
+    [Fact(Skip = "Scaffolded, but not implemented yet")]
     public void SanitizeFileName_WithUpperCase_ReplacedWithLowerCase()
     {
         // arrange

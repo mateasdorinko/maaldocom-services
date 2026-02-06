@@ -64,9 +64,7 @@ builder.Services
                         Scopes = new Dictionary<string, string>
                         {
                             { "openid", "OpenID Connect" },
-                            { "profile", "User profile" },
-                            { "write:media-albums", "Create media albums" },
-                            { "read:runtime-info", "Reads runtime info" }
+                            { "profile", "User profile" }
                         }
                     }
                 }

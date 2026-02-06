@@ -2,8 +2,8 @@
 
 public class HandleAsync
 {
-    [Fact(Skip = "Not implemented yet")]
-    public async Task HandleAsync_x_y()
+    [Fact(Skip = "Scaffolded, but not implemented yet")]
+    public async Task HandleAsync_CONDITION_EXPECTATION()
     {
         // arrange
 
