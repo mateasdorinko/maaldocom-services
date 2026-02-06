@@ -11,7 +11,6 @@ public class GetRuntimeInfoEndpoint : EndpointWithoutRequest
         Description(x => x
             .WithName("GetRuntimeInfo")
             .WithSummary("Gets runtime info"));
-        AllowAnonymous();
     }
 
     public override async Task HandleAsync(CancellationToken ct)
