@@ -11,11 +11,11 @@ public class GetMediaAlbumByNameEndpoint : Endpoint<GetMediaAlbumByNameRequest, 
         Description(x => x
             .WithName("GetMediaAlbumByName")
             .WithSummary("Gets a media album by its name and associated media items."));
-        ResponseCache(60);
+        ResponseCache(1200); // 20 minutes
         AllowAnonymous();
         Description(b => b.Produces(StatusCodes.Status404NotFound));
     }
-    
+
     public override async Task HandleAsync(GetMediaAlbumByNameRequest req, CancellationToken ct)
     {
         var result = await new GetMediaAlbumDetailQuery(User, req.Name).ExecuteAsync(ct);

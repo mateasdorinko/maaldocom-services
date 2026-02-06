@@ -84,7 +84,7 @@ public class CacheManager : ICacheManager
         await ListMediaAlbumsAsync(cancellationToken);
         await ListTagsAsync(cancellationToken);
         await ListKnowledgeAsync(cancellationToken);
-
+        await GetHotshotsMediaAlbumDetailAsync(cancellationToken);
     }
 
     public async Task InvalidateCache(string cacheKey, CancellationToken cancellationToken)
