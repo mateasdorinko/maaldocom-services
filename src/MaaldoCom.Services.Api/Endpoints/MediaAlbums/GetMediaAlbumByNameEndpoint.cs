@@ -21,7 +21,11 @@ public class GetMediaAlbumByNameEndpoint : Endpoint<GetMediaAlbumByNameRequest, 
         var result = await new GetMediaAlbumDetailQuery(User, req.Name).ExecuteAsync(ct);
 
         await result.Match(
-            onSuccess: _ => Send.OkAsync(result.Value.ToDetailModel(), ct),
+            onSuccess: _ =>
+            {
+                result.Value.Media = result.Value.Media.Where(m => m.Active).ToList();
+                return Send.OkAsync(result.Value.ToDetailModel(), ct);
+            },
             onFailure: _ => Send.NotFoundAsync(ct)
         );
     }

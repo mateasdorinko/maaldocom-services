@@ -20,7 +20,7 @@ public class MaaldoComDbContext(DbContextOptions<MaaldoComDbContext> options) : 
             {
                 case EntityState.Added:
                     entry.Entity.CreatedBy = user?.GetUserId() ?? entry.Entity.CreatedBy;
-                    entry.Entity.Created = now;
+                    if (entry.Entity.Created == default) { entry.Entity.Created = now; }
                     entry.Entity.LastModified = now;
                     entry.Entity.LastModifiedBy = user?.GetUserId() ?? entry.Entity.CreatedBy;
                     break;
@@ -49,11 +49,11 @@ public class MaaldoComDbContext(DbContextOptions<MaaldoComDbContext> options) : 
 
     public void DisableChangeTracking() => ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
     public void EnableChangeTracking() => ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.TrackAll;
-    
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(MaaldoComDbContext).Assembly);
-        
+
         base.OnModelCreating(modelBuilder);
     }
 }
