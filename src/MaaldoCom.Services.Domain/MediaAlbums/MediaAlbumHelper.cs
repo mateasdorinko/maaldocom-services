@@ -8,8 +8,14 @@ public static class MediaAlbumHelper
     public static bool IsPic(FileInfo file)
         => picExtensions.Contains(file.Extension, StringComparer.OrdinalIgnoreCase);
 
+    public static bool IsPic(string fileName)
+        => picExtensions.Contains(Path.GetExtension(fileName), StringComparer.OrdinalIgnoreCase);
+
     public static bool IsVid(FileInfo file)
         => vidExtensions.Contains(file.Extension, StringComparer.OrdinalIgnoreCase);
+
+    public static bool IsVid(string fileName)
+        => vidExtensions.Contains(Path.GetExtension(fileName), StringComparer.OrdinalIgnoreCase);
 
     public static void SanitizeFileName(FileInfo file)
     {
@@ -35,12 +41,15 @@ public static class MediaAlbumHelper
         return string.Join(" ", words);
     }
 
-    public static string GetMetaFileExtension(string fileName)
+    // this is crap... refactor at some point
+    public static string GetThumbnailMetaFile(string originalFileName)
     {
-        var currentExtension = Path.GetExtension(fileName);
+        var currentExtension = Path.GetExtension(originalFileName);
+        var thumbNailFile = vidExtensions.Contains(currentExtension, StringComparer.OrdinalIgnoreCase)
+            ? Path.ChangeExtension(originalFileName, ".jpg")
+            : originalFileName;
+        var prefixedThumbNailFile = $"{Constants.ThumbnailFolderName}-{thumbNailFile}";
 
-        return !picExtensions.Contains(currentExtension, StringComparer.OrdinalIgnoreCase) ?
-            Path.ChangeExtension(fileName, ".jpg") :
-            fileName;
+        return prefixedThumbNailFile;
     }
 }
