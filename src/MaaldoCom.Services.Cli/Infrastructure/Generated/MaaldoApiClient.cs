@@ -86,6 +86,12 @@ namespace MaaldoCom.Services.Cli.Infrastructure
         [Get("/system/runtime-info")]
         Task GetRuntimeInfo();
 
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">Thrown when the request returns a non-success status code.</exception>
+        [Headers("Accept: application/json")]
+        [Get("/media-albums/hotshots")]
+        Task<GetMediaAlbumDetailResponse> GetHotshotsMediaAlbum();
+
         /// <param name="id">id parameter</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">

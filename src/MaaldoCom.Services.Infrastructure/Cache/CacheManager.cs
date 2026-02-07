@@ -110,7 +110,7 @@ public class CacheManager : ICacheManager
         var entity = await MaaldoComDbContext.MediaAlbums
             .Include(ma => ma.MediaAlbumTags)
             .ThenInclude(mat => mat.Tag)
-            .Include(ma => ma.Media.OrderBy(m => m.Created))
+            .Include(ma => ma.Media.OrderBy(m => m.FileName))
             .ThenInclude(m => m.MediaTags)
             .ThenInclude(mt => mt.Tag)
             .AsSplitQuery()
@@ -125,7 +125,7 @@ public class CacheManager : ICacheManager
             .Where(ma => ma.UrlFriendlyName == "hotshots")
             .Include(ma => ma.MediaAlbumTags)
             .ThenInclude(mat => mat.Tag)
-            .Include(ma => ma.Media.OrderBy(m => m.Created))
+            .Include(ma => ma.Media.OrderBy(m => m.FileName))
             .ThenInclude(m => m.MediaTags)
             .ThenInclude(mt => mt.Tag)
             .AsSplitQuery()
