@@ -4,6 +4,9 @@ namespace MaaldoCom.Services.Infrastructure.Cache;
 
 public class CacheManager : ICacheManager
 {
+    private IMaaldoComDbContext MaaldoComDbContext { get; }
+    private HybridCache HybridCache { get; }
+
     public CacheManager(IMaaldoComDbContext maaldoComDbContext, HybridCache hybridCache)
     {
         MaaldoComDbContext = maaldoComDbContext;
@@ -12,16 +15,25 @@ public class CacheManager : ICacheManager
         MaaldoComDbContext.DisableChangeTracking();
     }
 
-    private IMaaldoComDbContext MaaldoComDbContext { get; }
-    private HybridCache HybridCache { get; }
-
     public async Task<IEnumerable<MediaAlbumDto>> ListMediaAlbumsAsync(CancellationToken cancellationToken)
     {
         var mediaAlbums = await HybridCache.GetOrCreateAsync<IEnumerable<MediaAlbumDto>>(
             CacheKeys.MediaAlbumList,
-            async _ => await ListMediaAlbumsFromDbAsync(cancellationToken), cancellationToken: cancellationToken);
+            async _ => await GetFromDbAsync(), cancellationToken: cancellationToken);
 
         return mediaAlbums;
+
+        async Task<IEnumerable<MediaAlbumDto>> GetFromDbAsync()
+        {
+            var entities = await MaaldoComDbContext.MediaAlbums.Include(ma => ma.MediaAlbumTags)
+                .ThenInclude(mat => mat.Tag)
+                .Include(ma => ma.Media.OrderBy(m => m.Created).Take(1))
+                .OrderByDescending(ma => ma.Created)
+                .AsSplitQuery()
+                .ToListAsync(cancellationToken);
+
+            return entities.ToDtos();
+        }
     }
 
     public async Task<MediaAlbumDto?> GetMediaAlbumDetailAsync(Guid id, CancellationToken cancellationToken)
@@ -32,28 +44,73 @@ public class CacheManager : ICacheManager
 
         var mediaAlbumDetail = await HybridCache.GetOrCreateAsync<MediaAlbumDto>(
             GetDetailCacheKey(CacheKeys.MediaAlbumList, id),
-            async _ => await GetMediaAlbumDetailFromDbAsync(id, cancellationToken),
+            async _ => await GetFromDbAsync(),
             cancellationToken: cancellationToken);
 
         return mediaAlbumDetail;
+
+        async Task<MediaAlbumDto> GetFromDbAsync()
+        {
+            var entity = await MaaldoComDbContext.MediaAlbums
+                .Include(ma => ma.MediaAlbumTags)
+                .ThenInclude(mat => mat.Tag)
+                .Include(ma => ma.Media.OrderBy(m => m.FileName))
+                .ThenInclude(m => m.MediaTags)
+                .ThenInclude(mt => mt.Tag)
+                .AsSplitQuery()
+                .FirstOrDefaultAsync(ma => ma.Id == id, cancellationToken);
+
+            return entity!.ToDto();
+        }
     }
 
     public async Task<MediaAlbumDto?> GetHotshotsMediaAlbumDetailAsync(CancellationToken cancellationToken)
     {
         var mediaAlbums = await HybridCache.GetOrCreateAsync<MediaAlbumDto>(
             $"{CacheKeys.MediaAlbumList}:hotshots",
-            async _ => await GetHotshotsMediaAlbumDetailFromDbAsync(cancellationToken), cancellationToken: cancellationToken);
+            async _ => await GetFromDbAsync(), cancellationToken: cancellationToken);
 
         return mediaAlbums;
+
+        async Task<MediaAlbumDto> GetFromDbAsync()
+        {
+            var entity = await MaaldoComDbContext.MediaAlbums
+                .Where(ma => ma.UrlFriendlyName == "hotshots")
+                .Include(ma => ma.MediaAlbumTags)
+                .ThenInclude(mat => mat.Tag)
+                .Include(ma => ma.Media.OrderBy(m => m.FileName))
+                .ThenInclude(m => m.MediaTags)
+                .ThenInclude(mt => mt.Tag)
+                .AsSplitQuery()
+                .FirstOrDefaultAsync(cancellationToken);
+
+            var dto = entity!.ToDto();
+
+            var taggedMedia = await MaaldoComDbContext.Media
+                .Where(m => m.MediaAlbumId != entity!.Id && m.MediaTags.Any(mt => mt.Tag.Name == "hotshots"))
+                .OrderBy(m => m.Created)
+                .ToListAsync(cancellationToken);
+
+            foreach (var media in taggedMedia) { dto.Media.Add(media.ToDto()); }
+
+            return dto;
+        }
     }
 
     public async Task<IEnumerable<TagDto>> ListTagsAsync(CancellationToken cancellationToken)
     {
         var tags = await HybridCache.GetOrCreateAsync(
             CacheKeys.TagList,
-            async _ => await ListTagsFromDbAsync(cancellationToken), cancellationToken: cancellationToken);
+            async _ => await GetFromDbAsync(), cancellationToken: cancellationToken);
 
         return tags;
+
+        async Task<IEnumerable<TagDto>> GetFromDbAsync()
+        {
+            var entities = await MaaldoComDbContext.Tags.ToListAsync(cancellationToken);
+
+            return entities.ToDtos();
+        }
     }
 
     public async Task<TagDto?> GetTagDetailAsync(Guid id, CancellationToken cancellationToken)
@@ -64,19 +121,41 @@ public class CacheManager : ICacheManager
 
         var tagDetail = await HybridCache.GetOrCreateAsync<TagDto>(
             GetDetailCacheKey(CacheKeys.TagList, id),
-            async _ => await GetTagDetailFromDbAsync(id, cancellationToken),
+            async _ => await GetFromDbAsync(),
             cancellationToken: cancellationToken);
 
         return tagDetail;
+
+        async Task<TagDto> GetFromDbAsync()
+        {
+            var entity = await MaaldoComDbContext.Tags
+                .Where(t => t.Id == id)
+                .Include(t => t.MediaAlbumTags)
+                .ThenInclude(mat => mat.MediaAlbum)
+                .Include(t => t.MediaTags)
+                .ThenInclude(mt => mt.Media)
+                .ThenInclude(m => m.MediaAlbum)
+                .AsSplitQuery()
+                .FirstOrDefaultAsync(cancellationToken);
+
+            return entity!.ToDto();
+        }
     }
 
     public async Task<IEnumerable<KnowledgeDto>> ListKnowledgeAsync(CancellationToken cancellationToken)
     {
         var knowledge = await HybridCache.GetOrCreateAsync(
             CacheKeys.KnowledgeList,
-            async _ => await ListKnowledgeFromDbAsync(cancellationToken), cancellationToken: cancellationToken);
+            async _ => await GetFromDbAsync(), cancellationToken: cancellationToken);
 
         return knowledge;
+
+        async Task<IEnumerable<KnowledgeDto>> GetFromDbAsync()
+        {
+            var entities = await MaaldoComDbContext.Knowledge.ToListAsync(cancellationToken);
+
+            return entities.ToDtos();
+        }
     }
 
     public async Task RefreshCacheAsync(CancellationToken cancellationToken)
@@ -87,88 +166,7 @@ public class CacheManager : ICacheManager
         await GetHotshotsMediaAlbumDetailAsync(cancellationToken);
     }
 
-    public async Task InvalidateCache(string cacheKey, CancellationToken cancellationToken)
-        => await HybridCache.RemoveAsync(cacheKey, cancellationToken);
+    public async Task InvalidateCache(string cacheKey, CancellationToken cancellationToken) => await HybridCache.RemoveAsync(cacheKey, cancellationToken);
 
     private static string GetDetailCacheKey(string listCacheKey, Guid detailId) => $"{listCacheKey}:{detailId}";
-
-    private async Task<IEnumerable<MediaAlbumDto>> ListMediaAlbumsFromDbAsync(CancellationToken cancellationToken)
-    {
-        var entities = await MaaldoComDbContext.MediaAlbums
-            .Include(ma => ma.MediaAlbumTags)
-            .ThenInclude(mat => mat.Tag)
-            .Include(ma => ma.Media.OrderBy(m => m.Created).Take(1))
-            .OrderByDescending(ma => ma.Created)
-            .AsSplitQuery()
-            .ToListAsync(cancellationToken);
-
-        return entities.ToDtos();
-    }
-
-    private async Task<MediaAlbumDto> GetMediaAlbumDetailFromDbAsync(Guid id, CancellationToken cancellationToken)
-    {
-        var entity = await MaaldoComDbContext.MediaAlbums
-            .Include(ma => ma.MediaAlbumTags)
-            .ThenInclude(mat => mat.Tag)
-            .Include(ma => ma.Media.OrderBy(m => m.FileName))
-            .ThenInclude(m => m.MediaTags)
-            .ThenInclude(mt => mt.Tag)
-            .AsSplitQuery()
-            .FirstOrDefaultAsync(ma => ma.Id == id, cancellationToken);
-
-        return entity!.ToDto();
-    }
-
-    private async Task<MediaAlbumDto> GetHotshotsMediaAlbumDetailFromDbAsync(CancellationToken cancellationToken)
-    {
-        var entity = await MaaldoComDbContext.MediaAlbums
-            .Where(ma => ma.UrlFriendlyName == "hotshots")
-            .Include(ma => ma.MediaAlbumTags)
-            .ThenInclude(mat => mat.Tag)
-            .Include(ma => ma.Media.OrderBy(m => m.FileName))
-            .ThenInclude(m => m.MediaTags)
-            .ThenInclude(mt => mt.Tag)
-            .AsSplitQuery()
-            .FirstOrDefaultAsync(cancellationToken);
-
-        var dto = entity!.ToDto();
-
-        var taggedMedia = await MaaldoComDbContext.Media
-            .Where(m => m.MediaAlbumId != entity!.Id && m.MediaTags.Any(mt => mt.Tag.Name == "hotshots"))
-            .OrderBy(m => m.Created)
-            .ToListAsync(cancellationToken);
-
-        foreach (var media in taggedMedia) { dto.Media.Add(media.ToDto()); }
-
-        return dto;
-    }
-
-    private async Task<IEnumerable<TagDto>> ListTagsFromDbAsync(CancellationToken cancellationToken)
-    {
-        var entities = await MaaldoComDbContext.Tags.ToListAsync(cancellationToken);
-
-        return entities.ToDtos();
-    }
-
-    private async Task<TagDto> GetTagDetailFromDbAsync(Guid id, CancellationToken cancellationToken)
-    {
-        var entity = await MaaldoComDbContext.Tags
-            .Where(t => t.Id == id)
-            .Include(t => t.MediaAlbumTags)
-            .ThenInclude(mat => mat.MediaAlbum)
-            .Include(t => t.MediaTags)
-            .ThenInclude(mt => mt.Media)
-            .ThenInclude(m => m.MediaAlbum)
-            .AsSplitQuery()
-            .FirstOrDefaultAsync(cancellationToken);
-
-        return entity!.ToDto();
-    }
-
-    private async Task<IEnumerable<KnowledgeDto>> ListKnowledgeFromDbAsync(CancellationToken cancellationToken)
-    {
-        var entities = await MaaldoComDbContext.Knowledge.ToListAsync(cancellationToken);
-
-        return entities.ToDtos();
-    }
 }

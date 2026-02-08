@@ -8,5 +8,8 @@ public class GetRuntimeInfoResponse
     public bool Is64BitSystem { get; set; }
     public string? MachineName { get; set; }
     public string? OsVersion { get; set; }
+    public int ProcessId { get; set; }
+    public int ProcessorCount { get; set; }
+    public string? ProcessPath { get; set; }
     public string? User { get; set; }
 }

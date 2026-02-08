@@ -24,6 +24,9 @@ public class GetRuntimeInfoEndpoint : EndpointWithoutRequest
             Is64BitProcess = Environment.Is64BitProcess,
             MachineName = Environment.MachineName,
             OsVersion = Environment.OSVersion.ToString(),
+            ProcessId = Environment.ProcessId,
+            ProcessorCount = Environment.ProcessorCount,
+            ProcessPath = Environment.ProcessPath,
             User = User.GetUserId()
         };
 
