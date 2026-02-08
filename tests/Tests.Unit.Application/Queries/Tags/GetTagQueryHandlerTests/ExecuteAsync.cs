@@ -19,7 +19,7 @@ public class ExecuteAsync
         };
 
         var query = new GetTagQuery(user, tag.Id);
-        var handler = new GetTagQueryHandler(cacheManager);
+        var handler = new GetTagQueryHandler(cacheManager, NullLogger<GetTagQueryHandler>.Instance);
 
         A.CallTo(() => cacheManager.GetTagDetailAsync(tag.Id, ct)).Returns(tag);
 
@@ -40,7 +40,7 @@ public class ExecuteAsync
         var ct = CancellationToken.None;
 
         var query = new GetTagQuery(user, Guid.NewGuid());
-        var handler = new GetTagQueryHandler(cacheManager);
+        var handler = new GetTagQueryHandler(cacheManager, NullLogger<GetTagQueryHandler>.Instance);
 
         A.CallTo(() => cacheManager.GetTagDetailAsync(query.Id!.Value, ct)).Returns(default(TagDto));
 
@@ -68,7 +68,7 @@ public class ExecuteAsync
         };
 
         var query = new GetTagQuery(user, tag.Name!);
-        var handler = new GetTagQueryHandler(cacheManager);
+        var handler = new GetTagQueryHandler(cacheManager, NullLogger<GetTagQueryHandler>.Instance);
 
         A.CallTo(() => cacheManager.ListTagsAsync(ct)).Returns(new List<TagDto> { new(), new() });
 
@@ -97,7 +97,7 @@ public class ExecuteAsync
         };
 
         var query = new GetTagQuery(user, tag.Name!);
-        var handler = new GetTagQueryHandler(cacheManager);
+        var handler = new GetTagQueryHandler(cacheManager, NullLogger<GetTagQueryHandler>.Instance);
 
         A.CallTo(() => cacheManager.ListTagsAsync(ct)).Returns(new List<TagDto> { new(), tag, new() });
         A.CallTo(() => cacheManager.GetTagDetailAsync(tag.Id, ct)).Returns(tag);
@@ -125,7 +125,7 @@ public class ExecuteAsync
         };
 
         var query = new GetTagQuery(user, tag.Name!);
-        var handler = new GetTagQueryHandler(cacheManager);
+        var handler = new GetTagQueryHandler(cacheManager, NullLogger<GetTagQueryHandler>.Instance);
 
         A.CallTo(() => cacheManager.ListTagsAsync(ct)).Returns(new List<TagDto> { new(), tag, new() });
         A.CallTo(() => cacheManager.GetTagDetailAsync(tag.Id, ct)).Returns(default(TagDto));

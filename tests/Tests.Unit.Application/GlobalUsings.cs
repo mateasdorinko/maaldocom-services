@@ -4,5 +4,7 @@ global using MaaldoCom.Services.Application.Errors;
 global using MaaldoCom.Services.Application.Cache;
 global using MaaldoCom.Services.Application.Extensions;
 global using MaaldoCom.Services.Domain.Entities;
+global using Microsoft.Extensions.Logging;
+global using Microsoft.Extensions.Logging.Abstractions;
 global using Shouldly;
 global using System.Security.Claims;

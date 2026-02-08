@@ -5,8 +5,8 @@ public class GetKnowledgeQuery(ClaimsPrincipal user, Guid id) : BaseQuery(user),
     public Guid Id { get; } = id;
 }
 
-public class GetKnowledgeQueryHandler(ICacheManager cacheManager)
-    : BaseQueryHandler(cacheManager), ICommandHandler<GetKnowledgeQuery, Result<KnowledgeDto>>
+public class GetKnowledgeQueryHandler(ICacheManager cacheManager, ILogger<GetKnowledgeQueryHandler> logger)
+    : BaseQueryHandler<GetKnowledgeQueryHandler>(cacheManager, logger), ICommandHandler<GetKnowledgeQuery, Result<KnowledgeDto>>
 {
     public async Task<Result<KnowledgeDto>> ExecuteAsync(GetKnowledgeQuery query, CancellationToken ct)
     {

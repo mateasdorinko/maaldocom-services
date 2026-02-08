@@ -14,7 +14,7 @@ public class ExecuteAsync
         var ct = CancellationToken.None;
 
         var query = new GetKnowledgeQuery(user, id);
-        var handler = new GetKnowledgeQueryHandler(cacheManager);
+        var handler = new GetKnowledgeQueryHandler(cacheManager, NullLogger<GetKnowledgeQueryHandler>.Instance);
 
         var knowledgeList = new List<KnowledgeDto>
         {
@@ -44,7 +44,7 @@ public class ExecuteAsync
         var ct = CancellationToken.None;
 
         var query = new GetKnowledgeQuery(user, Guid.NewGuid());
-        var handler = new GetKnowledgeQueryHandler(cacheManager);
+        var handler = new GetKnowledgeQueryHandler(cacheManager, NullLogger<GetKnowledgeQueryHandler>.Instance);
 
         A.CallTo(() => cacheManager.ListKnowledgeAsync(ct))
             .Returns([

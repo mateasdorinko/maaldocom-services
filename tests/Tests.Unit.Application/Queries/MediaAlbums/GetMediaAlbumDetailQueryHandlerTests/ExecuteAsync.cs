@@ -19,7 +19,7 @@ public class ExecuteAsync
         };
 
         var query = new GetMediaAlbumDetailQuery(user, mediaAlbum.Id);
-        var handler = new GetMediaAlbumDetailQueryHandler(cacheManager);
+        var handler = new GetMediaAlbumDetailQueryHandler(cacheManager, NullLogger<GetMediaAlbumDetailQueryHandler>.Instance);
 
         A.CallTo(() => cacheManager.GetMediaAlbumDetailAsync(mediaAlbum.Id, ct)).Returns(mediaAlbum);
 
@@ -40,7 +40,7 @@ public class ExecuteAsync
         var ct = CancellationToken.None;
 
         var query = new GetMediaAlbumDetailQuery(user, Guid.NewGuid());
-        var handler = new GetMediaAlbumDetailQueryHandler(cacheManager);
+        var handler = new GetMediaAlbumDetailQueryHandler(cacheManager, NullLogger<GetMediaAlbumDetailQueryHandler>.Instance);
 
         A.CallTo(() => cacheManager.GetMediaAlbumDetailAsync(query.Id!.Value, ct)).Returns(default(MediaAlbumDto));
 
@@ -68,7 +68,7 @@ public class ExecuteAsync
         };
 
         var query = new GetMediaAlbumDetailQuery(user, mediaAlbum.UrlFriendlyName!);
-        var handler = new GetMediaAlbumDetailQueryHandler(cacheManager);
+        var handler = new GetMediaAlbumDetailQueryHandler(cacheManager, NullLogger<GetMediaAlbumDetailQueryHandler>.Instance);
 
         A.CallTo(() => cacheManager.ListMediaAlbumsAsync(ct)).Returns(new List<MediaAlbumDto> { new(), new() });
 
@@ -97,7 +97,7 @@ public class ExecuteAsync
         };
 
         var query = new GetMediaAlbumDetailQuery(user, mediaAlbum.UrlFriendlyName!);
-        var handler = new GetMediaAlbumDetailQueryHandler(cacheManager);
+        var handler = new GetMediaAlbumDetailQueryHandler(cacheManager, NullLogger<GetMediaAlbumDetailQueryHandler>.Instance);
 
         A.CallTo(() => cacheManager.ListMediaAlbumsAsync(ct)).Returns(new List<MediaAlbumDto> { new(), mediaAlbum, new() });
         A.CallTo(() => cacheManager.GetMediaAlbumDetailAsync(mediaAlbum.Id, ct)).Returns(mediaAlbum);
@@ -125,7 +125,7 @@ public class ExecuteAsync
         };
 
         var query = new GetMediaAlbumDetailQuery(user, mediaAlbum.UrlFriendlyName!);
-        var handler = new GetMediaAlbumDetailQueryHandler(cacheManager);
+        var handler = new GetMediaAlbumDetailQueryHandler(cacheManager, NullLogger<GetMediaAlbumDetailQueryHandler>.Instance);
 
         A.CallTo(() => cacheManager.ListMediaAlbumsAsync(ct)).Returns(new List<MediaAlbumDto> { new(), mediaAlbum, new() });
         A.CallTo(() => cacheManager.GetMediaAlbumDetailAsync(mediaAlbum.Id, ct)).Returns(default(MediaAlbumDto));

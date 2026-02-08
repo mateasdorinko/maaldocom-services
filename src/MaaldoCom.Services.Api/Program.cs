@@ -6,7 +6,6 @@ using MaaldoCom.Services.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpOverrides;
 using NSwag;
-using OpenTelemetry;
 using OpenTelemetry.Exporter;
 using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
@@ -21,10 +20,10 @@ var auth0Domain = builder.Configuration["auth0-domain"]!;
 var auth0Audience = builder.Configuration["auth0-audience"]!;
 var auth0ClientId = builder.Configuration["scalar-client-id"]!;
 var keyVaultUri = builder.Configuration["AzureKeyVaultUri"]!;
-var otelEndpoint = builder.Configuration["OTEL_EXPORTER_OTLP_ENDPOINT"]!;
-var otelHeaders = builder.Configuration["OTEL_EXPORTER_OTLP_HEADERS"]!;
+var otelEndpoint = builder.Configuration["grafana-cloud-otel-exporter-otlp-endpoint"]!;
+var otelHeaders = builder.Configuration["grafana-cloud-otel-exporter-otlp-headers"]!;
 
-// builder.Logging.ClearProviders();
+builder.Logging.ClearProviders();
 
 if (!string.IsNullOrEmpty(keyVaultUri))
 {
@@ -92,13 +91,6 @@ Action<OtlpExporterOptions> otlpExporterOptions = options =>
     options.Headers = otelHeaders;
 };
 
-builder.Logging.AddOpenTelemetry(logging =>
-{
-    logging.IncludeScopes = true;
-    logging.IncludeFormattedMessage = true;
-    logging.AddOtlpExporter(otlpExporterOptions);
-});
-
 builder.Services.AddOpenTelemetry()
     .ConfigureResource(resource =>
     {
@@ -112,20 +104,28 @@ builder.Services.AddOpenTelemetry()
     })
     .WithMetrics(metrics =>
     {
-        metrics
-            .AddAspNetCoreInstrumentation()
-            .AddHttpClientInstrumentation()
-            .AddOtlpExporter(otlpExporterOptions);
+        metrics.AddAspNetCoreInstrumentation();
+        metrics.AddHttpClientInstrumentation();
+        metrics.AddOtlpExporter(otlpExporterOptions);
     })
     .WithTracing(tracing =>
     {
-        tracing
-            .AddHttpClientInstrumentation()
-            .AddAspNetCoreInstrumentation()
-            //.AddEntityFrameworkCoreInstrumentation()
-            //.AddSource()
-            .AddOtlpExporter(otlpExporterOptions);
-    }).UseOtlpExporter();
+        tracing.AddHttpClientInstrumentation();
+        tracing.AddAspNetCoreInstrumentation();
+        //tracing.AddEntityFrameworkCoreInstrumentation();
+        //tracing.AddSource();
+        tracing.AddOtlpExporter(otlpExporterOptions);
+    })
+    .WithLogging(logging =>
+    {
+        logging.AddOtlpExporter(otlpExporterOptions);
+
+        if (builder.Environment.IsDevelopment()) { logging.AddConsoleExporter(); }
+    }, options =>
+    {
+        options.IncludeScopes = true;
+        options.IncludeFormattedMessage = true;
+    });
 
 var app = builder.Build();
 
@@ -154,14 +154,8 @@ app.MapScalarApiReference("/docs", options =>
         flow.Pkce = Pkce.Sha256;
         flow.WithCredentialsLocation(CredentialsLocation.Body);
         flow.SelectedScopes = ["openid", "profile"];
-        flow.AdditionalQueryParameters = new Dictionary<string, string>
-        {
-            { "audience", auth0Audience }
-        };
-        flow.AdditionalBodyParameters = new Dictionary<string, string>
-        {
-            { "audience", auth0Audience }
-        };
+        flow.AdditionalQueryParameters = new Dictionary<string, string> { { "audience", auth0Audience } };
+        flow.AdditionalBodyParameters = new Dictionary<string, string> { { "audience", auth0Audience } };
     });
 });
 
