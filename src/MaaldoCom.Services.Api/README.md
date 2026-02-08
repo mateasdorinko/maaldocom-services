@@ -27,6 +27,8 @@ Create configuration entries for the following keys:
 dotnet user-secrets set "auth0-audience" "SECRET_VALUE"
 dotnet user-secrets set "auth0-domain" "SECRET_VALUE"
 dotnet user-secrets set "azure-storage-account-connection-string" "SECRET_VALUE"
+dotnet user-secrets set "grafana-cloud-otel-exporter-otlp-endpoint" "SECRET_VALUE"
+dotnet user-secrets set "grafana-cloud-otel-exporter-otlp-headers" "SECRET_VALUE"
 dotnet user-secrets set "maaldocom-db-connection-string-api-user" "SECRET_VALUE"
 dotnet user-secrets set "maaldocom-db-connection-string-migrations-user" "SECRET_VALUE"
 dotnet user-secrets set "mailgun-api-key" "SECRET_VALUE"
@@ -35,7 +37,5 @@ dotnet user-secrets set "mailgun-default-from-email" "SECRET_VALUE"
 dotnet user-secrets set "mailgun-default-to-email" "SECRET_VALUE"
 dotnet user-secrets set "mailgun-domain" "SECRET_VALUE"
 dotnet user-secrets set "scalar-client-id" "SECRET_VALUE"
-dotnet user-secrets set "grafana-cloud-otel-exporter-otlp-endpoint" "SECRET_VALUE"
-dotnet user-secrets set "grafana-cloud-otel-exporter-otlp-headers" "SECRET_VALUE"
 ```
 
