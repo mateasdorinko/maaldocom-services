@@ -2,7 +2,7 @@
 
 public class GetTagDetailResponse : GetTagResponse
 {
-    [JsonPropertyOrder(4)]
+    [JsonPropertyOrder(5)]
     public IEnumerable<GetMediaAlbumTagResponse> MediaAlbums { get; set; } = new  List<GetMediaAlbumTagResponse>();
 
     [JsonPropertyOrder(5)]

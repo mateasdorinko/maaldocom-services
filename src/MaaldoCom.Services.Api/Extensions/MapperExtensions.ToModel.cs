@@ -56,6 +56,7 @@ public static partial class MapperExtensions
         var model = new GetTagResponse().MapToBaseModel(dto);
 
         model.Name = dto.Name;
+        model.Count = dto.Count;
 
         return model;
     }

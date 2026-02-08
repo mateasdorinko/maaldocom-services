@@ -18,7 +18,8 @@
       "Bash(\"/mnt/c/Program Files/dotnet/dotnet.exe\" build --no-restore)",
       "Bash(\"/mnt/c/Program Files/dotnet/dotnet.exe\" test --no-build)",
       "Bash(dotnet build:*)",
-      "WebFetch(domain:grafana.com)"
+      "WebFetch(domain:grafana.com)",
+      "Bash(dotnet test:*)"
     ]
   }
 }

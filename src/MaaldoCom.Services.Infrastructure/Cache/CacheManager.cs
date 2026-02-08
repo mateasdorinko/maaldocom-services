@@ -107,9 +107,12 @@ public class CacheManager : ICacheManager
 
         async Task<IEnumerable<TagDto>> GetFromDbAsync()
         {
-            var entities = await MaaldoComDbContext.Tags.ToListAsync(cancellationToken);
+            var entities = await MaaldoComDbContext.Tags
+                .Include(t => t.MediaAlbumTags)
+                .Include(t => t.MediaTags)
+                .ToListAsync(cancellationToken);
 
-            return entities.ToDtos();
+            return entities.ToDtos().OrderByDescending(t => t.Count);
         }
     }
 

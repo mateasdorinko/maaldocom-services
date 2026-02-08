@@ -32,6 +32,7 @@ public static partial class MapperExtensions
         var model = new GetTagDetailResponse().MapToBaseModel(dto);
 
         model.Name = dto.Name;
+        model.Count = dto.Count;
         model.MediaAlbums = dto.MediaAlbums.Select(ma => new GetMediaAlbumTagResponse
         {
             Name = ma.Name,
