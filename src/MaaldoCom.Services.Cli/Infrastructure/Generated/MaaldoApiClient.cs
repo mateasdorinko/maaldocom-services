@@ -287,14 +287,17 @@ namespace MaaldoCom.Services.Cli.Infrastructure
     public partial class GetTagResponse : BaseModel
     {
 
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-
         [JsonPropertyName("href")]
         public string Href { get; set; }
 
         [JsonPropertyName("altHref")]
         public string AltHref { get; set; }
+
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        [JsonPropertyName("count")]
+        public int Count { get; set; }
 
     }
 

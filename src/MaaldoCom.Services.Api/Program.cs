@@ -2,16 +2,7 @@ using Azure.Extensions.AspNetCore.Configuration.Secrets;
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
 using FastEndpoints.Swagger;
-using MaaldoCom.Services.Infrastructure;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.HttpOverrides;
-using NSwag;
-using OpenTelemetry.Exporter;
-using OpenTelemetry.Logs;
-using OpenTelemetry.Metrics;
-using OpenTelemetry.Resources;
-using OpenTelemetry.Trace;
-using Scalar.AspNetCore;
+using MaaldoCom.Services.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,109 +25,17 @@ var auth0ClientId = builder.Configuration["scalar-client-id"]!;
 var otelEndpoint = builder.Configuration["grafana-cloud-otel-exporter-otlp-endpoint"];
 var otelHeaders = builder.Configuration["grafana-cloud-otel-exporter-otlp-headers"];
 
-builder.Services
-    .AddAuthentication(options =>
-    {
-        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    })
-    .AddJwtBearer(options =>
-    {
-        options.Authority = $"https://{auth0Domain}/";
-        options.Audience = auth0Audience;
-    });
+builder.Services.AddAuthentication(auth0Domain, auth0Audience);
 
 builder.Services
     .AddAuthorization()
     .AddFastEndpoints(options => { options.Assemblies = [MaaldoCom.Services.Application.AssemblyReference.Assembly]; })
     .AddResponseCaching()
-    .SwaggerDocument(options =>
-    {
-        options.DocumentSettings = s =>
-        {
-            s.Title = apiDocTitle;
-            s.Version = "v1";
-            s.AddSecurity("OAuth2", new OpenApiSecurityScheme
-            {
-                Type = OpenApiSecuritySchemeType.OAuth2,
-                Description = "Auth0 OAuth2 authentication",
-                Flows = new OpenApiOAuthFlows
-                {
-                    AuthorizationCode = new OpenApiOAuthFlow
-                    {
-                        AuthorizationUrl = $"https://{auth0Domain}/authorize?audience={auth0Audience}",
-                        TokenUrl = $"https://{auth0Domain}/oauth/token",
-                        Scopes = new Dictionary<string, string>
-                        {
-                            { "openid", "OpenID Connect" },
-                            { "profile", "User profile" }
-                        }
-                    }
-                }
-            });
-        };
-        options.ShortSchemaNames = true;
-    })
-    .Configure<ForwardedHeadersOptions>(options =>
-    {
-        options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
-        options.KnownIPNetworks.Clear();
-        options.KnownProxies.Clear();
-    })
+    .AddSwaggerDocumentForFastEndpoints(apiDocTitle, auth0Domain, auth0Audience)
+    .ConfigureForwardedHeaders()
     .AddInfrastructureServices(builder.Configuration);
 
-if (!string.IsNullOrEmpty(otelEndpoint))
-{
-    // Force explicit bucket histograms; Grafana Cloud does not support ExponentialHistogram
-    Environment.SetEnvironmentVariable("OTEL_EXPORTER_OTLP_METRICS_DEFAULT_HISTOGRAM_AGGREGATION", "explicit_bucket_histogram");
-
-    Action<OtlpExporterOptions> otlpExporterOptions(string signalPath) => options =>
-    {
-        options.Endpoint = new Uri($"{otelEndpoint}{signalPath}");
-        options.Protocol = OtlpExportProtocol.HttpProtobuf;
-        options.Headers = otelHeaders;
-    };
-
-    builder.Services.AddOpenTelemetry()
-        .ConfigureResource(resource =>
-        {
-            resource
-                .AddService("maaldo-com-api")
-                .AddAttributes(new List<KeyValuePair<string, object>>
-                {
-                    new ("deployment.environment", builder.Environment.EnvironmentName),
-                    new ("service.namespace", "maaldo-com")
-                });
-        })
-        .WithMetrics(metrics =>
-        {
-            metrics.AddAspNetCoreInstrumentation();
-            metrics.AddHttpClientInstrumentation();
-            metrics.AddOtlpExporter((exporterOptions, metricReaderOptions) =>
-            {
-                otlpExporterOptions("/v1/metrics")(exporterOptions);
-                metricReaderOptions.TemporalityPreference = MetricReaderTemporalityPreference.Cumulative;
-            });
-        })
-        .WithTracing(tracing =>
-        {
-            tracing.AddHttpClientInstrumentation();
-            tracing.AddAspNetCoreInstrumentation();
-            //tracing.AddEntityFrameworkCoreInstrumentation();
-            //tracing.AddSource();
-            tracing.AddOtlpExporter(otlpExporterOptions("/v1/traces"));
-        })
-        .WithLogging(logging =>
-        {
-            logging.AddOtlpExporter(otlpExporterOptions("/v1/logs"));
-
-            if (builder.Environment.IsDevelopment()) { logging.AddConsoleExporter(); }
-        }, options =>
-        {
-            options.IncludeScopes = true;
-            options.IncludeFormattedMessage = true;
-        });
-}
+builder.Services.AddOtel(builder, otelEndpoint, otelHeaders);
 
 var app = builder.Build();
 
@@ -151,25 +50,7 @@ app.UseResponseCaching()
     .UseSwaggerGen()
     .UseForwardedHeaders();
 
-app.MapScalarApiReference("/docs", options =>
-{
-    options.WithTitle(apiDocTitle);
-    options.WithFavicon("/favicon.ico");
-    options.OperationTitleSource = OperationTitleSource.Path;
-    options.ShowOperationId();
-    options.WithOpenApiRoutePattern("/swagger/v1/swagger.json");
-    options.AddPreferredSecuritySchemes("OAuth2");
-    options.AddAuthorizationCodeFlow("OAuth2", flow =>
-    {
-        flow.ClientId = auth0ClientId;
-        flow.Pkce = Pkce.Sha256;
-        flow.WithCredentialsLocation(CredentialsLocation.Body);
-        flow.SelectedScopes = ["openid", "profile"];
-        flow.AdditionalQueryParameters = new Dictionary<string, string> { { "audience", auth0Audience } };
-        flow.AdditionalBodyParameters = new Dictionary<string, string> { { "audience", auth0Audience } };
-    });
-});
-
-if (app.Environment.IsDevelopment()) { app.UseDeveloperExceptionPage(); }
+app.UseScalar(apiDocTitle, auth0ClientId, auth0Audience);
+app.UseDevelopmentEnvironmentOnlyMiddleware();
 
 await app.RunAsync();
