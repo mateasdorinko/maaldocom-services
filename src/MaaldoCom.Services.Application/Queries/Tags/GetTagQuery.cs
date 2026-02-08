@@ -23,8 +23,8 @@ public class GetTagQuery : BaseQuery, ICommand<Result<TagDto>>
     public readonly object SearchValue;
 }
 
-public class GetTagQueryHandler(ICacheManager cacheManager)
-    : BaseQueryHandler(cacheManager), ICommandHandler<GetTagQuery, Result<TagDto>>
+public class GetTagQueryHandler(ICacheManager cacheManager, ILogger<GetTagQueryHandler> logger)
+    : BaseQueryHandler<GetTagQueryHandler>(cacheManager, logger), ICommandHandler<GetTagQuery, Result<TagDto>>
 {
     public async Task<Result<TagDto>> ExecuteAsync(GetTagQuery query, CancellationToken ct)
     {

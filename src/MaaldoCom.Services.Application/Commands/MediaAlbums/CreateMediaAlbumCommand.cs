@@ -7,8 +7,8 @@ public class CreateMediaAlbumCommand(ClaimsPrincipal user, MediaAlbumDto dto) : 
     public MediaAlbumDto MediaAlbum { get; set; } = dto;
 }
 
-public class CreateMediaAlbumCommandHandler(IMaaldoComDbContext maaldoComDbContext, ICacheManager cacheManager)
-    : BaseCommandHandler(maaldoComDbContext, cacheManager), ICommandHandler<CreateMediaAlbumCommand, Result<MediaAlbumDto>>
+public class CreateMediaAlbumCommandHandler(IMaaldoComDbContext maaldoComDbContext, ICacheManager cacheManager, ILogger<CreateMediaAlbumCommandHandler> logger)
+    : BaseCommandHandler<CreateMediaAlbumCommandHandler>(maaldoComDbContext, cacheManager, logger), ICommandHandler<CreateMediaAlbumCommand, Result<MediaAlbumDto>>
 {
     public async Task<Result<MediaAlbumDto>> ExecuteAsync(CreateMediaAlbumCommand command, CancellationToken ct)
     {

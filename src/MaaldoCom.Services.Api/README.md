@@ -16,7 +16,7 @@ To initialize user secrets for the `MaaldoCom.Services.Api` project, run the fol
 dotnet user-secrets init
 ```
 
-This will create a `UserSecretsId` entry in the `.csproj` file that can be used to store sensitive information 
+This will create a `UserSecretsId` entry in the `.csproj` file that can be used to store sensitive information
 locally. It only needs to be created once, and all other computers only need to run the `set` commands.
 
 ### Setting User Secrets
@@ -35,5 +35,7 @@ dotnet user-secrets set "mailgun-default-from-email" "SECRET_VALUE"
 dotnet user-secrets set "mailgun-default-to-email" "SECRET_VALUE"
 dotnet user-secrets set "mailgun-domain" "SECRET_VALUE"
 dotnet user-secrets set "scalar-client-id" "SECRET_VALUE"
+dotnet user-secrets set "grafana-cloud-otel-exporter-otlp-endpoint" "SECRET_VALUE"
+dotnet user-secrets set "grafana-cloud-otel-exporter-otlp-headers" "SECRET_VALUE"
 ```
 

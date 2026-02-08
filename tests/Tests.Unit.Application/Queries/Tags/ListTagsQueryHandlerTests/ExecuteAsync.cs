@@ -20,7 +20,7 @@ public class ExecuteAsync
         };
 
         var query = new ListTagsQuery(user);
-        var handler = new ListTagsQueryHandler(cacheManager);
+        var handler = new ListTagsQueryHandler(cacheManager, NullLogger<ListTagsQueryHandler>.Instance);
 
         A.CallTo(() => cacheManager.ListTagsAsync(ct)).Returns(tagList);
 

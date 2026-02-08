@@ -2,8 +2,8 @@
 
 public class RefreshCacheQuery(ClaimsPrincipal user) : BaseQuery(user), ICommand<Result>;
 
-public class RefreshCacheQueryHandler(ICacheManager cacheManager)
-    : BaseQueryHandler(cacheManager), ICommandHandler<RefreshCacheQuery, Result>
+public class RefreshCacheQueryHandler(ICacheManager cacheManager, ILogger<RefreshCacheQueryHandler> logger)
+    : BaseQueryHandler<RefreshCacheQueryHandler>(cacheManager, logger), ICommandHandler<RefreshCacheQuery, Result>
 {
     public async Task<Result> ExecuteAsync(RefreshCacheQuery query, CancellationToken ct)
     {

@@ -20,7 +20,7 @@ public class ExecuteAsync
         };
 
         var query = new GetRandomKnowledgeQuery(user);
-        var handler = new GetRandomKnowledgeQueryHandler(cacheManager);
+        var handler = new GetRandomKnowledgeQueryHandler(cacheManager, NullLogger<GetRandomKnowledgeQueryHandler>.Instance);
 
         A.CallTo(() => cacheManager.ListKnowledgeAsync(ct)).Returns(knowledgeList);
 

@@ -5,8 +5,8 @@ public class CreateMediaCommand(ClaimsPrincipal user) : BaseCommand(user), IComm
     public required MediaDto Media { get; set; }
 }
 
-public class CreateMediaCommandHandler(IMaaldoComDbContext maaldoComDbContext, ICacheManager cacheManager)
-    : BaseCommandHandler(maaldoComDbContext, cacheManager), ICommandHandler<CreateMediaCommand, Result<MediaDto>>
+public class CreateMediaCommandHandler(IMaaldoComDbContext maaldoComDbContext, ICacheManager cacheManager, ILogger<CreateMediaCommandHandler> logger)
+    : BaseCommandHandler<CreateMediaCommandHandler>(maaldoComDbContext, cacheManager, logger), ICommandHandler<CreateMediaCommand, Result<MediaDto>>
 {
     public async Task<Result<MediaDto>> ExecuteAsync(CreateMediaCommand command, CancellationToken ct)
     {

@@ -6,13 +6,24 @@ using MaaldoCom.Services.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpOverrides;
 using NSwag;
+using OpenTelemetry.Exporter;
+using OpenTelemetry.Logs;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 using Scalar.AspNetCore;
-
-const string apiDocTitle = "maaldo.com API Reference";
 
 var builder = WebApplication.CreateBuilder(args);
 
-var keyVaultUri = builder.Configuration["AzureKeyVaultUri"];
+const string apiDocTitle = "maaldo.com API Reference";
+var auth0Domain = builder.Configuration["auth0-domain"]!;
+var auth0Audience = builder.Configuration["auth0-audience"]!;
+var auth0ClientId = builder.Configuration["scalar-client-id"]!;
+var keyVaultUri = builder.Configuration["AzureKeyVaultUri"]!;
+var otelEndpoint = builder.Configuration["grafana-cloud-otel-exporter-otlp-endpoint"]!;
+var otelHeaders = builder.Configuration["grafana-cloud-otel-exporter-otlp-headers"]!;
+
+builder.Logging.ClearProviders();
 
 if (!string.IsNullOrEmpty(keyVaultUri))
 {
@@ -21,10 +32,6 @@ if (!string.IsNullOrEmpty(keyVaultUri))
 
     builder.Configuration.AddAzureKeyVault(secretClient, new KeyVaultSecretManager());
 }
-
-var auth0Domain = builder.Configuration["auth0-domain"]!;
-var auth0Audience = builder.Configuration["auth0-audience"]!;
-var auth0ClientId = builder.Configuration["scalar-client-id"]!;
 
 builder.Services
     .AddAuthentication(options =>
@@ -40,10 +47,7 @@ builder.Services
 
 builder.Services
     .AddAuthorization()
-    .AddFastEndpoints(options =>
-    {
-        options.Assemblies = [MaaldoCom.Services.Application.AssemblyReference.Assembly];
-    })
+    .AddFastEndpoints(options => { options.Assemblies = [MaaldoCom.Services.Application.AssemblyReference.Assembly]; })
     .AddResponseCaching()
     .SwaggerDocument(options =>
     {
@@ -80,7 +84,51 @@ builder.Services
     })
     .AddInfrastructureServices(builder.Configuration);
 
+Action<OtlpExporterOptions> otlpExporterOptions = options =>
+{
+    options.Endpoint = new Uri(otelEndpoint);
+    options.Protocol = OtlpExportProtocol.HttpProtobuf;
+    options.Headers = otelHeaders;
+};
+
+builder.Services.AddOpenTelemetry()
+    .ConfigureResource(resource =>
+    {
+        resource
+            .AddService("maaldo-com-api")
+            .AddAttributes(new List<KeyValuePair<string, object>>
+            {
+                new ("deployment.environment", builder.Environment.EnvironmentName),
+                new ("service.namespace", "maaldo-com")
+            });
+    })
+    .WithMetrics(metrics =>
+    {
+        metrics.AddAspNetCoreInstrumentation();
+        metrics.AddHttpClientInstrumentation();
+        metrics.AddOtlpExporter(otlpExporterOptions);
+    })
+    .WithTracing(tracing =>
+    {
+        tracing.AddHttpClientInstrumentation();
+        tracing.AddAspNetCoreInstrumentation();
+        //tracing.AddEntityFrameworkCoreInstrumentation();
+        //tracing.AddSource();
+        tracing.AddOtlpExporter(otlpExporterOptions);
+    })
+    .WithLogging(logging =>
+    {
+        logging.AddOtlpExporter(otlpExporterOptions);
+
+        if (builder.Environment.IsDevelopment()) { logging.AddConsoleExporter(); }
+    }, options =>
+    {
+        options.IncludeScopes = true;
+        options.IncludeFormattedMessage = true;
+    });
+
 var app = builder.Build();
+
 app.UseResponseCaching()
     .UseHsts()
     .UseHttpsRedirection()
@@ -88,10 +136,10 @@ app.UseResponseCaching()
     .UseDefaultExceptionHandler()
     .UseAuthentication()
     .UseAuthorization()
-    .UseFastEndpoints();
+    .UseFastEndpoints()
+    .UseSwaggerGen()
+    .UseForwardedHeaders();
 
-app.UseSwaggerGen();
-app.UseForwardedHeaders();
 app.MapScalarApiReference("/docs", options =>
 {
     options.WithTitle(apiDocTitle);
@@ -106,14 +154,8 @@ app.MapScalarApiReference("/docs", options =>
         flow.Pkce = Pkce.Sha256;
         flow.WithCredentialsLocation(CredentialsLocation.Body);
         flow.SelectedScopes = ["openid", "profile"];
-        flow.AdditionalQueryParameters = new Dictionary<string, string>
-        {
-            { "audience", auth0Audience }
-        };
-        flow.AdditionalBodyParameters = new Dictionary<string, string>
-        {
-            { "audience", auth0Audience }
-        };
+        flow.AdditionalQueryParameters = new Dictionary<string, string> { { "audience", auth0Audience } };
+        flow.AdditionalBodyParameters = new Dictionary<string, string> { { "audience", auth0Audience } };
     });
 });
 

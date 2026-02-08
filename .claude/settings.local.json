@@ -16,7 +16,8 @@
       "Bash(gh api:*)",
       "Bash(\"/mnt/c/Program Files/dotnet/dotnet.exe\" build --no-restore /mnt/c/Users/maaldo/repos/maaldocom-services)",
       "Bash(\"/mnt/c/Program Files/dotnet/dotnet.exe\" build --no-restore)",
-      "Bash(\"/mnt/c/Program Files/dotnet/dotnet.exe\" test --no-build)"
+      "Bash(\"/mnt/c/Program Files/dotnet/dotnet.exe\" test --no-build)",
+      "Bash(dotnet build:*)"
     ]
   }
 }

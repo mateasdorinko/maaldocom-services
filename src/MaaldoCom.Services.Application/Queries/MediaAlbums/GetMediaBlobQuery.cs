@@ -11,8 +11,8 @@ public class GetMediaBlobQuery(ClaimsPrincipal user, Guid mediaAlbumId, Guid med
     public string MediaType { get; } = mediaType;
 }
 
-public class GetMediaBlobQueryHandler(ICacheManager cacheManager, IBlobsProvider blobsProvider)
-    : BaseQueryHandler(cacheManager), ICommandHandler<GetMediaBlobQuery, Result<MediaDto>>
+public class GetMediaBlobQueryHandler(ICacheManager cacheManager, ILogger<GetMediaBlobQueryHandler> logger, IBlobsProvider blobsProvider)
+    : BaseQueryHandler<GetMediaBlobQueryHandler>(cacheManager, logger), ICommandHandler<GetMediaBlobQuery, Result<MediaDto>>
 {
     public async Task<Result<MediaDto>> ExecuteAsync(GetMediaBlobQuery query, CancellationToken ct)
     {

@@ -21,7 +21,7 @@ public class ExecuteAsync
         };
 
         var query = new ListMediaAlbumsQuery(user);
-        var handler = new ListMediaAlbumsQueryHandler(cacheManager);
+        var handler = new ListMediaAlbumsQueryHandler(cacheManager, NullLogger<ListMediaAlbumsQueryHandler>.Instance);
 
         A.CallTo(() => cacheManager.ListMediaAlbumsAsync(ct)).Returns(mediaAlbums);
 

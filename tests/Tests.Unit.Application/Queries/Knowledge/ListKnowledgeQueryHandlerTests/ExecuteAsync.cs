@@ -20,7 +20,7 @@ public class ExecuteAsync
         };
 
         var query = new ListKnowledgeQuery(user);
-        var handler = new ListKnowledgeQueryHandler(cacheManager);
+        var handler = new ListKnowledgeQueryHandler(cacheManager, NullLogger<ListKnowledgeQueryHandler>.Instance);
 
         A.CallTo(() => cacheManager.ListKnowledgeAsync(ct)).Returns(knowledgeList);
 
