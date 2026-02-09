@@ -25,11 +25,11 @@ public class MailGunEmailProvider(string apiKey, string domain, string apiBaseUr
         return ToEmailResponse(response);
     }
 
-    public async Task<EmailResponse> SendEmailAsync(string to, string subject, string body) =>
-        await SendEmailAsync(to, defaultFrom, subject, body);
+    public async Task<EmailResponse> SendEmailAsync(string from, string subject, string body) =>
+        await SendEmailAsync(defaultTo, from, subject, body);
 
     public async Task<EmailResponse> SendEmailAsync(string subject, string body) =>
-        await SendEmailAsync(defaultTo, subject, body);
+        await SendEmailAsync(defaultFrom, subject, body);
 
     private static EmailResponse ToEmailResponse(HttpResponseMessage response) =>
         new()
