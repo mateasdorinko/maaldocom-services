@@ -36,7 +36,7 @@ builder.Services
     .ConfigureForwardedHeaders()
     .AddInfrastructureServices(builder.Configuration);
 
-builder.Services.AddOtel(builder, otelEndpoint, otelHeaders);
+builder.Services.AddOtel(builder, otelEndpoint, otelHeaders, false);
 
 var app = builder.Build();
 

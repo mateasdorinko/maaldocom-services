@@ -68,7 +68,7 @@ public static class ServiceCollectionExtensions
             });
         }
 
-        public OpenTelemetryBuilder AddOtel(WebApplicationBuilder builder, string? otelEndpoint, string? otelHeaders)
+        public OpenTelemetryBuilder AddOtel(WebApplicationBuilder builder, string? otelEndpoint, string? otelHeaders, bool debugOtelConsoleExporter)
         {
             if (string.IsNullOrEmpty(otelEndpoint)) { return null!; }
 
@@ -115,7 +115,11 @@ public static class ServiceCollectionExtensions
                 {
                     logging.AddOtlpExporter(OtlpExporterOptions("/v1/logs"));
 
-                    //logging.AddConsoleExporter(); // only use this for debugging in dev only, not for prod use
+                    if (debugOtelConsoleExporter)
+                    {
+                        builder.Logging.ClearProviders();
+                        logging.AddConsoleExporter();
+                    }
                 }, options =>
                 {
                     options.IncludeScopes = true;
