@@ -110,6 +110,7 @@ public class CacheManager : ICacheManager
             var entities = await MaaldoComDbContext.Tags
                 .Include(t => t.MediaAlbumTags)
                 .Include(t => t.MediaTags)
+                .AsSplitQuery()
                 .ToListAsync(cancellationToken);
 
             return entities.ToDtos().OrderByDescending(t => t.Count);
