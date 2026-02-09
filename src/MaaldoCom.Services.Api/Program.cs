@@ -42,7 +42,6 @@ var app = builder.Build();
 
 app.UseResponseCaching()
     .UseHsts()
-    .UseHttpsRedirection()
     .UseStaticFiles()
     .UseDefaultExceptionHandler()
     .UseAuthentication()
