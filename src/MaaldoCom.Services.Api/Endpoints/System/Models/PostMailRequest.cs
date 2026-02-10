@@ -1,6 +1,6 @@
-﻿namespace MaaldoCom.Services.Api.Endpoints.Default.Models;
+﻿namespace MaaldoCom.Services.Api.Endpoints.System.Models;
 
-public class PostEmailRequest
+public class PostMailRequest
 {
     public required string From { get; set; }
     public required string Subject { get; set; }

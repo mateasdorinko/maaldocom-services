@@ -1,9 +1,9 @@
-﻿using MaaldoCom.Services.Api.Endpoints.Default.Models;
+﻿using MaaldoCom.Services.Api.Endpoints.System.Models;
 using MaaldoCom.Services.Application.Commands.System;
 
-namespace MaaldoCom.Services.Api.Endpoints.Default;
+namespace MaaldoCom.Services.Api.Endpoints.System;
 
-public class PostMailEndpoint : Endpoint<PostEmailRequest>
+public class PostMailEndpoint : Endpoint<PostMailRequest>
 {
     public override void Configure()
     {
@@ -14,7 +14,7 @@ public class PostMailEndpoint : Endpoint<PostEmailRequest>
         Permissions("write:emails");
     }
 
-    public override async Task HandleAsync(PostEmailRequest req, CancellationToken ct)
+    public override async Task HandleAsync(PostMailRequest req, CancellationToken ct)
     {
         var result = await new SendEmailCommand(User, req.From, req.Subject, req.Body).ExecuteAsync(ct);
 
