@@ -32,9 +32,7 @@ public static class WebApplicationExtensions
         {
             if (app.Environment.IsDevelopment())
             {
-                app
-                    .UseHttpsRedirection()
-                    .UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage();
             }
 
             return app;
