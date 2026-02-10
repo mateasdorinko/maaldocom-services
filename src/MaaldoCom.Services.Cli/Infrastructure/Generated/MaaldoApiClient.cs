@@ -221,6 +221,10 @@ namespace MaaldoCom.Services.Cli.Infrastructure
         /// <description>Description</description>
         /// </listheader>
         /// <item>
+        /// <term>401</term>
+        /// <description>Unauthorized</description>
+        /// </item>
+        /// <item>
         /// <term>403</term>
         /// <description>Forbidden</description>
         /// </item>
