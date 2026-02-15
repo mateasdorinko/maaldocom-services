@@ -1,6 +1,6 @@
 <img src="assets/logo.svg" alt="logo" width="100" />
 
-# Maaldocom.Services
+# MaaldoCom Services
 
 [![CI/CD Pipeline](https://github.com/mateasdorinko/maaldocom-services/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/mateasdorinko/maaldocom-services/actions/workflows/ci-cd.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=mateasdorinko_maaldocom-services&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=mateasdorinko_maaldocom-services)
@@ -8,40 +8,31 @@
 [![Deploy to Test](https://github.com/mateasdorinko/maaldocom-services/actions/workflows/deploy-test.yml/badge.svg)](https://github.com/mateasdorinko/maaldocom-services/actions/workflows/deploy-test.yml)
 [![Deploy to Production](https://github.com/mateasdorinko/maaldocom-services/actions/workflows/deploy-prod.yml/badge.svg)](https://github.com/mateasdorinko/maaldocom-services/actions/workflows/deploy-prod.yml)
 
-## Projects
+This repository contains the back-end services for maaldo.com, my personal website, exposed via API and CLI. The
+solution is structured into multiple projects, each responsible for a specific aspect of the application, following
+Clean Architecture principles.
 
-### Src
+## Tech Stack
 
-- [MaaldoCom.Services.Api (Presentation)](src/MaaldoCom.Services.Api/README.md)
-- [MaaldoCom.Services.Application](src/MaaldoCom.Services.Application/README.md)
-- [MaaldoCom.Services.Cli](src/MaaldoCom.Services.Cli/README.md)
-- [MaaldoCom.Services.Domain](src/MaaldoCom.Services.Domain/README.md)
-- [MaaldoCom.Services.Infrastructure](src/MaaldoCom.Services.Infrastructure/README.md)
+- **Framework**: ASP.NET Core Web API
+- **Language**: C#
+- **Runtime**: .NET 10
+- **Testing**: xUnit, Moq, FluentAssertions
+- **Database**: SQL Server (Docker), Azure Edge SQL (MicroK8s)
+- **Storage**: Azure Blob Storage (Azurite for local development)
+- **Authentication:** Auth0 (OpenID Connect)
+- **Telemetry:** OpenTelemetry with OTLP exporter to Azure Monitor
+- **CI/CD**: GitHub Actions
+- **Hosting:** Azure App Service
+- **Code Quality**: SonarCloud
+- **Containerization:** Docker (multi-stage, standalone output)
+- **Orchestration**: MicroK8s (in progress)
 
-### Tests
+## Getting Started
 
-- [Tests.Integration](tests/Tests.Integration/README.md)
-- [Tests.Unit.Api](tests/Tests.Unit.Api/README.md)
-- [Tests.Unit.Application](tests/Tests.Unit.Application/README.md)
-- [Tests.Unit.Cli](tests/Tests.Unit.Cli/README.md)
-- [Tests.Unit.Domain](tests/Tests.Unit.Domain/README.md)
-- [Tests.Unit.Infrastructure](tests/Tests.Unit.Infrastructure/README.md)
-
-## Solution Overview/Design
-
-The solution is designed using Clean Architecture principles, separating concerns into distinct layers: Domain,
-Application, Infrastructure, and API (Presentation). This structure promotes maintainability, testability, and
-scalability. The Domain layer contains the core business logic and entities, while the Application layer handles use
-cases and orchestrates interactions between the Domain and Infrastructure layers. The Infrastructure layer manages
-data access, external services, and other technical concerns. The API layer serves as the entry point for client
-interactions, exposing endpoints and handling requests.
-
-<img src="assets/clean-architecture.png" alt="clean architecture" width="600" />
-
-The front-end application [maaldocom-web](https://github.com/mateasdorinko/maaldocom-web) is a separate repository and
-is not included in this solution. It interacts with the API layer to provide a user interface for end-users.
-
-## Solution Setup
+Set up the required services below for local development using Docker Compose, including SQL Server and Azurite
+(Azure Storage Emulator). Then, configure local user secrets and Entity Framework for database access. Finally, install
+FFMpeg for media processing tasks.
 
 ### Docker Compose
 
@@ -104,6 +95,19 @@ volumes:
 - [Local User Secrets](src/MaaldoCom.Services.Api/README.md#local-user-secrets)
 - [Entity Framework](src/MaaldoCom.Services.Infrastructure/README.md#entity-framework)
 - [FFMpeg](src/MaaldoCom.Services.Infrastructure/README.md#ffmpeg)
+
+
+## Projects
+
+| Src Project                                                                          | Tst Project                                                             |
+|--------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| [MaaldoCom.Services.Api (Presentation)](src/MaaldoCom.Services.Api/README.md)        | [Tests.Unit.Api](tests/Tests.Unit.Api/README.md)                        |
+| [MaaldoCom.Services.Cli](src/MaaldoCom.Services.Cli/README.md)                       | [Tests.Unit.Cli](tests/Tests.Unit.Cli/README.md)                        |
+| [MaaldoCom.Services.Infrastructure](src/MaaldoCom.Services.Infrastructure/README.md) | [Tests.Unit.Infrastructure](tests/Tests.Unit.Infrastructure/README.md)  |
+| [MaaldoCom.Services.Application](src/MaaldoCom.Services.Application/README.md)       | [Tests.Unit.Application](tests/Tests.Unit.Application/README.md)        |
+| [MaaldoCom.Services.Domain](src/MaaldoCom.Services.Domain/README.md)                 | [Tests.Unit.Domain](tests/Tests.Unit.Domain/README.md)                  |
+|                                                                                      | [Tests.Integration](tests/Tests.Integration/README.md)                  |
+
 
 ## MicroK8s Support
 
