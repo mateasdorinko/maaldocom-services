@@ -11,7 +11,7 @@ public static class InitSeeder
             columns: ["Title", "Quote"],
             values: new object[,]
             {
-                { "BRUTAL HONESTY", "Actually there are dumb ideas." },
+                { "BRUTAL HONESTY", "Actually there are silly ideas." },
                 { "STAMINA", "You're so far behind now you may as well stop trying." },
                 { "REALISM", "It really does matter whether you win or lose." },
                 { "REALITY", "Winning isn't everything, but it sure is better than losing." },
@@ -91,7 +91,7 @@ public static class InitSeeder
                 { "COMPUTER LOVE", "Hey you're kind of cute. Ever consider a relationship with a computer?" },
                 { "FRIENDSHIP", "A good friend will come and bail you out of jail, but a true friend will be sitting next to you saying: Gosh, that was fun." }
             });
-        
+
         migrationBuilder.InsertData(
             table: "Tags",
             columns: ["Name"],
